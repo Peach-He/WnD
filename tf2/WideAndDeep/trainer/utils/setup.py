@@ -22,46 +22,21 @@ import tensorflow as tf
 import tensorflow_transform as tft
 from data.outbrain.dataloader import train_input_fn, eval_input_fn
 from data.outbrain.features import PREBATCH_SIZE
-from trainer.utils.gpu_affinity import set_affinity
 
 
 def init_cpu(args, logger):
-    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-    init_logger(
-        full=True,
-        args=args,
-        logger=logger
-    )
-
-    logger.warning('--gpu flag not set, running computation on CPU')
-
-
-def init_gpu(args, logger):
     hvd.init()
+    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
     init_logger(
         full=hvd.rank() == 0,
         args=args,
         logger=logger
     )
-    if args.affinity != 'disabled':
-        gpu_id = hvd.local_rank()
-        affinity = set_affinity(
-            gpu_id=gpu_id,
-            nproc_per_node=hvd.size(),
-            mode=args.affinity
-        )
-        logger.warning(f'{gpu_id}: thread affinity: {affinity}')
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    tf.config.experimental.set_visible_devices(gpus[hvd.local_rank()], 'GPU')
 
-    if args.amp:
-        policy = tf.keras.mixed_precision.experimental.Policy("mixed_float16")
-        tf.keras.mixed_precision.experimental.set_policy(policy)
-
-    if args.xla:
-        tf.config.optimizer.set_jit(True)
+    tf.config.threading.set_inter_op_parallelism_threads(2)
+    tf.config.threading.set_intra_op_parallelism_threads(18)
+    logger.warning('--gpu flag not set, running computation on CPU')
 
 
 def init_logger(args, full, logger):
@@ -87,8 +62,8 @@ def init_logger(args, full, logger):
 
 
 def create_config(args):
-    assert not (args.cpu and args.amp), \
-        'Automatic mixed precision conversion works only with GPU'
+    # assert not (args.cpu and args.amp), \
+    #     'Automatic mixed precision conversion works only with GPU'
     assert not args.benchmark or args.benchmark_warmup_steps < args.benchmark_steps, \
         'Number of benchmark steps must be higher than warmup steps'
     logger = logging.getLogger('tensorflow')
@@ -98,8 +73,8 @@ def create_config(args):
     else:
         init_gpu(args, logger)
 
-    num_gpus = 1 if args.cpu else hvd.size()
-    gpu_id = 0 if args.cpu else hvd.rank()
+    num_gpus = hvd.size()
+    gpu_id = hvd.rank()
     train_batch_size = args.global_batch_size // num_gpus
     eval_batch_size = args.eval_batch_size // num_gpus
     steps_per_epoch = args.training_set_size / args.global_batch_size

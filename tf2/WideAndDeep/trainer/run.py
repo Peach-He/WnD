@@ -24,6 +24,7 @@ from data.outbrain.features import DISPLAY_ID_COLUMN
 from tensorflow.python.keras import backend as K
 from trainer.utils.schedulers import get_schedule
 
+metrics_print_interval = 10
 
 def train(args, model, config):
     logger = logging.getLogger('tensorflow')
@@ -31,6 +32,7 @@ def train(args, model, config):
     train_dataset = config['train_dataset']
     eval_dataset = config['eval_dataset']
     steps = int(config['steps_per_epoch'])
+    logger.info(f'Steps per epoch: {steps}')
     schedule = get_schedule(
         args=args,
         steps_per_epoch=steps
@@ -97,8 +99,7 @@ def train(args, model, config):
             linear_loss = wide_optimizer.get_scaled_loss(loss) if args.amp else loss
             deep_loss = deep_optimizer.get_scaled_loss(loss) if args.amp else loss
 
-        if not args.cpu:
-            tape = hvd.DistributedGradientTape(tape)
+        tape = hvd.DistributedGradientTape(tape)
 
         for metric in metrics:
             metric.update_state(y, y_pred)
@@ -113,7 +114,7 @@ def train(args, model, config):
 
         wide_optimizer.apply_gradients(zip(linear_grads, linear_vars))
         deep_optimizer.apply_gradients(zip(dnn_grads, dnn_vars))
-        if first_batch and not args.cpu:
+        if first_batch:
             hvd.broadcast_variables(model.linear_model.variables, root_rank=0)
             hvd.broadcast_variables(model.dnn_model.variables, root_rank=0)
             hvd.broadcast_variables(wide_optimizer.variables(), root_rank=0)
@@ -166,7 +167,10 @@ def train(args, model, config):
     t_batch = None
 
     with writer.as_default():
+        time_metric_start = time.time()
         for epoch in range(1, args.num_epochs + 1):
+            if hvd.rank() == 0:
+                tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
             for step, (x, y) in enumerate(train_dataset):
                 current_step = np.asscalar(current_step_var.numpy())
                 schedule(optimizer=deep_optimizer, current_step=current_step)
@@ -174,7 +178,7 @@ def train(args, model, config):
                 for metric in metrics:
                     metric.reset_states()
                 loss = train_step(x, y, epoch == 1 and step == 0)
-                if args.cpu or hvd.rank() == 0:
+                if hvd.rank() == 0:
                     for metric in metrics:
                         tf.summary.scalar(f'{metric.name}', metric.result(), step=current_step)
                     tf.summary.scalar('loss', loss, step=current_step)
@@ -201,10 +205,13 @@ def train(args, model, config):
                             return
 
                 else:
-                    if current_step % 100 == 0:
+                    if current_step % metrics_print_interval == 0:
+                        time_metric_end = time.time()
                         train_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
                         train_data['loss'] = f'{loss.numpy():.4f}'
+                        train_data['time'] = f'{(time_metric_end - time_metric_start):.4f}'
                         dllogger.log(data=train_data, step=(current_step, args.num_epochs * steps))
+                        time_metric_start = time.time()
 
                     if step == steps:
                         break
@@ -222,16 +229,13 @@ def train(args, model, config):
                 loss = evaluation_step(x, y)
                 eval_loss.update_state(loss)
 
-            map_metric = tf.divide(streaming_map, display_id_counter) if args.cpu else \
-                hvd.allreduce(tf.divide(streaming_map, display_id_counter))
+            map_metric = hvd.allreduce(tf.divide(streaming_map, display_id_counter))
 
             map_metric = map_metric.numpy()
-            eval_loss_reduced = eval_loss.result() if args.cpu else \
-                hvd.allreduce(eval_loss.result())
+            eval_loss_reduced = hvd.allreduce(eval_loss.result())
 
             metrics_reduced = {
-                f'{metric.name}_val': metric.result() if args.cpu else
-                hvd.allreduce(metric.result()) for metric in metrics
+                f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
             }
 
             for name, result in metrics_reduced.items():
@@ -247,12 +251,12 @@ def train(args, model, config):
             })
             dllogger.log(data=eval_data, step=(steps * epoch, args.num_epochs * steps))
 
-            if args.cpu or hvd.rank() == 0:
+            if hvd.rank() == 0:
                 manager.save()
 
             display_id_counter.assign(0)
             streaming_map.assign(0)
-        if args.cpu or hvd.rank() == 0:
+        if hvd.rank() == 0:
             dllogger.log(data=eval_data, step=tuple())
 
 
@@ -367,14 +371,14 @@ def evaluate(args, model, config):
             if current_step > boundary:
                 batch_time = time.time() - t_batch
                 samplesps = args.eval_batch_size / batch_time
-                if args.cpu or hvd.rank() == 0:
+                if hvd.rank() == 0:
                     dllogger.log(data={'batch_samplesps': samplesps}, step=(1, current_step))
 
                 if args.benchmark_steps <= current_step:
                     valid_time = time.time() - t0
                     epochs = args.benchmark_steps - max(args.benchmark_warmup_steps, 1)
                     valid_throughput = (args.eval_batch_size * epochs) / valid_time
-                    if args.cpu or hvd.rank() == 0:
+                    if hvd.rank() == 0:
                         dllogger.log(
                             data={'validation_throughput': valid_throughput},
                             step=tuple()
@@ -385,19 +389,16 @@ def evaluate(args, model, config):
             if step % 100 == 0:
                 valid_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
                 valid_data['loss'] = f'{loss.numpy():.4f}'
-                if args.cpu or hvd.rank() == 0:
+                if hvd.rank() == 0:
                     dllogger.log(data=valid_data, step=(step,))
         current_step += 1
         t_batch = time.time()
 
-    map_metric = tf.divide(streaming_map, display_id_counter) if args.cpu else \
-        hvd.allreduce(tf.divide(streaming_map, display_id_counter))
-    eval_loss_reduced = eval_loss.result() if args.cpu else \
-        hvd.allreduce(eval_loss.result())
+    map_metric = hvd.allreduce(tf.divide(streaming_map, display_id_counter))
+    eval_loss_reduced = hvd.allreduce(eval_loss.result())
 
     metrics_reduced = {
-        f'{metric.name}_val': metric.result() if args.cpu else
-        hvd.allreduce(metric.result()) for metric in metrics
+        f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
     }
 
     eval_data = {name: f'{result.numpy():.4f}' for name, result in metrics_reduced.items()}
