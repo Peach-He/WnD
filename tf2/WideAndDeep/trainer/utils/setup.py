@@ -35,7 +35,15 @@ def init_cpu(args, logger):
     )
 
     tf.config.threading.set_inter_op_parallelism_threads(2)
-    tf.config.threading.set_intra_op_parallelism_threads(18)
+    tf.config.threading.set_intra_op_parallelism_threads(16)
+    
+    if args.amp:
+        policy = tf.keras.mixed_precision.experimental.Policy('mixed_bfloat16')
+        tf.keras.mixed_precision.experimental.set_policy(policy)
+
+    if args.xla:
+        tf.config.optimizer.set_jit(True)
+    
     logger.warning('--gpu flag not set, running computation on CPU')
 
 
@@ -58,7 +66,7 @@ def init_logger(args, full, logger):
         logger.setLevel(logging.ERROR)
         dllogger.init(backends=[])
 
-    dllogger.log(data=vars(args), step='PARAMETER')
+    # dllogger.log(data=vars(args), step='PARAMETER')
 
 
 def create_config(args):

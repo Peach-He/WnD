@@ -25,7 +25,7 @@ from tensorflow.python.keras import backend as K
 from trainer.utils.schedulers import get_schedule
 
 metrics_print_interval = 10
-
+os.environ['HOROVOD_CYCLE_TIME'] = '0.1'
 def train(args, model, config):
     logger = logging.getLogger('tensorflow')
 
@@ -37,7 +37,7 @@ def train(args, model, config):
         args=args,
         steps_per_epoch=steps
     )
-    writer = tf.summary.create_file_writer(os.path.join(args.model_dir, 'event_files'))
+    writer = tf.summary.create_file_writer(os.path.join(args.model_dir, 'event_files' + str(hvd.local_rank())))
 
     deep_optimizer = tf.keras.optimizers.RMSprop(
         learning_rate=args.deep_learning_rate,
@@ -210,7 +210,8 @@ def train(args, model, config):
                         train_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
                         train_data['loss'] = f'{loss.numpy():.4f}'
                         train_data['time'] = f'{(time_metric_end - time_metric_start):.4f}'
-                        dllogger.log(data=train_data, step=(current_step, args.num_epochs * steps))
+                        logger.info(f'step: {current_step}, {train_data}')
+                        # dllogger.log(data=train_data, step=(current_step, args.num_epochs * steps))
                         time_metric_start = time.time()
 
                     if step == steps:
@@ -249,15 +250,22 @@ def train(args, model, config):
                 'loss_val': f'{eval_loss_reduced.numpy():.4f}',
                 'streaming_map_val': f'{map_metric:.4f}'
             })
-            dllogger.log(data=eval_data, step=(steps * epoch, args.num_epochs * steps))
+            # dllogger.log(data=eval_data, step=(steps * epoch, args.num_epochs * steps))
+            logger.info(f'step: {steps * epoch}, {eval_data}')
 
             if hvd.rank() == 0:
                 manager.save()
 
             display_id_counter.assign(0)
             streaming_map.assign(0)
+            if hvd.rank() == 0:
+                tf.profiler.experimental.stop()
+            if map_metric >= 0.6553:
+                logger.info(f'early stop at streaming_map_val: {map_metric}')
+                break
         if hvd.rank() == 0:
-            dllogger.log(data=eval_data, step=tuple())
+            # dllogger.log(data=eval_data, step=tuple())
+            logger.info(f'Final eval result: {eval_data}')
 
 
 def evaluate(args, model, config):
@@ -372,18 +380,20 @@ def evaluate(args, model, config):
                 batch_time = time.time() - t_batch
                 samplesps = args.eval_batch_size / batch_time
                 if hvd.rank() == 0:
-                    dllogger.log(data={'batch_samplesps': samplesps}, step=(1, current_step))
+                    # dllogger.log(data={'batch_samplesps': samplesps}, step=(1, current_step))
+                    logger.info(f'step: {current_step}, batch_samplesps: {samplesps}')
 
                 if args.benchmark_steps <= current_step:
                     valid_time = time.time() - t0
                     epochs = args.benchmark_steps - max(args.benchmark_warmup_steps, 1)
                     valid_throughput = (args.eval_batch_size * epochs) / valid_time
                     if hvd.rank() == 0:
-                        dllogger.log(
-                            data={'validation_throughput': valid_throughput},
-                            step=tuple()
-                        )
-                    return
+                        # dllogger.log(
+                        #     data={'validation_throughput': valid_throughput},
+                        #     step=tuple()
+                        # )
+                        logger.info(f'validation_throughput: {valid_throughput}')
+                    break
 
         else:
             if step % 100 == 0:
@@ -406,5 +416,5 @@ def evaluate(args, model, config):
         'loss_val': f'{eval_loss_reduced.numpy():.4f}',
         'streaming_map_val': f'{map_metric.numpy():.4f}'
     })
-
+    logger.info(f'step: {step}, {eval_data}')
     dllogger.log(data=eval_data, step=(step,))
