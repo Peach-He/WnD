@@ -29,26 +29,6 @@ NUMERIC_COLUMNS = ['c%d' % i for i in INT_COLS]
 
 CATEGORICAL_COLUMNS = ['c%d' % i for i in CAT_COLS]
 
-sparse_embedding = [
-    {"name": "C14", "indice": 0, "voc_len": 179729, "dim": 212},
-    {"name": "C15", "indice": 1, "voc_len": 12325, "dim": 56},
-    {"name": "C16", "indice": 2, "voc_len": 11780, "dim": 55},
-    {"name": "C17", "indice": 3, "voc_len": 4156, "dim": 33},
-    {"name": "C18", "indice": 4, "voc_len": 10576, "dim": 52},
-    {"name": "C22", "indice": 8, "voc_len": 5850, "dim": 39},
-    {"name": "C23", "indice": 9, "voc_len": 1139, "dim": 17},
-    {"name": "C62", "indice": 48, "voc_len": 136422, "dim": 185},
-    {"name": "C63", "indice": 49, "voc_len": 33820, "dim": 92},
-    {"name": "C64", "indice": 50, "voc_len": 34916, "dim": 94},
-    {"name": "C75", "indice": 61, "voc_len": 1841, "dim": 22},
-    {"name": "C76", "indice": 62, "voc_len": 5445, "dim": 37},
-    {"name": "C137", "indice": 123, "voc_len": 615, "dim": 13},
-    {"name": "C152", "indice": 138, "voc_len": 187781, "dim": 217},
-    {"name": "C153", "indice": 139, "voc_len": 80021, "dim": 142},
-    {"name": "C154", "indice": 140, "voc_len": 1655497, "dim": 644},
-    {"name": "C155", "indice": 141, "voc_len": 29741, "dim": 87},
-    {"name": "C156", "indice": 142, "voc_len": 7693, "dim": 44},
-]
 
 counts= [7912889, 33823, 17139, 7339, 20046, 4, 7105, 1382, 63, 5554114, 582469, 245828, 11, 2209, 10667, 104, 4, 968, 15, 8165896, 2675940, 7156453, 302516, 12022, 97, 35]
 HASH_BUCKET_SIZES = {
@@ -80,31 +60,11 @@ HASH_BUCKET_SIZES = {
     'c39': 35
 }
 
-EMBEDDING_DIMENSIONS = {
-    'doc_event_id': 128,
-    'ad_id': 128,
-    'doc_id': 128,
-    'doc_ad_source_id': 64,
-    'doc_event_source_id': 64,
-    'event_geo_location': 64,
-    'ad_advertiser': 64,
-    'event_country_state': 64,
-    'doc_ad_publisher_id': 64,
-    'doc_event_publisher_id': 64,
-    'event_country': 64,
-    'event_platform': 16,
-    'campaign_id': 128
-}
 
-# EMBEDDING_TABLE_SHAPES = {
-#     column: (HASH_BUCKET_SIZES[column], EMBEDDING_DIMENSIONS[column]) for column in CATEGORICAL_COLUMNS
-# }
 
 HASH_BUCKET_SIZE = 10000
-EMBEDDING_DIMENSION = 64
+EMBEDDING_DIMENSION = 32
 
-def get_features_keys():
-    return CATEGORICAL_COLUMNS + NUMERIC_COLUMNS + [DISPLAY_ID_COLUMN]
 
 
 def get_feature_columns():

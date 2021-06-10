@@ -35,7 +35,7 @@ def init_cpu(args, logger):
     )
 
     tf.config.threading.set_inter_op_parallelism_threads(2)
-    tf.config.threading.set_intra_op_parallelism_threads(32)
+    tf.config.threading.set_intra_op_parallelism_threads(16)
     
     if args.amp:
         policy = tf.keras.mixed_precision.experimental.Policy('mixed_bfloat16')
@@ -103,13 +103,12 @@ def create_config(args):
     if args.cpu:
         init_cpu(args, logger)
 
-    # num_gpus = hvd.size()
-    num_gpus = 1
+    num_gpus = hvd.size()
     gpu_id = hvd.rank()
     train_batch_size = args.global_batch_size // num_gpus
     eval_batch_size = args.eval_batch_size // num_gpus
     steps_per_epoch = args.training_set_size / args.global_batch_size
-    eval_point = steps_per_epoch // args.num_eval_per_epoch
+    eval_point = args.eval_point
 
     feature_spec = tft.TFTransformOutput(
         '/root'
@@ -118,11 +117,15 @@ def create_config(args):
     train_dataset = data_input_fn(
         args.train_data_pattern,
         feature_spec,
-        train_batch_size // PREBATCH_SIZE)
+        train_batch_size // PREBATCH_SIZE,
+        num_gpus,
+        gpu_id)
     test_dataset = data_input_fn(
         args.eval_data_pattern, 
         feature_spec,
-        train_batch_size // PREBATCH_SIZE)
+        eval_batch_size // PREBATCH_SIZE,
+        num_gpus,
+        gpu_id)
 
     # steps_per_epoch = train_dataset.cardinality()
     # print(f'steps: {steps_per_epoch}')

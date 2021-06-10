@@ -103,7 +103,7 @@ def train(args, model, config):
             linear_loss = wide_optimizer.get_scaled_loss(loss) if args.amp else loss
             deep_loss = deep_optimizer.get_scaled_loss(loss) if args.amp else loss
 
-        # tape = hvd.DistributedGradientTape(tape)
+        tape = hvd.DistributedGradientTape(tape)
 
         for metric in metrics:
             metric.update_state(y, y_pred)
@@ -118,11 +118,11 @@ def train(args, model, config):
 
         wide_optimizer.apply_gradients(zip(linear_grads, linear_vars))
         deep_optimizer.apply_gradients(zip(dnn_grads, dnn_vars))
-        # if first_batch:
-        #     hvd.broadcast_variables(model.linear_model.variables, root_rank=0)
-        #     hvd.broadcast_variables(model.dnn_model.variables, root_rank=0)
-        #     hvd.broadcast_variables(wide_optimizer.variables(), root_rank=0)
-        #     hvd.broadcast_variables(deep_optimizer.variables(), root_rank=0)
+        if first_batch:
+            hvd.broadcast_variables(model.linear_model.variables, root_rank=0)
+            hvd.broadcast_variables(model.dnn_model.variables, root_rank=0)
+            hvd.broadcast_variables(wide_optimizer.variables(), root_rank=0)
+            hvd.broadcast_variables(deep_optimizer.variables(), root_rank=0)
         return loss
 
     @tf.function
@@ -141,8 +141,8 @@ def train(args, model, config):
     with writer.as_default():
         time_metric_start = time.time()
         for epoch in range(1, args.num_epochs + 1):
-            if hvd.rank() == 0:
-                tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
+            # if hvd.rank() == 0:
+            #     tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
             for step, (x, y) in enumerate(train_dataset):
                 current_step = np.asscalar(current_step_var.numpy())
                 schedule(optimizer=deep_optimizer, current_step=current_step)
@@ -157,57 +157,43 @@ def train(args, model, config):
                     tf.summary.scalar('schedule', K.get_value(deep_optimizer.lr), step=current_step)
                     writer.flush()
 
-                if args.benchmark:
-                    boundary = max(args.benchmark_warmup_steps, 1)
-                    if current_step == boundary:
-                        t0 = time.time()
-                    if current_step > boundary:
-                        batch_time = time.time() - t_batch
-                        samplesps = args.global_batch_size / batch_time
-                        dllogger.log(data={'batch_samplesps': samplesps}, step=(1, current_step))
+                if current_step % metrics_print_interval == 0:
+                    time_metric_end = time.time()
+                    train_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
+                    train_data['loss'] = f'{loss.numpy():.4f}'
+                    train_data['time'] = f'{(time_metric_end - time_metric_start):.4f}'
+                    logger.info(f'step: {current_step}, {train_data}')
+                    time_metric_start = time.time()
 
-                        if args.benchmark_steps <= current_step:
-                            train_time = time.time() - t0
-                            epochs = args.benchmark_steps - max(args.benchmark_warmup_steps, 1)
-                            train_throughput = (args.global_batch_size * epochs) / train_time
-                            dllogger.log(
-                                data={'train_throughput': train_throughput},
-                                step=tuple()
-                            )
-                            return
-
-                else:
-                    if current_step % metrics_print_interval == 0:
-                        time_metric_end = time.time()
-                        train_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
-                        train_data['loss'] = f'{loss.numpy():.4f}'
-                        train_data['time'] = f'{(time_metric_end - time_metric_start):.4f}'
-                        logger.info(f'step: {current_step}, {train_data}')
-                        time_metric_start = time.time()
-
-                    if step == steps:
-                        break
+                if step == steps:
+                    break
 
                 current_step_var.assign_add(1)
                 t_batch = time.time()
 
-                if step != 0 and step % eval_point == 0:
-                    for eval_step, (x, y) in enumerate(eval_dataset):
-                        loss = evaluation_step(x, y)
-                        eval_loss.update_state(loss)
-                    for metric in metrics:
-                        tf.summary.scalar(f'{metric.name}_val', metric.result(), step=step + steps * (epoch - 1))
-                    tf.summary.scalar('loss_val', eval_loss.result(), step=step + steps * (epoch - 1))
-                    eval_data = {metric.name: f'{metric.result().numpy():.4f}' for metric in metrics}
-                    eval_data.update({
-                        'loss_val': f'{eval_loss.result().numpy():.4f}'
-                    })
-                    logger.info(f'step: {step + steps * (epoch - 1)}, {eval_data}')
-                    if hvd.rank() == 0:
-                        tf.profiler.experimental.stop()
-                        tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
-            if args.benchmark:
-                continue
+                # if step != 0 and step % eval_point == 0:
+                #     for metric in metrics:
+                #         metric.reset_states()
+                #     eval_loss.reset_states()
+                #     for eval_step, (x, y) in enumerate(eval_dataset):
+                #         loss = evaluation_step(x, y)
+                #         eval_loss.update_state(loss)
+                    
+                #     eval_loss_reduced = hvd.allreduce(eval_loss.result())
+                #     metrics_reduced = {
+                #         f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
+                #     }
+                #     for name, result in metrics_reduced.items():
+                #         tf.summary.scalar(f'{name}', result, step=step + steps * (epoch - 1))
+                #     tf.summary.scalar('loss_val', eval_loss_reduced, step=step + steps * (epoch - 1))
+                #     eval_data = {name: f'{result.numpy():.4f}' for name, result in metrics_reduced.items()}
+                #     eval_data.update({
+                #         'loss_val': f'{eval_loss_reduced.numpy():.4f}'
+                #     })
+                #     logger.info(f'step: {step + steps * (epoch - 1)}, {eval_data}')
+                #     if hvd.rank() == 0:
+                #         tf.profiler.experimental.stop()
+                #         tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
 
             for metric in metrics:
                 metric.reset_states()
@@ -237,8 +223,8 @@ def train(args, model, config):
             if hvd.rank() == 0:
                 manager.save()
 
-            if hvd.rank() == 0:
-                tf.profiler.experimental.stop()
+            # if hvd.rank() == 0:
+            #     tf.profiler.experimental.stop()
             # if map_metric >= 0.6553:
             #     logger.info(f'early stop at streaming_map_val: {map_metric}')
             #     break

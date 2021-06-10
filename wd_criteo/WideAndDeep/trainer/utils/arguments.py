@@ -108,11 +108,5 @@ def parse_args():
     run_params.add_argument('--benchmark_steps', type=int, default=1000,
                             help='Number of steps for performance benchmark')
 
-    run_params.add_argument('--affinity', type=str, default='socket_unique_interleaved',
-                            choices=['socket', 'single', 'single_unique',
-                                     'socket_unique_interleaved',
-                                     'socket_unique_continuous',
-                                     'disabled'],
-                            help='Type of CPU affinity')
 
     return parser.parse_args()

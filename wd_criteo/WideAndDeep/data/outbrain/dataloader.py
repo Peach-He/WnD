@@ -209,15 +209,6 @@ NUMERIC_COLUMNS = ['c%d' % i for i in INT_COLS]
 CATEGORICAL_COLUMNS = ['c%d' % i for i in CAT_COLS]
 FEATURES = [LABEL_COLUMN] + NUMERIC_COLUMNS + CATEGORICAL_COLUMNS
 
-def gen_feature_spec():
-    fixed_shape = []
-    spec = {}
-    spec[LABEL_COLUMN] = tf.io.FixedLenFeature([], tf.int64, None)
-    for name in NUMERIC_COLUMNS:
-        spec[name] = tf.io.FixedLenFeature([], tf.float32, None)
-    for name in CATEGORICAL_COLUMNS:
-        spec[name] = tf.io.FixedLenFeature([], tf.int64, None)
-    return spec
 
 def _consolidate_batch(elem):
     label = elem.pop(LABEL_COLUMN)
@@ -236,7 +227,9 @@ def _consolidate_batch(elem):
 def data_input_fn(
     file_path,
     feature_spec,
-    batch_size):
+    batch_size, 
+    num_gpus=1,
+    id=0):
     
     # bytes_per_feature = np.__dict__['int32']().nbytes
     # record_width = 40
@@ -245,24 +238,27 @@ def data_input_fn(
     # feature_spec = gen_feature_spec()
     dataset = tf.data.Dataset.list_files(file_pattern=file_path, shuffle=None)
 
-    dataset = dataset.interleave(
-        lambda x: tf.data.TFRecordDataset(x),
-        cycle_length=cpu_count(),
-        block_length=1
+    dataset = tf.data.TFRecordDataset(
+        filenames=dataset,
+        num_parallel_reads=1
     )
+
+    dataset = dataset.shard(num_gpus, id)
 
     dataset = dataset.shuffle(batch_size)
     dataset = dataset.batch(batch_size=batch_size, drop_remainder=True)
 
     dataset = dataset.apply(
-        transformation_func=tf.data.experimental.parse_example_dataset(feature_spec)
+        transformation_func=tf.data.experimental.parse_example_dataset(
+            features=feature_spec,
+            num_parallel_calls=1)
     )
 
     dataset = dataset.map(
         map_func=partial(_consolidate_batch),
-        num_parallel_calls=tf.data.experimental.AUTOTUNE
+        num_parallel_calls=None
     )
 
-    dataset = dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
+    dataset = dataset.prefetch(buffer_size=1)
 
     return dataset
