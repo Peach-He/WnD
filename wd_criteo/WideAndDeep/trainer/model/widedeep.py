@@ -26,38 +26,24 @@ def wide_deep_model(args):
     deep_columns_dict = {}
     features = {}
 
-    for col in wide_columns:
-        features[col.key] = tf.keras.Input(shape=(1,),
+    for col in NUMERIC_COLUMNS + CATEGORICAL_COLUMNS:
+        features[col] = tf.keras.Input(shape=(1,),
                                            batch_size=None,
-                                           name=col.key,
-                                           dtype=tf.float32 if col.key in NUMERIC_COLUMNS else tf.int32,
+                                           name=col,
+                                           dtype=tf.float32 if col in NUMERIC_COLUMNS else tf.int32,
                                            sparse=False)
-        wide_columns_dict[col.key] = col
 
-    for col in deep_columns:
-        is_embedding_column = ('key' not in dir(col))
-        key = col.categorical_column.key if is_embedding_column else col.key
+    # for key in wide_columns_dict:
+    #     if key in CATEGORICAL_COLUMNS:
+    #         wide_weighted_outputs.append(tf.keras.layers.Flatten()(tf.keras.layers.Embedding(
+    #             HASH_BUCKET_SIZES[key], 1, input_length=1)(features[key])))
+    #     else:
+    #         numeric_dense_inputs.append(features[key])
 
-        if key not in features:
-            features[key] = tf.keras.Input(shape=(1,),
-                                           batch_size=None,
-                                           name=key,
-                                           dtype=tf.float32 if col.key in NUMERIC_COLUMNS else tf.int32,
-                                           sparse=False)
-        deep_columns_dict[key] = col
-
-    for key in wide_columns_dict:
-        if key in CATEGORICAL_COLUMNS:
-            wide_weighted_outputs.append(tf.keras.layers.Flatten()(tf.keras.layers.Embedding(
-                HASH_BUCKET_SIZES[key], 1, input_length=1)(features[key])))
-        else:
-            numeric_dense_inputs.append(features[key])
-
-    categorical_output_contrib = tf.keras.layers.add(wide_weighted_outputs,
-                                                     name='categorical_output')
-    numeric_dense_tensor = tf.keras.layers.concatenate(
-        numeric_dense_inputs, name='numeric_dense')
-    deep_columns = list(deep_columns_dict.values())
+    # categorical_output_contrib = tf.keras.layers.add(wide_weighted_outputs,
+    #                                                  name='categorical_output')
+    # numeric_dense_tensor = tf.keras.layers.concatenate(
+    #     numeric_dense_inputs, name='numeric_dense')
 
     dnn = tf.keras.layers.DenseFeatures(feature_columns=deep_columns)(features)
     for unit_size in args.deep_hidden_units:
@@ -67,7 +53,9 @@ def wide_deep_model(args):
     dnn = tf.keras.layers.Dense(units=1)(dnn)
     dnn_model = tf.keras.Model(inputs=features,
                                outputs=dnn)
-    linear_output = categorical_output_contrib + tf.keras.layers.Dense(1)(numeric_dense_tensor)
+
+    linear = tf.keras.layers.DenseFeatures(wide_columns)(features)
+    linear_output = tf.keras.layers.Dense(1)(linear)
 
     linear_model = tf.keras.Model(inputs=features,
                                   outputs=linear_output)

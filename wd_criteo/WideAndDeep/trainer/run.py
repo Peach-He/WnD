@@ -31,8 +31,10 @@ def train(args, model, config):
     train_dataset = config['train_dataset']
     eval_dataset = config['eval_dataset']
     steps = int(config['steps_per_epoch'])
+    test_steps = int(config['test_steps_per_epoch'])
     eval_point = int(config['eval_point'])
     logger.info(f'Steps per epoch: {steps}')
+    logger.info(f'Eval steps: {test_steps}')
     schedule = get_schedule(
         args=args,
         steps_per_epoch=steps
@@ -44,9 +46,13 @@ def train(args, model, config):
     #     rho=0.5
     # )
 
-    deep_optimizer = tf.keras.optimizers.Ftrl(
+    deep_optimizer = tf.keras.optimizers.Adam(
         learning_rate=args.deep_learning_rate
     )
+
+    # deep_optimizer = tf.keras.optimizers.Ftrl(
+    #     learning_rate=args.deep_learning_rate
+    # )
 
     wide_optimizer = tf.keras.optimizers.Ftrl(
         learning_rate=args.linear_learning_rate
@@ -61,8 +67,6 @@ def train(args, model, config):
     ]
 
     current_step_var = tf.Variable(0, trainable=False, dtype=tf.int64)
-    display_id_counter = tf.Variable(0., trainable=False, dtype=tf.float64)
-    streaming_map = tf.Variable(0., name='STREAMING_MAP', trainable=False, dtype=tf.float64)
 
     checkpoint = tf.train.Checkpoint(
         deep_optimizer=deep_optimizer,
@@ -171,29 +175,33 @@ def train(args, model, config):
                 current_step_var.assign_add(1)
                 t_batch = time.time()
 
-                # if step != 0 and step % eval_point == 0:
-                #     for metric in metrics:
-                #         metric.reset_states()
-                #     eval_loss.reset_states()
-                #     for eval_step, (x, y) in enumerate(eval_dataset):
-                #         loss = evaluation_step(x, y)
-                #         eval_loss.update_state(loss)
+                if step != 0 and step % eval_point == 0:
+                    for metric in metrics:
+                        metric.reset_states()
+                    eval_loss.reset_states()
+                    for eval_step, (x, y) in enumerate(eval_dataset):
+                        loss = evaluation_step(x, y)
+                        eval_loss.update_state(loss)
+                        if eval_step == test_steps:
+                            break
                     
-                #     eval_loss_reduced = hvd.allreduce(eval_loss.result())
-                #     metrics_reduced = {
-                #         f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
-                #     }
-                #     for name, result in metrics_reduced.items():
-                #         tf.summary.scalar(f'{name}', result, step=step + steps * (epoch - 1))
-                #     tf.summary.scalar('loss_val', eval_loss_reduced, step=step + steps * (epoch - 1))
-                #     eval_data = {name: f'{result.numpy():.4f}' for name, result in metrics_reduced.items()}
-                #     eval_data.update({
-                #         'loss_val': f'{eval_loss_reduced.numpy():.4f}'
-                #     })
-                #     logger.info(f'step: {step + steps * (epoch - 1)}, {eval_data}')
-                #     if hvd.rank() == 0:
-                #         tf.profiler.experimental.stop()
-                #         tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
+                    eval_loss_reduced = hvd.allreduce(eval_loss.result())
+                    metrics_reduced = {
+                        f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
+                    }
+                    if hvd.rank() == 0:
+                        for name, result in metrics_reduced.items():
+                            tf.summary.scalar(f'{name}', result, step=step + steps * (epoch - 1))
+                        tf.summary.scalar('loss_val', eval_loss_reduced, step=step + steps * (epoch - 1))
+                        writer.flush()
+                    eval_data = {name: f'{result.numpy():.4f}' for name, result in metrics_reduced.items()}
+                    eval_data.update({
+                        'loss_val': f'{eval_loss_reduced.numpy():.4f}'
+                    })
+                    logger.info(f'step: {step + steps * (epoch - 1)}, {eval_data}')
+                    # if hvd.rank() == 0:
+                    #     tf.profiler.experimental.stop()
+                    #     tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
 
             for metric in metrics:
                 metric.reset_states()
@@ -202,6 +210,8 @@ def train(args, model, config):
             for step, (x, y) in enumerate(eval_dataset):
                 loss = evaluation_step(x, y)
                 eval_loss.update_state(loss)
+                if step == test_steps:
+                    break
 
             eval_loss_reduced = hvd.allreduce(eval_loss.result())
 
@@ -209,10 +219,11 @@ def train(args, model, config):
                 f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
             }
 
-            for name, result in metrics_reduced.items():
-                tf.summary.scalar(f'{name}', result, step=steps * epoch)
-            tf.summary.scalar('loss_val', eval_loss_reduced, step=steps * epoch)
-            writer.flush()
+            if hvd.rank() == 0:
+                for name, result in metrics_reduced.items():
+                    tf.summary.scalar(f'{name}', result, step=steps * epoch)
+                tf.summary.scalar('loss_val', eval_loss_reduced, step=steps * epoch)
+                writer.flush()
 
             eval_data = {name: f'{result.numpy():.4f}' for name, result in metrics_reduced.items()}
             eval_data.update({

@@ -20,7 +20,7 @@ import dllogger
 import horovod.tensorflow.keras as hvd
 import tensorflow as tf
 import tensorflow_transform as tft
-from data.outbrain.dataloader import RawBinaryDataset, DatasetMetadata, data_input_fn
+from data.outbrain.dataloader import RawBinaryDataset, DatasetMetadata, data_input_fn, CriteoBinDataset
 from data.outbrain.features import PREBATCH_SIZE
 
 
@@ -69,28 +69,30 @@ def init_logger(args, full, logger):
     # dllogger.log(data=vars(args), step='PARAMETER')
 
 
-def create_input_pipelines(dataset_path, train_batch_size, eval_batch_size, 
-                            numerical_features, prefetch_batches):
+def create_input_pipelines(train_dataset_path, eval_dataset_path, train_batch_size, eval_batch_size):
     
-    dataset_metadata = RawBinaryDataset.get_metadata(dataset_path, numerical_features)
-    embeddings = range(0, 26)
-    embedding_sizes = dataset_metadata.categorical_cardinalities
-    train_dataset = RawBinaryDataset(data_path=dataset_path,
-                             batch_size=train_batch_size,
-                             numerical_features=numerical_features,
-                             categorical_features=embeddings,
-                             categorical_feature_sizes=embedding_sizes,
-                             prefetch_depth=prefetch_batches,
-                             drop_last_batch=True)
+    # dataset_metadata = RawBinaryDataset.get_metadata(dataset_path, numerical_features)
+    # embeddings = range(0, 26)
+    # embedding_sizes = dataset_metadata.categorical_cardinalities
+    # train_dataset = RawBinaryDataset(data_path=dataset_path,
+    #                          batch_size=train_batch_size,
+    #                          numerical_features=numerical_features,
+    #                          categorical_features=embeddings,
+    #                          categorical_feature_sizes=embedding_sizes,
+    #                          prefetch_depth=prefetch_batches,
+    #                          drop_last_batch=True)
 
-    test_dataset = RawBinaryDataset(data_path=dataset_path,
-                            batch_size=eval_batch_size,
-                            numerical_features=numerical_features,
-                            categorical_features=embeddings,
-                            categorical_feature_sizes=embedding_sizes,
-                            prefetch_depth=prefetch_batches,
-                            drop_last_batch=True)
-    return train_dataset, test_dataset, dataset_metadata
+    # test_dataset = RawBinaryDataset(data_path=dataset_path,
+    #                         batch_size=eval_batch_size,
+    #                         numerical_features=numerical_features,
+    #                         categorical_features=embeddings,
+    #                         categorical_feature_sizes=embedding_sizes,
+    #                         prefetch_depth=prefetch_batches,
+    #                         drop_last_batch=True)
+    # return train_dataset, test_dataset, dataset_metadata
+    train_dataset = CriteoBinDataset(train_dataset_path, train_batch_size)
+    test_dataset = CriteoBinDataset(eval_dataset_path, eval_batch_size)
+    return train_dataset, test_dataset
 
 
 def create_config(args):
@@ -107,30 +109,33 @@ def create_config(args):
     gpu_id = hvd.rank()
     train_batch_size = args.global_batch_size // num_gpus
     eval_batch_size = args.eval_batch_size // num_gpus
-    steps_per_epoch = args.training_set_size / args.global_batch_size
+    # steps_per_epoch = args.training_set_size / args.global_batch_size
     eval_point = args.eval_point
 
     feature_spec = tft.TFTransformOutput(
         '/root'
     ).transformed_feature_spec()
-    # train_dataset, test_dataset, dataset_metadata = create_input_pipelines(args.train_dataset_path, train_batch_size, eval_batch_size, 13, 10)
-    train_dataset = data_input_fn(
-        args.train_data_pattern,
-        feature_spec,
-        train_batch_size // PREBATCH_SIZE,
-        num_gpus,
-        gpu_id)
-    test_dataset = data_input_fn(
-        args.eval_data_pattern, 
-        feature_spec,
-        eval_batch_size // PREBATCH_SIZE,
-        num_gpus,
-        gpu_id)
+    train_dataset, test_dataset = create_input_pipelines(args.train_dataset_path, args.eval_dataset_path, train_batch_size, eval_batch_size)
+    steps_per_epoch = train_dataset.__len__()
+    test_steps_per_epoch = test_dataset.__len__()
+    # train_dataset = data_input_fn(
+    #     args.train_data_pattern,
+    #     feature_spec,
+    #     train_batch_size // PREBATCH_SIZE,
+    #     num_gpus,
+    #     gpu_id)
+    # test_dataset = data_input_fn(
+    #     args.eval_data_pattern, 
+    #     feature_spec,
+    #     eval_batch_size // PREBATCH_SIZE,
+    #     num_gpus,
+    #     gpu_id)
 
     # steps_per_epoch = train_dataset.cardinality()
     # print(f'steps: {steps_per_epoch}')
     config = {
         'steps_per_epoch': steps_per_epoch,
+        'test_steps_per_epoch': test_steps_per_epoch,
         'train_dataset': train_dataset,
         'eval_dataset': test_dataset, 
         'eval_point': eval_point

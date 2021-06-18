@@ -29,6 +29,7 @@ from typing import Optional, Sequence, Tuple, Any, Dict
 from functools import partial
 import struct
 from multiprocessing import cpu_count
+import horovod.tensorflow.keras as hvd
 
 
 DatasetMetadata = namedtuple('DatasetMetadata', ['num_numerical_features',
@@ -44,6 +45,78 @@ def get_categorical_feature_type(size: int):
 
     raise RuntimeError(f"Categorical feature of size {size} is too big for defined types")
 
+class CriteoBinDataset:
+    """Binary version of criteo dataset."""
+
+    def __init__(self, data_file,
+                 batch_size=1, bytes_per_feature=4):
+        # dataset
+        self.tar_fea = 1   # single target
+        self.den_fea = 13  # 13 dense  features
+        self.spa_fea = 26  # 26 sparse features
+        self.tad_fea = self.tar_fea + self.den_fea
+        self.tot_fea = self.tad_fea + self.spa_fea
+
+        self.batch_size = batch_size
+        self.bytes_per_batch = (bytes_per_feature * self.tot_fea * batch_size)
+
+        data_file_size = os.path.getsize(data_file)
+        # self.num_batches = math.ceil(data_file_size / self.bytes_per_batch)
+        self.num_batches = data_file_size // self.bytes_per_batch
+
+        bytes_per_sample = bytes_per_feature * self.tot_fea
+        self.num_samples = data_file_size // bytes_per_sample
+
+        if hvd.size() > 1:
+            self.bytes_per_rank = self.bytes_per_batch // hvd.size()
+        else:
+            self.bytes_per_rank = self.bytes_per_batch
+
+        if hvd.size() > 1 and self.num_batches * self.bytes_per_batch > data_file_size:
+            last_batch = (data_file_size % self.bytes_per_batch) // bytes_per_sample
+            self.bytes_last_batch = last_batch // hvd.size() * bytes_per_sample
+        else:
+            self.bytes_last_batch = self.bytes_per_rank
+
+        if self.bytes_last_batch == 0:
+            self.num_batches = self.num_batches - 1
+            self.bytes_last_batch = self.bytes_per_rank
+
+        print('data file:', data_file, 'number of batches:', self.num_batches)
+        self.file = open(data_file, 'rb')
+
+        self.counts= [7912889, 33823, 17139, 7339, 20046, 4, 7105, 1382, 63, 5554114, 582469, 245828, 11, 2209, 10667, 104, 4, 968, 15, 8165896, 2675940, 7156453, 302516, 12022, 97, 35]
+        #self.counts = [39884406,39043,17289,7420,20263,3,7120,1543,63,38532951,2953546,403346,10,2208,11938,155,4,976,14,39979771,25641295, 39664984,585935,12972,108,36]
+
+        # hardcoded for now
+        self.m_den = 13
+
+    def __len__(self):
+        return self.num_batches
+
+    def __getitem__(self, idx):
+        my_rank = hvd.rank() if hvd.size() > 1 else 0
+        rank_size = self.bytes_last_batch if idx == (self.num_batches - 1) else self.bytes_per_rank 
+        self.file.seek(idx * self.bytes_per_batch + rank_size * my_rank, 0)
+        raw_data = self.file.read(rank_size)
+
+        array = np.frombuffer(raw_data, dtype=np.int32).reshape(-1, self.tot_fea)
+        features = {}
+        for c in range(self.den_fea):
+            index = c + 1
+            numerical_feature = array[:, index].view(dtype=np.float32)
+            features['c'+str(index)] = tf.convert_to_tensor(numerical_feature)
+        
+        # numerical_features = array[:, 1:14].view(dtype=np.float32)
+        # numerical_features = tf.convert_to_tensor(numerical_features)
+
+        for c in range(self.spa_fea):
+            index = c + 14
+            features['c'+str(index)] = tf.convert_to_tensor(array[:, index])
+        # categorical_features = tf.convert_to_tensor(array[:, 14:])
+        click = tf.convert_to_tensor(array[:, 0], dtype=tf.float32)
+        
+        return features, click
 
 class RawBinaryDataset:
     """Split version of Criteo dataset

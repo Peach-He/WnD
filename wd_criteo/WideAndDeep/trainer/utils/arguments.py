@@ -15,7 +15,9 @@
 import argparse
 
 # Default train dataset size
-TRAIN_DATASET_SIZE = 195841983   #day_0
+# 4195197692 #23 days
+# 195841983   #day_0
+TRAIN_DATASET_SIZE = 4195197692   #day_0
 
 
 def parse_args():
@@ -30,6 +32,11 @@ def parse_args():
     locations.add_argument('--num_eval_per_epoch', type=int, default=4)
 
     locations.add_argument('--eval_point', type=int, default=1000)
+
+    locations.add_argument('--deep_warmup_steps', type=int, default=8000)
+
+    locations.add_argument('--train_dataset_path', type=str, default='')
+    locations.add_argument('--eval_dataset_path', type=str, default='')
 
     locations.add_argument('--train_data_pattern', type=str, default='/outbrain/tfrecords/train/part*', nargs='+',
                            help='Pattern of training file names. For example if training files are train_000.tfrecord, '
