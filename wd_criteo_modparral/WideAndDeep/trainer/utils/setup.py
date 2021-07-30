@@ -88,20 +88,14 @@ def create_config(args):
     if args.cpu:
         init_cpu(args, logger)
 
-    steps_per_epoch = args.training_set_size / args.global_batch_size
-    eval_point = args.eval_point
-
     splitter = DataParallelSplitter(args.global_batch_size)
     train_dataset, test_dataset, embedding_sizes, feature_mapping = create_input_pipelines(args.train_dataset_path, args.eval_dataset_path, args.global_batch_size, args.eval_batch_size, splitter)
-    # steps_per_epoch = train_dataset.__len__()
-    # test_steps_per_epoch = test_dataset.__len__()
-
+    steps_per_epoch = train_dataset.__len__()
 
     config = {
         'steps_per_epoch': steps_per_epoch,
         'train_dataset': train_dataset,
         'eval_dataset': test_dataset, 
-        'eval_point': eval_point, 
         'embedding_sizes': embedding_sizes,
         'feature_mapping': feature_mapping
 

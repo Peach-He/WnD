@@ -20,30 +20,45 @@ import horovod.tensorflow as hvd
 import numpy as np
 import tensorflow as tf
 from tensorflow.python.keras import backend as K
-from trainer.utils.schedulers import get_schedule
+from trainer.utils.schedulers import get_schedule, LearningRateScheduler
 
 metrics_print_interval = 1
 profiler_start_step = 5
 profiler_stop_step = 10
 os.environ['HOROVOD_CYCLE_TIME'] = '0.1'
+
+def compute_eval_points(train_batches, evals_per_epoch):
+    eval_points = np.linspace(0, train_batches - 1, evals_per_epoch + 1)[1:]
+    eval_points = np.round(eval_points).tolist()
+    return eval_points
+
 def train(args, model, config):
     logger = logging.getLogger('tensorflow')
 
     train_dataset = config['train_dataset']
     eval_dataset = config['eval_dataset']
     steps = int(config['steps_per_epoch'])
-    eval_point = int(config['eval_point'])
     logger.info(f'Steps per epoch: {steps}')
-    schedule = get_schedule(
-        args=args,
-        steps_per_epoch=steps
-    )
+
     writer = tf.summary.create_file_writer(os.path.join(args.model_dir, 'event_files' + str(hvd.local_rank())))
 
-    optimizer = tf.keras.optimizers.Adam(
-        learning_rate=args.deep_learning_rate
+    optimizer = tf.keras.optimizers.SGD(
+        learning_rate=args.learning_rate
     )
+    if args.amp:
+        optimizer = tf.keras.mixed_precision.experimental.LossScaleOptimizer(
+            optimizer,
+            loss_scale='dynamic'
+        )
+    scheduler = LearningRateScheduler([optimizer],
+                                      warmup_steps=args.warmup_steps,
+                                      base_lr=args.learning_rate,
+                                      decay_start_step=args.decay_start_step,
+                                      decay_steps=args.decay_steps)
 
+    eval_points = compute_eval_points(train_batches=steps,
+                                      evals_per_epoch=args.evals_per_epoch)
+                                      
     compiled_loss = tf.keras.losses.BinaryCrossentropy()
     eval_loss = tf.keras.metrics.Mean()
 
@@ -51,35 +66,6 @@ def train(args, model, config):
         tf.keras.metrics.BinaryAccuracy(),
         tf.keras.metrics.AUC()
     ]
-
-    current_step_var = tf.Variable(0, trainable=False, dtype=tf.int64)
-
-    checkpoint = tf.train.Checkpoint(
-        optimizer=optimizer,
-        model=model,
-        current_step=current_step_var
-    )
-    manager = tf.train.CheckpointManager(
-        checkpoint=checkpoint,
-        directory=os.path.join(args.model_dir, 'checkpoint'),
-        max_to_keep=1
-    )
-
-    if args.use_checkpoint:
-        checkpoint.restore(manager.latest_checkpoint)
-        if manager.latest_checkpoint:
-            logger.warning(f'Model restored from checkpoint {args.model_dir}')
-            if args.benchmark:
-                current_step_var.assign(0)
-        else:
-            logger.warning(f'Failed to restore model from checkpoint {args.model_dir}')
-
-    if args.amp:
-        optimizer = tf.keras.mixed_precision.experimental.LossScaleOptimizer(
-            optimizer,
-            loss_scale='dynamic'
-        )
-
 
     def scale_grad(grad, factor):
         if isinstance(grad, tf.IndexedSlices):
@@ -152,34 +138,30 @@ def train(args, model, config):
                 #     tf.profiler.experimental.start(os.path.join(args.model_dir, 'profile'))
                 # if step == profiler_stop_step and hvd.rank() == 0:
                 #     tf.profiler.experimental.stop()
-                current_step = np.asscalar(current_step_var.numpy())
-                schedule(optimizer=optimizer, current_step=current_step)
+                scheduler()
 
                 loss = train_step(num_feature, cat_feature, y)
                 if hvd.rank() == 0:
-                    tf.summary.scalar('loss', loss, step=current_step)
-                    tf.summary.scalar('schedule', K.get_value(optimizer.lr), step=current_step)
+                    tf.summary.scalar('loss', loss, step=step + steps * (epoch - 1))
+                    tf.summary.scalar('schedule', K.get_value(optimizer.lr), step=step + steps * (epoch - 1))
                     writer.flush()
 
-                if current_step % metrics_print_interval == 0:
+                if step % metrics_print_interval == 0:
                     time_metric_end = time.time()
                     train_data = {'loss': f'{loss.numpy():.4f}', 'time': f'{(time_metric_end - time_metric_start):.4f}'}
-                    logger.info(f'step: {current_step}, {train_data}')
+                    logger.info(f'step: {step + steps * (epoch - 1)}, {train_data}')
                     time_metric_start = time.time()
 
-                current_step_var.assign_add(1)
-
-                if step != 0 and step % eval_point == 0:
+                if step in eval_points:
                     for metric in metrics:
                         metric.reset_states()
                     eval_loss.reset_states()
+                    stime = time.time()
                     for eval_step, ((num_feature, cat_feature), y) in enumerate(eval_dataset):
-                        if eval_step == 680:
-                            break
-                        # logger.info(f'eval step: {eval_step}')
                         loss = evaluation_step(num_feature, cat_feature, y)
                         eval_loss.update_state(loss)
-                    
+                    logger.info(f'eval time: {time.time() - stime}')
+
                     eval_loss_reduced = hvd.allreduce(eval_loss.result())
                     metrics_reduced = {
                         f'{metric.name}_val': hvd.allreduce(metric.result()) for metric in metrics
@@ -200,9 +182,6 @@ def train(args, model, config):
             eval_loss.reset_states()
 
             for eval_step, ((num_feature, cat_feature), y) in enumerate(eval_dataset):
-                if eval_step == 680:
-                    break
-                # logger.info(f'eval step: {eval_step}')
                 loss = evaluation_step(num_feature, cat_feature, y)
                 eval_loss.update_state(loss)
 

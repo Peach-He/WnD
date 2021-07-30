@@ -115,27 +115,11 @@ class CriteoBinDataset:
         self.bytes_per_batch = (bytes_per_feature * self.total_features * batch_size)
 
         data_file_size = os.path.getsize(data_file)
-        self.num_batches = math.ceil(data_file_size / self.bytes_per_batch)
-
+        self.num_batches = int(math.floor(data_file_size / self.bytes_per_batch))
         bytes_per_sample = bytes_per_feature * self.total_features
         self.num_samples = data_file_size // bytes_per_sample
 
-        if hvd.size() > 1:
-            self.bytes_per_rank = self.bytes_per_batch // hvd.size()
-        else:
-            self.bytes_per_rank = self.bytes_per_batch
-
-        if hvd.size() > 1 and self.num_batches * self.bytes_per_batch > data_file_size:
-            last_batch_size = (data_file_size % self.bytes_per_batch) // bytes_per_sample
-            self.bytes_last_batch = last_batch_size // hvd.size() * bytes_per_sample
-        else:
-            self.bytes_last_batch = self.bytes_per_rank
-
-        if self.bytes_last_batch == 0:
-            self.num_batches = self.num_batches - 1
-            self.bytes_last_batch = self.bytes_per_rank
-
-        print('data file:', data_file, 'number of batches:', self.num_batches)
+        print('data file:', data_file, 'num samples:', self.num_samples, 'number of batches:', self.num_batches)
         self.file = open(data_file, 'rb')
 
         # self.counts= [7912889, 33823, 17139, 7339, 20046, 4, 7105, 1382, 63, 5554114, 582469, 245828, 11, 2209, 10667, 104, 4, 968, 15, 8165896, 2675940, 7156453, 302516, 12022, 97, 35]
@@ -147,8 +131,6 @@ class CriteoBinDataset:
     def __getitem__(self, idx):
         if idx >= self.num_batches:
             raise IndexError()
-        my_rank = hvd.rank() if hvd.size() > 1 else 0
-        rank_size = self.bytes_last_batch if idx == (self.num_batches - 1) else self.bytes_per_rank 
         self.file.seek(idx * self.bytes_per_batch, 0)
         raw_data = self.file.read(self.bytes_per_batch)
 

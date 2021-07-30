@@ -174,7 +174,7 @@ class wide_deep_model(tf.keras.Model):
         # linear_output = categorical_output + numerical_features
 
         x = tf.keras.layers.concatenate([numerical_features, tf.keras.layers.Flatten()(embeddings)])
-        with tf.name_scope("mlp_part"):
+        with tf.name_scope("linear"):
             for l in self.wide_mlp_layers:
                 x = l(x)
             linear_output = x
@@ -186,7 +186,7 @@ class wide_deep_model(tf.keras.Model):
             numerical_features = tf.cast(numerical_features, dtype=tf.float16)
         x = tf.keras.layers.concatenate([numerical_features, tf.keras.layers.Flatten()(embeddings)])
 
-        with tf.name_scope("mlp_part"):
+        with tf.name_scope("dnn"):
             for l in self.deep_mlp_laryers:
                 x = l(x)
             dnn_output = x
@@ -268,10 +268,8 @@ class wide_deep_model(tf.keras.Model):
     def _partition_variables(self):
         self.embedding_variables = [v for v in self.trainable_variables if 'embedding' in v.name]
         self.embedding_variable_indices = [i for i,v in enumerate(self.trainable_variables) if 'embedding' in v.name]
-        self.mlp_variables = [v for v in self.trainable_variables if 'mlp_part' in v.name]
-        self.mlp_variable_indices = [i for i,v in enumerate(self.trainable_variables) if 'mlp_part' in v.name]
-        # self.dnn_variables = [v for v in self.trainable_variables if 'dnn_part' not in v.name]
-        # self.dnn_variable_indices = [i for i, v in enumerate(self.trainable_variables) if 'dnn_part' not in v.name]
+        self.mlp_variables = [v for v in self.trainable_variables if 'embedding' not in v.name]
+        self.mlp_variable_indices = [i for i,v in enumerate(self.trainable_variables) if 'embedding' not in v.name]
         self.variables_partitioned = True
 
     def extract_embedding_gradients(self, all_gradients):

@@ -29,12 +29,6 @@ def parse_args():
 
     locations = parser.add_argument_group('location of datasets')
 
-    locations.add_argument('--num_eval_per_epoch', type=int, default=4)
-
-    locations.add_argument('--eval_point', type=int, default=1000)
-
-    locations.add_argument('--deep_warmup_steps', type=int, default=8000)
-
     locations.add_argument('--train_dataset_path', type=str, default='')
     locations.add_argument('--eval_dataset_path', type=str, default='')
 
@@ -45,9 +39,6 @@ def parse_args():
     locations.add_argument('--eval_data_pattern', type=str, default='/outbrain/tfrecords/eval/part*', nargs='+',
                            help='Pattern of eval file names. For example if eval files are eval_000.tfrecord, '
                                 'eval_001.tfrecord then --eval_data_pattern is eval_*')
-
-    locations.add_argument('--transformed_metadata_path', type=str, default='/outbrain/tfrecords',
-                           help='Path to transformed_metadata for feature specification reconstruction')
 
     locations.add_argument('--use_checkpoint', default=False, action='store_true',
                            help='Use checkpoint stored in model_dir path')
@@ -63,16 +54,13 @@ def parse_args():
 
     training_params = parser.add_argument_group('training parameters')
 
-    training_params.add_argument('--training_set_size', type=int, default=TRAIN_DATASET_SIZE,
-                                 help='Number of samples in the training set')
-
     training_params.add_argument('--global_batch_size', type=int, default=131072,
                                  help='Total size of training batch')
 
     training_params.add_argument('--eval_batch_size', type=int, default=131072,
                                  help='Total size of evaluation batch')
 
-    training_params.add_argument('--num_epochs', type=int, default=20,
+    training_params.add_argument('--num_epochs', type=int, default=1,
                                  help='Number of training epochs')
 
     training_params.add_argument('--cpu', default=False, action='store_true',
@@ -84,14 +72,19 @@ def parse_args():
     training_params.add_argument('--xla', default=False, action='store_true',
                                  help='Enable XLA conversion')
 
-    training_params.add_argument('--linear_learning_rate', type=float, default=0.02,
-                                 help='Learning rate for linear model')
-
-    training_params.add_argument('--deep_learning_rate', type=float, default=0.00012,
+    training_params.add_argument('--learning_rate', type=float, default=24,
                                  help='Learning rate for deep model')
 
-    training_params.add_argument('--deep_warmup_epochs', type=float, default=6,
-                                 help='Number of learning rate warmup epochs for deep model')
+    training_params.add_argument('--warmup_steps', type=int, default=8000,
+                                 help='Number of learning rate warmup steps for deep model')
+    
+    training_params.add_argument('--decay_start_step', type=int, default=48000, 
+                                help='Step at which to start poly LR delay')
+
+    training_params.add_argument('--decay_steps', type=int, default=24000, 
+                                help='Number of steps over which to decay from base LR to 0')
+    
+    training_params.add_argument('--evals_per_epoch', type=int, default=1, help='Num evaluations per epoch')
 
     model_construction = parser.add_argument_group('model construction')
 
@@ -105,15 +98,5 @@ def parse_args():
 
     run_params.add_argument('--evaluate', default=False, action='store_true',
                             help='Only perform an evaluation on the validation dataset, don\'t train')
-
-    run_params.add_argument('--benchmark', action='store_true', default=False,
-                            help='Run training or evaluation benchmark to collect performance metrics', )
-
-    run_params.add_argument('--benchmark_warmup_steps', type=int, default=500,
-                            help='Number of warmup steps before start of the benchmark')
-
-    run_params.add_argument('--benchmark_steps', type=int, default=1000,
-                            help='Number of steps for performance benchmark')
-
 
     return parser.parse_args()
