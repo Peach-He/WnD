@@ -1,0 +1,1310 @@
++ set -e
++ export CCL_WORKER_COUNT=2
++ CCL_WORKER_COUNT=2
++ export CCL_WORKER_AFFINITY=16,17,34,35
++ CCL_WORKER_AFFINITY=16,17,34,35
++ export HOROVOD_THREAD_AFFINITY=53,71
++ HOROVOD_THREAD_AFFINITY=53,71
++ export I_MPI_PIN_DOMAIN=socket
++ I_MPI_PIN_DOMAIN=socket
++ export I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ mpirun -genv OMP_NUM_THREADS=16 -map-by socket -n 8 -ppn 2 -hosts sr113,sr610,sr612,sr613 -print-rank-map -genv I_MPI_PIN_DOMAIN=socket -genv OMP_PROC_BIND=true -genv KMP_BLOCKTIME=1 -genv KMP_AFFINITY=granularity=fine,compact,1,0 -iface eth3 /root/sw/miniconda3/envs/wd2/bin/python main.py --train_data_pattern /mnt/sdd/outbrain2/tfrecords/train/part-r-00000 /mnt/sdd/outbrain2/tfrecords/train/part-r-00001 /mnt/sdd/outbrain2/tfrecords/train/part-r-00002 /mnt/sdd/outbrain2/tfrecords/train/part-r-00003 /mnt/sdd/outbrain2/tfrecords/train/part-r-00004 /mnt/sdd/outbrain2/tfrecords/train/part-r-00005 /mnt/sdd/outbrain2/tfrecords/train/part-r-00006 /mnt/sdd/outbrain2/tfrecords/train/part-r-00007 /mnt/sdd/outbrain2/tfrecords/train/part-r-00008 /mnt/sdd/outbrain2/tfrecords/train/part-r-00009 /mnt/sdd/outbrain2/tfrecords/train/part-r-00010 /mnt/sdd/outbrain2/tfrecords/train/part-r-00011 /mnt/sdd/outbrain2/tfrecords/train/part-r-00012 /mnt/sdd/outbrain2/tfrecords/train/part-r-00013 /mnt/sdd/outbrain2/tfrecords/train/part-r-00014 /mnt/sdd/outbrain2/tfrecords/train/part-r-00015 /mnt/sdd/outbrain2/tfrecords/train/part-r-00016 /mnt/sdd/outbrain2/tfrecords/train/part-r-00017 /mnt/sdd/outbrain2/tfrecords/train/part-r-00018 /mnt/sdd/outbrain2/tfrecords/train/part-r-00019 /mnt/sdd/outbrain2/tfrecords/train/part-r-00020 /mnt/sdd/outbrain2/tfrecords/train/part-r-00021 /mnt/sdd/outbrain2/tfrecords/train/part-r-00022 /mnt/sdd/outbrain2/tfrecords/train/part-r-00023 /mnt/sdd/outbrain2/tfrecords/train/part-r-00024 /mnt/sdd/outbrain2/tfrecords/train/part-r-00025 /mnt/sdd/outbrain2/tfrecords/train/part-r-00026 /mnt/sdd/outbrain2/tfrecords/train/part-r-00027 /mnt/sdd/outbrain2/tfrecords/train/part-r-00028 /mnt/sdd/outbrain2/tfrecords/train/part-r-00029 /mnt/sdd/outbrain2/tfrecords/train/part-r-00030 --eval_data_pattern /mnt/sdd/outbrain2/tfrecords/eval/part-r-00000 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00001 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00002 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00003 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00004 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00005 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00006 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00007 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00008 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00009 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00010 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00011 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00012 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00013 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00014 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00015 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00016 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00017 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00018 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00019 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00020 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00021 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00022 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00023 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00024 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00025 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00026 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00027 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00028 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00029 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00030 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00031 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00032 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00033 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00034 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00035 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00036 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00037 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00038 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00039 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00040 --model_dir /mnt/nvm6/wd/checkpoints2 --transformed_metadata_path /outbrain2/tfrecords --cpu --global_batch_size 524288 --eval_batch_size 524288 --num_epochs 8 --deep_learning_rate 0.00048 --linear_learning_rate 0.8 --deep_hidden_units 1024 512 256
+(sr113:0,1)
+(sr610:2,3)
+(sr612:4,5)
+(sr613:6,7)
+
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/train/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00030"], "eval_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/eval/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00030", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00031", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00032", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00033", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00034", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00035", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00036", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00037", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00038", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00039", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00040"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 524288, "eval_batch_size": 524288, "num_epochs": 8, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.00048, "deep_warmup_epochs": 6, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+2021-09-03 09:56:28.656785: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.657245: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.656889: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.657006: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.657380: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.658377: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-03 09:56:28.659102: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-09-03 09:56:28.659583: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-09-03 09:56:28.666861: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-09-03 09:56:28.666753: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-09-03 09:56:28.666886: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-09-03 09:56:28.666983: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-09-03 09:56:28.667680: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56274c2a8b30 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.667706: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.667699: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55cfde17ec30 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.667729: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.667842: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x562d08259010 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.667871: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.667797: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-09-03 09:56:28.667850: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x565271926be0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.667875: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.668945: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-09-03 09:56:28.668732: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55be87757d50 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.668758: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.669859: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55cc8fd41ea0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.669884: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.671016: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-09-03 09:56:28.672723: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56264f6a4be0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.672749: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-03 09:56:28.676063: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-09-03 09:56:28.677997: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x561fff3ad790 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-03 09:56:28.678026: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:experiment.observation_budget: 10
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.3248742292080188,
+  "deep_learning_rate": 0.060067752305335176,
+  "dnn_hidden_unit1": 64,
+  "dnn_hidden_unit2": 128,
+  "dnn_hidden_unit3": 256,
+  "linear_learning_rate": 0.05209304944757563,
+  "warmup_epoch": 7
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.6028', 'auc': '0.5369', 'loss': '0.7787', 'time': '14.8658'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.8279', 'auc': '0.6080', 'loss': '0.4463', 'time': '16.2920'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7767', 'auc': '0.6922', 'loss': '0.4980', 'time': '8.8487'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.8140', 'auc': '0.6948', 'loss': '0.4395', 'time': '8.8103'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.8097', 'auc': '0.7010', 'loss': '0.4500', 'time': '8.6423'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8136', 'auc': '0.7073', 'loss': '0.4441', 'time': '8.5578'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8155', 'auc': '0.7245', 'loss': '0.4403', 'time': '8.6572'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7936', 'auc': '0.7570', 'loss': '0.4613', 'time': '8.5928'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7928', 'auc': '0.7199', 'loss': '0.4643', 'time': '8.5001'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8134', 'auc': '0.7394', 'loss': '0.4344', 'time': '8.5324'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7824', 'auc': '0.7729', 'loss': '0.4580', 'time': '8.5129'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8041', 'auc': '0.7073', 'loss': '0.4635', 'time': '8.6161'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8093', 'auc_val': '0.7208', 'loss_val': '0.4453', 'streaming_map_val': '0.6401'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8244', 'auc': '0.7429', 'loss': '0.4139', 'time': '26.0434'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8250', 'auc': '0.7413', 'loss': '0.4180', 'time': '8.3848'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8157', 'auc': '0.7299', 'loss': '0.4326', 'time': '8.4408'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8292', 'auc': '0.7405', 'loss': '0.4121', 'time': '8.6901'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8182', 'auc': '0.7253', 'loss': '0.4385', 'time': '8.5245'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8119', 'auc': '0.7462', 'loss': '0.4283', 'time': '8.5161'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8061', 'auc': '0.7356', 'loss': '0.4447', 'time': '8.4531'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8271', 'auc': '0.7507', 'loss': '0.4102', 'time': '8.4777'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.7970', 'auc': '0.7654', 'loss': '0.4435', 'time': '8.7876'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.8002', 'auc': '0.7570', 'loss': '0.4370', 'time': '8.5882'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8185', 'auc': '0.7478', 'loss': '0.4194', 'time': '8.5271'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.7973', 'auc_val': '0.7262', 'loss_val': '0.4905', 'streaming_map_val': '0.6453'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8209', 'auc': '0.7480', 'loss': '0.4183', 'time': '20.7655'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8145', 'auc': '0.7579', 'loss': '0.4243', 'time': '8.6139'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8118', 'auc': '0.7140', 'loss': '0.4419', 'time': '8.3224'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8146', 'auc': '0.7305', 'loss': '0.4389', 'time': '8.3608'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.7989', 'auc': '0.7436', 'loss': '0.4490', 'time': '8.4212'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8267', 'auc': '0.7456', 'loss': '0.4086', 'time': '8.6937'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8181', 'auc': '0.7382', 'loss': '0.4263', 'time': '8.4944'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8047', 'auc': '0.7628', 'loss': '0.4366', 'time': '8.5143'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8044', 'auc': '0.7388', 'loss': '0.4404', 'time': '8.4605'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8086', 'auc': '0.7525', 'loss': '0.4373', 'time': '8.4971'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8185', 'auc': '0.7605', 'loss': '0.4127', 'time': '8.6272'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.7963', 'auc_val': '0.7236', 'loss_val': '0.4952', 'streaming_map_val': '0.6454'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8289', 'auc': '0.7195', 'loss': '0.4195', 'time': '20.4094'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8087', 'auc': '0.7374', 'loss': '0.4391', 'time': '8.4819'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8114', 'auc': '0.7543', 'loss': '0.4299', 'time': '8.4200'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8274', 'auc': '0.7387', 'loss': '0.4177', 'time': '8.4466'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8300', 'auc': '0.7468', 'loss': '0.4159', 'time': '8.5019'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8178', 'auc': '0.7375', 'loss': '0.4261', 'time': '8.5508'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8252', 'auc': '0.7527', 'loss': '0.4110', 'time': '8.5922'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8051', 'auc': '0.7713', 'loss': '0.4351', 'time': '8.6277'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8183', 'auc': '0.7432', 'loss': '0.4384', 'time': '8.4352'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8063', 'auc': '0.7482', 'loss': '0.4378', 'time': '8.5572'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8198', 'auc': '0.7899', 'loss': '0.4334', 'time': '8.6002'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8212', 'auc': '0.7636', 'loss': '0.4131', 'time': '8.4663'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8076', 'auc_val': '0.7284', 'loss_val': '0.4647', 'streaming_map_val': '0.6469'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8652', 'auc': '0.7630', 'loss': '0.3598', 'time': '20.6428'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8157', 'auc': '0.7060', 'loss': '0.4399', 'time': '8.3492'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8183', 'auc': '0.7607', 'loss': '0.4174', 'time': '8.4126'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8376', 'auc': '0.7506', 'loss': '0.3914', 'time': '8.5276'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8098', 'auc': '0.7500', 'loss': '0.4316', 'time': '8.4723'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8044', 'auc': '0.7551', 'loss': '0.4473', 'time': '8.5388'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8160', 'auc': '0.7755', 'loss': '0.4209', 'time': '8.5476'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8010', 'auc': '0.7418', 'loss': '0.4455', 'time': '8.5817'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8134', 'auc': '0.7430', 'loss': '0.4319', 'time': '8.6486'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.7765', 'auc': '0.7654', 'loss': '0.4843', 'time': '8.6302'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8227', 'auc': '0.7686', 'loss': '0.4103', 'time': '8.5629'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.7997', 'auc_val': '0.7314', 'loss_val': '0.4620', 'streaming_map_val': '0.6474'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8214', 'auc': '0.7616', 'loss': '0.4129', 'time': '20.2608'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8243', 'auc': '0.7582', 'loss': '0.4107', 'time': '8.3770'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8124', 'auc': '0.7393', 'loss': '0.4324', 'time': '8.3981'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.7962', 'auc': '0.7521', 'loss': '0.4558', 'time': '8.4736'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8182', 'auc': '0.7672', 'loss': '0.4122', 'time': '8.6224'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8132', 'auc': '0.7572', 'loss': '0.4293', 'time': '8.5047'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8271', 'auc': '0.7619', 'loss': '0.4020', 'time': '8.4688'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.7886', 'auc': '0.7575', 'loss': '0.4529', 'time': '8.4950'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.7556', 'auc': '0.7651', 'loss': '0.4970', 'time': '8.5342'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.7870', 'auc': '0.7523', 'loss': '0.4618', 'time': '8.5455'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8102', 'auc': '0.7606', 'loss': '0.4302', 'time': '8.5041'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8144', 'auc_val': '0.7339', 'loss_val': '0.4399', 'streaming_map_val': '0.6497'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.7922', 'auc': '0.7546', 'loss': '0.4701', 'time': '20.6848'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8159', 'auc': '0.7522', 'loss': '0.4278', 'time': '8.3903'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.7982', 'auc': '0.7551', 'loss': '0.4665', 'time': '8.4566'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8070', 'auc': '0.7478', 'loss': '0.4445', 'time': '8.4554'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8074', 'auc': '0.7521', 'loss': '0.4758', 'time': '8.4576'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.7448', 'auc': '0.7567', 'loss': '0.5289', 'time': '8.4456'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.7919', 'auc': '0.7608', 'loss': '0.4598', 'time': '8.4610'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8058', 'auc': '0.7601', 'loss': '0.4346', 'time': '8.4614'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8304', 'auc': '0.7668', 'loss': '0.4007', 'time': '8.5990'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8114', 'auc': '0.7681', 'loss': '0.4292', 'time': '8.3952'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8330', 'auc': '0.7864', 'loss': '0.4000', 'time': '8.5736'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.7927', 'auc': '0.7270', 'loss': '0.5348', 'time': '8.4625'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8112', 'auc_val': '0.7305', 'loss_val': '0.4401', 'streaming_map_val': '0.6458'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8543', 'auc': '0.7547', 'loss': '0.3719', 'time': '20.1981'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8298', 'auc': '0.7723', 'loss': '0.4028', 'time': '8.4271'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8192', 'auc': '0.7526', 'loss': '0.4200', 'time': '8.4081'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8260', 'auc': '0.7355', 'loss': '0.4170', 'time': '8.5268'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8253', 'auc': '0.7698', 'loss': '0.4054', 'time': '8.6728'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8168', 'auc': '0.7626', 'loss': '0.4216', 'time': '8.5380'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8218', 'auc': '0.7775', 'loss': '0.4128', 'time': '8.5327'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8175', 'auc': '0.7771', 'loss': '0.4179', 'time': '8.5443'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8326', 'auc': '0.7823', 'loss': '0.3982', 'time': '8.5178'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8272', 'auc': '0.7902', 'loss': '0.4019', 'time': '8.4842'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8217', 'auc': '0.7804', 'loss': '0.4103', 'time': '8.5766'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8130', 'auc_val': '0.7377', 'loss_val': '0.4368', 'streaming_map_val': '0.6520'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8130', 'auc_val': '0.7377', 'loss_val': '0.4368', 'streaming_map_val': '0.6520'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.35210545393221926,
+  "deep_learning_rate": 0.00016322432078601218,
+  "dnn_hidden_unit1": 2048,
+  "dnn_hidden_unit2": 2048,
+  "dnn_hidden_unit3": 2048,
+  "linear_learning_rate": 0.011705568137936306,
+  "warmup_epoch": 1
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4764', 'auc_1': '0.5333', 'loss': '0.9515', 'time': '18.6348'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7728', 'auc_1': '0.5521', 'loss': '0.5896', 'time': '73.2561'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7777', 'auc_1': '0.6568', 'loss': '0.5267', 'time': '66.0557'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7933', 'auc_1': '0.6590', 'loss': '0.4936', 'time': '66.1351'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7916', 'auc_1': '0.6657', 'loss': '0.5000', 'time': '66.1306'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8062', 'auc_1': '0.6598', 'loss': '0.4677', 'time': '66.1913'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7981', 'auc_1': '0.6494', 'loss': '0.4906', 'time': '65.8988'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7892', 'auc_1': '0.6595', 'loss': '0.5010', 'time': '65.8909'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7953', 'auc_1': '0.6840', 'loss': '0.4708', 'time': '66.5933'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.7919', 'auc_1': '0.6943', 'loss': '0.4843', 'time': '65.8496'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7884', 'auc_1': '0.7048', 'loss': '0.4765', 'time': '66.3301'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7944', 'auc_1': '0.6948', 'loss': '0.4757', 'time': '65.8679'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8065', 'auc_1_val': '0.6827', 'loss_val': '0.4634', 'streaming_map_val': '0.6201'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8104', 'auc_1': '0.6978', 'loss': '0.4501', 'time': '146.1553'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8191', 'auc_1': '0.7071', 'loss': '0.4333', 'time': '65.6391'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8039', 'auc_1': '0.6827', 'loss': '0.4695', 'time': '65.9946'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8068', 'auc_1': '0.6989', 'loss': '0.4528', 'time': '66.2720'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8091', 'auc_1': '0.6784', 'loss': '0.4584', 'time': '65.8078'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8103', 'auc_1': '0.6891', 'loss': '0.4537', 'time': '66.4884'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8001', 'auc_1': '0.6806', 'loss': '0.4751', 'time': '66.1431'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8039', 'auc_1': '0.6995', 'loss': '0.4615', 'time': '66.1813'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8027', 'auc_1': '0.6894', 'loss': '0.4646', 'time': '66.1847'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.8016', 'auc_1': '0.7111', 'loss': '0.4573', 'time': '66.1539'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8150', 'auc_1': '0.7181', 'loss': '0.4351', 'time': '65.9046'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8079', 'auc_1_val': '0.6970', 'loss_val': '0.4569', 'streaming_map_val': '0.6283'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8062', 'auc_1': '0.6952', 'loss': '0.4554', 'time': '140.3627'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.7926', 'auc_1': '0.7324', 'loss': '0.4588', 'time': '65.9734'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8171', 'auc_1': '0.7032', 'loss': '0.4376', 'time': '65.7936'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8141', 'auc_1': '0.7039', 'loss': '0.4449', 'time': '66.4326'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.7900', 'auc_1': '0.7185', 'loss': '0.4711', 'time': '65.9169'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8078', 'auc_1': '0.7142', 'loss': '0.4484', 'time': '66.2826'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8019', 'auc_1': '0.7237', 'loss': '0.4479', 'time': '66.7820'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.7990', 'auc_1': '0.7236', 'loss': '0.4543', 'time': '66.2233'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.7966', 'auc_1': '0.7291', 'loss': '0.4566', 'time': '66.2821'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8081', 'auc_1': '0.7294', 'loss': '0.4444', 'time': '66.0604'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8190', 'auc_1': '0.7347', 'loss': '0.4219', 'time': '65.7625'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.7868', 'auc_1_val': '0.7174', 'loss_val': '0.5039', 'streaming_map_val': '0.6380'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8237', 'auc_1': '0.7130', 'loss': '0.4236', 'time': '142.0672'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8074', 'auc_1': '0.7164', 'loss': '0.4458', 'time': '66.3268'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8136', 'auc_1': '0.7138', 'loss': '0.4438', 'time': '65.9461'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8156', 'auc_1': '0.7162', 'loss': '0.4381', 'time': '66.4781'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8141', 'auc_1': '0.7256', 'loss': '0.4372', 'time': '65.8493'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8267', 'auc_1': '0.7155', 'loss': '0.4280', 'time': '65.8579'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8053', 'auc_1': '0.7178', 'loss': '0.4551', 'time': '66.3388'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8058', 'auc_1': '0.7281', 'loss': '0.4488', 'time': '66.3746'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8016', 'auc_1': '0.7267', 'loss': '0.4552', 'time': '65.7834'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8185', 'auc_1': '0.7318', 'loss': '0.4290', 'time': '65.8059'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8003', 'auc_1': '0.7505', 'loss': '0.4617', 'time': '66.3056'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8356', 'auc_1': '0.7235', 'loss': '0.4052', 'time': '65.8197'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8051', 'auc_1_val': '0.7272', 'loss_val': '0.4585', 'streaming_map_val': '0.6438'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8599', 'auc_1': '0.7452', 'loss': '0.3570', 'time': '141.8550'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8302', 'auc_1': '0.7323', 'loss': '0.4090', 'time': '66.0053'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8182', 'auc_1': '0.7252', 'loss': '0.4251', 'time': '66.2901'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8065', 'auc_1': '0.7223', 'loss': '0.4523', 'time': '66.0031'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8118', 'auc_1': '0.7150', 'loss': '0.4427', 'time': '66.1333'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8150', 'auc_1': '0.7504', 'loss': '0.4321', 'time': '65.8069'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8163', 'auc_1': '0.7432', 'loss': '0.4304', 'time': '66.2590'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8003', 'auc_1': '0.7263', 'loss': '0.4539', 'time': '66.5739'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8239', 'auc_1': '0.7309', 'loss': '0.4218', 'time': '66.1057'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8066', 'auc_1': '0.7521', 'loss': '0.4370', 'time': '66.2110'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8103', 'auc_1': '0.7334', 'loss': '0.4398', 'time': '65.9576'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8137', 'auc_1_val': '0.7323', 'loss_val': '0.4351', 'streaming_map_val': '0.6472'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8199', 'auc_1': '0.7220', 'loss': '0.4290', 'time': '141.5841'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8123', 'auc_1': '0.7385', 'loss': '0.4355', 'time': '65.9726'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8039', 'auc_1': '0.7172', 'loss': '0.4498', 'time': '65.8578'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8024', 'auc_1': '0.7302', 'loss': '0.4509', 'time': '65.9382'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8046', 'auc_1': '0.7357', 'loss': '0.4445', 'time': '65.8471'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8016', 'auc_1': '0.7127', 'loss': '0.4588', 'time': '65.9721'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8195', 'auc_1': '0.7436', 'loss': '0.4232', 'time': '66.3284'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8033', 'auc_1': '0.7400', 'loss': '0.4423', 'time': '66.2136'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8012', 'auc_1': '0.7450', 'loss': '0.4503', 'time': '65.9741'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8074', 'auc_1': '0.7394', 'loss': '0.4447', 'time': '65.9268'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8199', 'auc_1': '0.7207', 'loss': '0.4310', 'time': '66.6201'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8139', 'auc_1_val': '0.7339', 'loss_val': '0.4362', 'streaming_map_val': '0.6487'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.7995', 'auc_1': '0.7188', 'loss': '0.4612', 'time': '142.0031'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.7881', 'auc_1': '0.7346', 'loss': '0.4817', 'time': '65.7495'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8006', 'auc_1': '0.7197', 'loss': '0.4623', 'time': '65.8706'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8161', 'auc_1': '0.7112', 'loss': '0.4379', 'time': '66.1873'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8184', 'auc_1': '0.7335', 'loss': '0.4253', 'time': '66.4180'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8171', 'auc_1': '0.7243', 'loss': '0.4318', 'time': '66.4195'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8126', 'auc_1': '0.7356', 'loss': '0.4354', 'time': '65.9517'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8004', 'auc_1': '0.7451', 'loss': '0.4510', 'time': '66.3417'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8215', 'auc_1': '0.7347', 'loss': '0.4222', 'time': '65.8231'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8246', 'auc_1': '0.7388', 'loss': '0.4213', 'time': '66.5234'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8147', 'auc_1': '0.7569', 'loss': '0.4316', 'time': '65.7470'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8035', 'auc_1': '0.7396', 'loss': '0.4450', 'time': '65.8698'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8144', 'auc_1_val': '0.7347', 'loss_val': '0.4350', 'streaming_map_val': '0.6492'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8449', 'auc_1': '0.7281', 'loss': '0.3921', 'time': '141.8746'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8215', 'auc_1': '0.7367', 'loss': '0.4225', 'time': '65.9077'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8249', 'auc_1': '0.7532', 'loss': '0.4110', 'time': '66.1370'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8265', 'auc_1': '0.7397', 'loss': '0.4121', 'time': '66.3182'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8122', 'auc_1': '0.7352', 'loss': '0.4344', 'time': '66.5005'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8146', 'auc_1': '0.7232', 'loss': '0.4371', 'time': '66.2004'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8133', 'auc_1': '0.7475', 'loss': '0.4303', 'time': '66.2593'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8061', 'auc_1': '0.7440', 'loss': '0.4388', 'time': '65.7585'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8298', 'auc_1': '0.7397', 'loss': '0.4058', 'time': '66.0539'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8153', 'auc_1': '0.7324', 'loss': '0.4315', 'time': '66.1684'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8125', 'auc_1': '0.7461', 'loss': '0.4325', 'time': '66.6677'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8146', 'auc_1_val': '0.7355', 'loss_val': '0.4344', 'streaming_map_val': '0.6499'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8146', 'auc_1_val': '0.7355', 'loss_val': '0.4344', 'streaming_map_val': '0.6499'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.18566527099626876,
+  "deep_learning_rate": 0.0009403406107272208,
+  "dnn_hidden_unit1": 512,
+  "dnn_hidden_unit2": 256,
+  "dnn_hidden_unit3": 512,
+  "linear_learning_rate": 0.03147767850802952,
+  "warmup_epoch": 3
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.3651', 'auc_2': '0.5153', 'loss': '1.1706', 'time': '14.1166'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7748', 'auc_2': '0.5528', 'loss': '0.5711', 'time': '22.1068'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7731', 'auc_2': '0.6181', 'loss': '0.5401', 'time': '14.6638'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7942', 'auc_2': '0.6484', 'loss': '0.4895', 'time': '14.8242'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7940', 'auc_2': '0.6437', 'loss': '0.4937', 'time': '14.7435'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8019', 'auc_2': '0.6520', 'loss': '0.4792', 'time': '14.7012'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8103', 'auc_2': '0.6726', 'loss': '0.4535', 'time': '14.7604'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7940', 'auc_2': '0.7160', 'loss': '0.4727', 'time': '14.8892'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7949', 'auc_2': '0.6751', 'loss': '0.4789', 'time': '14.9451'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8139', 'auc_2': '0.6668', 'loss': '0.4569', 'time': '14.9275'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8060', 'auc_2': '0.6929', 'loss': '0.4592', 'time': '14.6301'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8009', 'auc_2': '0.7104', 'loss': '0.4609', 'time': '14.6899'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8088', 'auc_2_val': '0.7026', 'loss_val': '0.4528', 'streaming_map_val': '0.6345'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8110', 'auc_2': '0.7151', 'loss': '0.4406', 'time': '38.0718'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8348', 'auc_2': '0.7096', 'loss': '0.4131', 'time': '14.5359'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8117', 'auc_2': '0.6824', 'loss': '0.4572', 'time': '14.6476'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8302', 'auc_2': '0.7006', 'loss': '0.4216', 'time': '14.7474'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8251', 'auc_2': '0.6797', 'loss': '0.4386', 'time': '14.6882'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8192', 'auc_2': '0.7158', 'loss': '0.4344', 'time': '14.8620'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8005', 'auc_2': '0.7208', 'loss': '0.4587', 'time': '14.8360'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8121', 'auc_2': '0.7188', 'loss': '0.4432', 'time': '14.8372'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8205', 'auc_2': '0.7319', 'loss': '0.4291', 'time': '14.8664'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.8005', 'auc_2': '0.7548', 'loss': '0.4423', 'time': '14.7984'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8191', 'auc_2': '0.7272', 'loss': '0.4268', 'time': '14.7855'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8088', 'auc_2_val': '0.7201', 'loss_val': '0.4620', 'streaming_map_val': '0.6409'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8205', 'auc_2': '0.7194', 'loss': '0.4297', 'time': '32.6736'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8113', 'auc_2': '0.7514', 'loss': '0.4300', 'time': '14.5745'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8092', 'auc_2': '0.7192', 'loss': '0.4467', 'time': '14.6051'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8084', 'auc_2': '0.7171', 'loss': '0.4514', 'time': '14.8338'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.7940', 'auc_2': '0.7403', 'loss': '0.4606', 'time': '14.7930'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8211', 'auc_2': '0.7417', 'loss': '0.4238', 'time': '14.6611'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8150', 'auc_2': '0.7479', 'loss': '0.4274', 'time': '14.8873'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8124', 'auc_2': '0.7534', 'loss': '0.4298', 'time': '14.9023'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8078', 'auc_2': '0.7382', 'loss': '0.4380', 'time': '14.7691'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8067', 'auc_2': '0.7617', 'loss': '0.4365', 'time': '14.9258'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8089', 'auc_2': '0.7472', 'loss': '0.4346', 'time': '14.8257'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8122', 'auc_2_val': '0.7292', 'loss_val': '0.4404', 'streaming_map_val': '0.6453'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8177', 'auc_2': '0.7362', 'loss': '0.4337', 'time': '32.1059'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8222', 'auc_2': '0.7313', 'loss': '0.4233', 'time': '14.7705'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8265', 'auc_2': '0.7646', 'loss': '0.4053', 'time': '14.6516'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8267', 'auc_2': '0.7468', 'loss': '0.4122', 'time': '14.7673'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8356', 'auc_2': '0.7535', 'loss': '0.3978', 'time': '14.6581'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8196', 'auc_2': '0.7414', 'loss': '0.4249', 'time': '14.8447'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8095', 'auc_2': '0.7433', 'loss': '0.4368', 'time': '14.7953'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8164', 'auc_2': '0.7625', 'loss': '0.4204', 'time': '14.8948'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8170', 'auc_2': '0.7538', 'loss': '0.4224', 'time': '14.7008'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.7915', 'auc_2': '0.7436', 'loss': '0.4577', 'time': '14.8494'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8312', 'auc_2': '0.7494', 'loss': '0.4046', 'time': '14.7526'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8124', 'auc_2': '0.7388', 'loss': '0.4324', 'time': '14.7487'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8135', 'auc_2_val': '0.7353', 'loss_val': '0.4342', 'streaming_map_val': '0.6495'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8460', 'auc_2': '0.7262', 'loss': '0.3870', 'time': '32.2731'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8097', 'auc_2': '0.7245', 'loss': '0.4455', 'time': '14.5336'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8127', 'auc_2': '0.7441', 'loss': '0.4295', 'time': '14.6894'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8237', 'auc_2': '0.7594', 'loss': '0.4105', 'time': '14.7395'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8069', 'auc_2': '0.7463', 'loss': '0.4386', 'time': '14.8328'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8182', 'auc_2': '0.7546', 'loss': '0.4269', 'time': '14.8909'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8165', 'auc_2': '0.7556', 'loss': '0.4271', 'time': '14.7702'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8099', 'auc_2': '0.7472', 'loss': '0.4333', 'time': '14.9094'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8102', 'auc_2': '0.7722', 'loss': '0.4359', 'time': '14.8076'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8055', 'auc_2': '0.7762', 'loss': '0.4349', 'time': '14.6452'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8192', 'auc_2': '0.7499', 'loss': '0.4202', 'time': '14.8556'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8147', 'auc_2_val': '0.7387', 'loss_val': '0.4317', 'streaming_map_val': '0.6523'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8171', 'auc_2': '0.7461', 'loss': '0.4267', 'time': '32.4244'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8298', 'auc_2': '0.7617', 'loss': '0.4022', 'time': '14.6505'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8047', 'auc_2': '0.7565', 'loss': '0.4410', 'time': '14.7591'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8142', 'auc_2': '0.7504', 'loss': '0.4275', 'time': '14.6435'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8259', 'auc_2': '0.7579', 'loss': '0.4091', 'time': '14.7385'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8247', 'auc_2': '0.7387', 'loss': '0.4146', 'time': '14.7273'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8258', 'auc_2': '0.7626', 'loss': '0.4080', 'time': '14.7494'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8007', 'auc_2': '0.7540', 'loss': '0.4435', 'time': '14.8872'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8086', 'auc_2': '0.7586', 'loss': '0.4334', 'time': '14.7388'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8097', 'auc_2': '0.7451', 'loss': '0.4357', 'time': '14.7933'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8202', 'auc_2': '0.7581', 'loss': '0.4179', 'time': '14.6948'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8153', 'auc_2_val': '0.7405', 'loss_val': '0.4307', 'streaming_map_val': '0.6539'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.7976', 'auc_2': '0.7371', 'loss': '0.4551', 'time': '32.1877'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8149', 'auc_2': '0.7378', 'loss': '0.4276', 'time': '14.6926'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8226', 'auc_2': '0.7468', 'loss': '0.4190', 'time': '14.5970'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8269', 'auc_2': '0.7498', 'loss': '0.4096', 'time': '14.8150'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8348', 'auc_2': '0.7438', 'loss': '0.4006', 'time': '14.7380'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8311', 'auc_2': '0.7571', 'loss': '0.4027', 'time': '14.7331'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8281', 'auc_2': '0.7491', 'loss': '0.4088', 'time': '14.7524'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8174', 'auc_2': '0.7542', 'loss': '0.4212', 'time': '14.8972'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8183', 'auc_2': '0.7475', 'loss': '0.4235', 'time': '14.9163'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8131', 'auc_2': '0.7458', 'loss': '0.4335', 'time': '14.8050'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8251', 'auc_2': '0.7985', 'loss': '0.4190', 'time': '14.8176'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8047', 'auc_2': '0.7628', 'loss': '0.4359', 'time': '14.8755'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8154', 'auc_2_val': '0.7412', 'loss_val': '0.4304', 'streaming_map_val': '0.6546'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8272', 'auc_2': '0.7478', 'loss': '0.4087', 'time': '31.9025'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8206', 'auc_2': '0.7398', 'loss': '0.4251', 'time': '14.6581'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8265', 'auc_2': '0.7531', 'loss': '0.4070', 'time': '14.6666'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8197', 'auc_2': '0.7471', 'loss': '0.4210', 'time': '14.6806'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8110', 'auc_2': '0.7420', 'loss': '0.4365', 'time': '14.7535'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8334', 'auc_2': '0.7558', 'loss': '0.4020', 'time': '14.6127'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8114', 'auc_2': '0.7406', 'loss': '0.4371', 'time': '14.8022'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8168', 'auc_2': '0.7593', 'loss': '0.4219', 'time': '14.9053'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8344', 'auc_2': '0.7586', 'loss': '0.3953', 'time': '14.6648'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8060', 'auc_2': '0.7446', 'loss': '0.4421', 'time': '14.8244'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8129', 'auc_2': '0.7586', 'loss': '0.4268', 'time': '14.7609'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8156', 'auc_2_val': '0.7416', 'loss_val': '0.4303', 'streaming_map_val': '0.6550'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8156', 'auc_2_val': '0.7416', 'loss_val': '0.4303', 'streaming_map_val': '0.6550'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.49947552136200707,
+  "deep_learning_rate": 0.013145941792531255,
+  "dnn_hidden_unit1": 1024,
+  "dnn_hidden_unit2": 64,
+  "dnn_hidden_unit3": 1024,
+  "linear_learning_rate": 0.48389697114012087,
+  "warmup_epoch": 4
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.6199', 'auc_3': '0.4909', 'loss': '0.7411', 'time': '14.8304'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7887', 'auc_3': '0.6058', 'loss': '0.5117', 'time': '28.9181'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7917', 'auc_3': '0.6541', 'loss': '0.5033', 'time': '21.1071'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7829', 'auc_3': '0.6945', 'loss': '0.4803', 'time': '21.2610'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7997', 'auc_3': '0.6965', 'loss': '0.4625', 'time': '21.2624'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7961', 'auc_3': '0.6549', 'loss': '0.4819', 'time': '21.3290'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8019', 'auc_3': '0.7081', 'loss': '0.4640', 'time': '21.5836'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7870', 'auc_3': '0.7326', 'loss': '0.4759', 'time': '21.4407'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7920', 'auc_3': '0.7096', 'loss': '0.4856', 'time': '21.3191'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8014', 'auc_3': '0.7140', 'loss': '0.4713', 'time': '21.5201'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7980', 'auc_3': '0.7508', 'loss': '0.4513', 'time': '21.3252'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8079', 'auc_3': '0.7228', 'loss': '0.4525', 'time': '21.2547'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8067', 'auc_3_val': '0.6920', 'loss_val': '0.4587', 'streaming_map_val': '0.6250'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8293', 'auc_3': '0.7448', 'loss': '0.4148', 'time': '49.4291'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8345', 'auc_3': '0.7447', 'loss': '0.4043', 'time': '21.3755'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8154', 'auc_3': '0.7230', 'loss': '0.4398', 'time': '21.2139'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8262', 'auc_3': '0.7363', 'loss': '0.4213', 'time': '21.2782'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8117', 'auc_3': '0.6995', 'loss': '0.4558', 'time': '21.4824'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8189', 'auc_3': '0.7431', 'loss': '0.4294', 'time': '21.3306'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8124', 'auc_3': '0.7416', 'loss': '0.4324', 'time': '21.6384'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8208', 'auc_3': '0.7367', 'loss': '0.4227', 'time': '21.4156'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8066', 'auc_3': '0.7712', 'loss': '0.4342', 'time': '21.5378'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7874', 'auc_3': '0.7575', 'loss': '0.4629', 'time': '21.5026'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8283', 'auc_3': '0.7401', 'loss': '0.4106', 'time': '21.4749'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8125', 'auc_3_val': '0.7283', 'loss_val': '0.4397', 'streaming_map_val': '0.6451'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8023', 'auc_3': '0.7445', 'loss': '0.4415', 'time': '44.9032'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8065', 'auc_3': '0.7795', 'loss': '0.4341', 'time': '21.2979'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8196', 'auc_3': '0.7249', 'loss': '0.4297', 'time': '21.4666'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8179', 'auc_3': '0.7479', 'loss': '0.4260', 'time': '21.4423'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.8096', 'auc_3': '0.7407', 'loss': '0.4366', 'time': '21.4340'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8109', 'auc_3': '0.7450', 'loss': '0.4346', 'time': '21.5021'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8167', 'auc_3': '0.7498', 'loss': '0.4236', 'time': '21.4168'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8171', 'auc_3': '0.7599', 'loss': '0.4180', 'time': '21.4242'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8139', 'auc_3': '0.7535', 'loss': '0.4315', 'time': '21.3962'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8138', 'auc_3': '0.7539', 'loss': '0.4311', 'time': '21.5547'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8200', 'auc_3': '0.7481', 'loss': '0.4178', 'time': '21.4178'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8138', 'auc_3_val': '0.7355', 'loss_val': '0.4371', 'streaming_map_val': '0.6518'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8127', 'auc_3': '0.7193', 'loss': '0.4347', 'time': '45.0552'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8086', 'auc_3': '0.7142', 'loss': '0.4437', 'time': '21.2022'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8082', 'auc_3': '0.7614', 'loss': '0.4303', 'time': '21.1303'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8198', 'auc_3': '0.7384', 'loss': '0.4228', 'time': '21.3208'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8238', 'auc_3': '0.7670', 'loss': '0.4061', 'time': '21.2008'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8205', 'auc_3': '0.7496', 'loss': '0.4199', 'time': '21.4050'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8209', 'auc_3': '0.7488', 'loss': '0.4187', 'time': '21.2919'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8097', 'auc_3': '0.7576', 'loss': '0.4287', 'time': '21.4153'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8078', 'auc_3': '0.7723', 'loss': '0.4289', 'time': '21.4042'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.7965', 'auc_3': '0.7344', 'loss': '0.4549', 'time': '21.4596'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8148', 'auc_3': '0.7414', 'loss': '0.4300', 'time': '21.5490'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8288', 'auc_3': '0.7547', 'loss': '0.4039', 'time': '21.4047'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8122', 'auc_3_val': '0.7350', 'loss_val': '0.4412', 'streaming_map_val': '0.6515'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8506', 'auc_3': '0.7648', 'loss': '0.3712', 'time': '44.2135'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8436', 'auc_3': '0.7562', 'loss': '0.3828', 'time': '21.2564'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8103', 'auc_3': '0.7525', 'loss': '0.4280', 'time': '21.3213'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8183', 'auc_3': '0.7579', 'loss': '0.4174', 'time': '21.5095'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8271', 'auc_3': '0.7448', 'loss': '0.4104', 'time': '21.4561'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8212', 'auc_3': '0.7755', 'loss': '0.4106', 'time': '21.3263'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8109', 'auc_3': '0.7708', 'loss': '0.4264', 'time': '21.6798'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8177', 'auc_3': '0.7578', 'loss': '0.4196', 'time': '21.5197'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8275', 'auc_3': '0.7661', 'loss': '0.4061', 'time': '21.6242'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.7971', 'auc_3': '0.7767', 'loss': '0.4464', 'time': '21.4633'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8333', 'auc_3': '0.7763', 'loss': '0.3923', 'time': '21.4330'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8152', 'auc_3_val': '0.7424', 'loss_val': '0.4308', 'streaming_map_val': '0.6552'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8255', 'auc_3': '0.7724', 'loss': '0.4053', 'time': '44.5674'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8239', 'auc_3': '0.7719', 'loss': '0.4071', 'time': '21.5335'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8358', 'auc_3': '0.7620', 'loss': '0.3924', 'time': '21.1842'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8137', 'auc_3': '0.7562', 'loss': '0.4243', 'time': '21.4406'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8177', 'auc_3': '0.7859', 'loss': '0.4111', 'time': '21.4042'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8138', 'auc_3': '0.7544', 'loss': '0.4275', 'time': '21.3389'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8229', 'auc_3': '0.7738', 'loss': '0.4080', 'time': '21.7261'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8072', 'auc_3': '0.7613', 'loss': '0.4345', 'time': '21.6214'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8211', 'auc_3': '0.7669', 'loss': '0.4134', 'time': '21.5787'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8160', 'auc_3': '0.7679', 'loss': '0.4200', 'time': '21.3794'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8142', 'auc_3': '0.7565', 'loss': '0.4265', 'time': '21.5008'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8157', 'auc_3_val': '0.7421', 'loss_val': '0.4303', 'streaming_map_val': '0.6550'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.7912', 'auc_3': '0.7620', 'loss': '0.4510', 'time': '45.0907'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8201', 'auc_3': '0.7670', 'loss': '0.4123', 'time': '21.4357'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8323', 'auc_3': '0.7692', 'loss': '0.3981', 'time': '21.2526'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8168', 'auc_3': '0.7452', 'loss': '0.4257', 'time': '21.4345'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8305', 'auc_3': '0.7595', 'loss': '0.4016', 'time': '21.3316'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8120', 'auc_3': '0.7525', 'loss': '0.4300', 'time': '21.6310'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8122', 'auc_3': '0.7672', 'loss': '0.4252', 'time': '21.5037'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8238', 'auc_3': '0.7811', 'loss': '0.4041', 'time': '21.4245'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8224', 'auc_3': '0.7681', 'loss': '0.4105', 'time': '21.6429'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8100', 'auc_3': '0.7743', 'loss': '0.4293', 'time': '21.5881'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8255', 'auc_3': '0.7681', 'loss': '0.4055', 'time': '21.4267'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8192', 'auc_3': '0.7844', 'loss': '0.4095', 'time': '21.5935'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8143', 'auc_3_val': '0.7410', 'loss_val': '0.4323', 'streaming_map_val': '0.6538'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8573', 'auc_3': '0.7678', 'loss': '0.3594', 'time': '44.7816'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8336', 'auc_3': '0.7561', 'loss': '0.4025', 'time': '21.2657'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8206', 'auc_3': '0.7889', 'loss': '0.4034', 'time': '21.4403'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8254', 'auc_3': '0.7670', 'loss': '0.4056', 'time': '21.4226'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8205', 'auc_3': '0.7612', 'loss': '0.4144', 'time': '21.2999'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8292', 'auc_3': '0.7774', 'loss': '0.3985', 'time': '21.7618'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8158', 'auc_3': '0.7875', 'loss': '0.4150', 'time': '21.7204'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8271', 'auc_3': '0.7689', 'loss': '0.4019', 'time': '21.6272'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8300', 'auc_3': '0.7794', 'loss': '0.3990', 'time': '21.6204'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8107', 'auc_3': '0.7795', 'loss': '0.4222', 'time': '21.4719'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8190', 'auc_3': '0.7787', 'loss': '0.4116', 'time': '21.5291'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8145', 'auc_3_val': '0.7398', 'loss_val': '0.4334', 'streaming_map_val': '0.6533'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8145', 'auc_3_val': '0.7398', 'loss_val': '0.4334', 'streaming_map_val': '0.6533'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.4322537261218509,
+  "deep_learning_rate": 0.0047522753309403604,
+  "dnn_hidden_unit1": 256,
+  "dnn_hidden_unit2": 1024,
+  "dnn_hidden_unit3": 128,
+  "linear_learning_rate": 0.7278783792502589,
+  "warmup_epoch": 5
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.3502', 'auc_4': '0.5302', 'loss': '1.2680', 'time': '14.3245'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7741', 'auc_4': '0.5668', 'loss': '0.5656', 'time': '23.7923'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7917', 'auc_4': '0.6323', 'loss': '0.5030', 'time': '15.9448'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7899', 'auc_4': '0.6571', 'loss': '0.4947', 'time': '16.1449'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7944', 'auc_4': '0.6656', 'loss': '0.4865', 'time': '16.1583'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8112', 'auc_4': '0.6764', 'loss': '0.4556', 'time': '16.5106'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8009', 'auc_4': '0.7027', 'loss': '0.4531', 'time': '16.2952'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7908', 'auc_4': '0.7381', 'loss': '0.4705', 'time': '16.2230'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8148', 'auc_4': '0.7249', 'loss': '0.4358', 'time': '16.2383'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8199', 'auc_4': '0.7174', 'loss': '0.4286', 'time': '16.3056'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8167', 'auc_4': '0.7367', 'loss': '0.4345', 'time': '16.1434'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8205', 'auc_4': '0.7415', 'loss': '0.4258', 'time': '16.3535'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8077', 'auc_4_val': '0.7022', 'loss_val': '0.4580', 'streaming_map_val': '0.6367'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8175', 'auc_4': '0.7314', 'loss': '0.4291', 'time': '39.2069'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8193', 'auc_4': '0.7380', 'loss': '0.4248', 'time': '15.9792'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8165', 'auc_4': '0.7460', 'loss': '0.4264', 'time': '16.1003'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8200', 'auc_4': '0.7676', 'loss': '0.4299', 'time': '16.0399'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8212', 'auc_4': '0.7292', 'loss': '0.4266', 'time': '16.1371'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8134', 'auc_4': '0.7418', 'loss': '0.4318', 'time': '16.2487'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8133', 'auc_4': '0.7422', 'loss': '0.4344', 'time': '16.0878'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8114', 'auc_4': '0.7542', 'loss': '0.4305', 'time': '16.1798'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.7848', 'auc_4': '0.7509', 'loss': '0.4620', 'time': '16.1418'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7959', 'auc_4': '0.7575', 'loss': '0.4446', 'time': '16.0686'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8227', 'auc_4': '0.7366', 'loss': '0.4220', 'time': '16.0439'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8107', 'auc_4_val': '0.7248', 'loss_val': '0.4434', 'streaming_map_val': '0.6452'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8262', 'auc_4': '0.7465', 'loss': '0.4115', 'time': '33.1798'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8013', 'auc_4': '0.7452', 'loss': '0.4455', 'time': '15.9727'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8149', 'auc_4': '0.7408', 'loss': '0.4272', 'time': '15.9353'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8093', 'auc_4': '0.7396', 'loss': '0.4377', 'time': '16.0226'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.8054', 'auc_4': '0.7312', 'loss': '0.4449', 'time': '16.0249'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8124', 'auc_4': '0.7531', 'loss': '0.4324', 'time': '15.8806'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8189', 'auc_4': '0.7509', 'loss': '0.4223', 'time': '16.1857'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8014', 'auc_4': '0.7531', 'loss': '0.4417', 'time': '16.2273'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8155', 'auc_4': '0.7464', 'loss': '0.4304', 'time': '16.2139'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8038', 'auc_4': '0.7446', 'loss': '0.4455', 'time': '16.1738'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8113', 'auc_4': '0.7514', 'loss': '0.4275', 'time': '16.1211'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8111', 'auc_4_val': '0.7336', 'loss_val': '0.4381', 'streaming_map_val': '0.6490'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8055', 'auc_4': '0.7327', 'loss': '0.4396', 'time': '33.7366'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8311', 'auc_4': '0.7368', 'loss': '0.4079', 'time': '15.9764'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8059', 'auc_4': '0.7580', 'loss': '0.4358', 'time': '15.9303'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8216', 'auc_4': '0.7348', 'loss': '0.4229', 'time': '15.9929'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8131', 'auc_4': '0.7882', 'loss': '0.4300', 'time': '16.0444'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8181', 'auc_4': '0.7439', 'loss': '0.4261', 'time': '16.1700'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8138', 'auc_4': '0.7486', 'loss': '0.4286', 'time': '16.2407'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8114', 'auc_4': '0.7612', 'loss': '0.4266', 'time': '16.0543'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8036', 'auc_4': '0.7629', 'loss': '0.4365', 'time': '15.9906'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8154', 'auc_4': '0.7474', 'loss': '0.4270', 'time': '16.1764'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8230', 'auc_4': '0.7599', 'loss': '0.4184', 'time': '16.1909'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8065', 'auc_4': '0.7426', 'loss': '0.4419', 'time': '16.1770'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8141', 'auc_4_val': '0.7369', 'loss_val': '0.4363', 'streaming_map_val': '0.6533'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8463', 'auc_4': '0.7538', 'loss': '0.3776', 'time': '33.1278'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8376', 'auc_4': '0.7489', 'loss': '0.3938', 'time': '16.0570'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8023', 'auc_4': '0.7444', 'loss': '0.4444', 'time': '15.9897'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8331', 'auc_4': '0.7566', 'loss': '0.4001', 'time': '16.1358'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8158', 'auc_4': '0.7459', 'loss': '0.4271', 'time': '16.0908'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8216', 'auc_4': '0.7587', 'loss': '0.4195', 'time': '16.2248'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8099', 'auc_4': '0.7565', 'loss': '0.4326', 'time': '16.1858'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8172', 'auc_4': '0.7631', 'loss': '0.4203', 'time': '15.8291'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8241', 'auc_4': '0.7621', 'loss': '0.4093', 'time': '16.1344'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.7977', 'auc_4': '0.7654', 'loss': '0.4419', 'time': '15.9351'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8143', 'auc_4': '0.7536', 'loss': '0.4230', 'time': '16.0477'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8141', 'auc_4_val': '0.7391', 'loss_val': '0.4388', 'streaming_map_val': '0.6543'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8174', 'auc_4': '0.7463', 'loss': '0.4245', 'time': '33.8439'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8286', 'auc_4': '0.7610', 'loss': '0.4028', 'time': '15.9313'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8050', 'auc_4': '0.7693', 'loss': '0.4367', 'time': '15.9802'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8117', 'auc_4': '0.7651', 'loss': '0.4275', 'time': '16.0457'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8163', 'auc_4': '0.7559', 'loss': '0.4229', 'time': '16.1218'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8148', 'auc_4': '0.7515', 'loss': '0.4273', 'time': '16.0616'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8251', 'auc_4': '0.7672', 'loss': '0.4083', 'time': '15.9841'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8027', 'auc_4': '0.7552', 'loss': '0.4380', 'time': '16.1038'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8150', 'auc_4': '0.7620', 'loss': '0.4261', 'time': '16.1519'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8149', 'auc_4': '0.7627', 'loss': '0.4256', 'time': '16.1609'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8288', 'auc_4': '0.7554', 'loss': '0.4050', 'time': '16.3171'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8157', 'auc_4_val': '0.7423', 'loss_val': '0.4310', 'streaming_map_val': '0.6558'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8187', 'auc_4': '0.7537', 'loss': '0.4228', 'time': '33.8566'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8014', 'auc_4': '0.7720', 'loss': '0.4429', 'time': '16.1163'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8197', 'auc_4': '0.7596', 'loss': '0.4188', 'time': '16.0448'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8053', 'auc_4': '0.7545', 'loss': '0.4391', 'time': '16.0259'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8281', 'auc_4': '0.7588', 'loss': '0.4053', 'time': '16.1177'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8323', 'auc_4': '0.7728', 'loss': '0.3927', 'time': '16.0880'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8164', 'auc_4': '0.7602', 'loss': '0.4213', 'time': '16.1376'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8166', 'auc_4': '0.7697', 'loss': '0.4142', 'time': '16.0909'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8329', 'auc_4': '0.7685', 'loss': '0.3961', 'time': '16.1451'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8098', 'auc_4': '0.7515', 'loss': '0.4365', 'time': '16.0780'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8144', 'auc_4': '0.7653', 'loss': '0.4200', 'time': '16.1414'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8237', 'auc_4': '0.7804', 'loss': '0.4057', 'time': '16.1991'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8159', 'auc_4_val': '0.7434', 'loss_val': '0.4298', 'streaming_map_val': '0.6564'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8405', 'auc_4': '0.7604', 'loss': '0.3875', 'time': '33.3209'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8203', 'auc_4': '0.7596', 'loss': '0.4172', 'time': '16.0292'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8150', 'auc_4': '0.7751', 'loss': '0.4139', 'time': '16.0385'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8187', 'auc_4': '0.7543', 'loss': '0.4181', 'time': '15.9983'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8200', 'auc_4': '0.7553', 'loss': '0.4154', 'time': '16.3283'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8241', 'auc_4': '0.7660', 'loss': '0.4075', 'time': '15.9312'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8168', 'auc_4': '0.7720', 'loss': '0.4172', 'time': '16.1550'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8207', 'auc_4': '0.7800', 'loss': '0.4107', 'time': '16.2481'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8268', 'auc_4': '0.7747', 'loss': '0.4047', 'time': '16.0728'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8191', 'auc_4': '0.7806', 'loss': '0.4125', 'time': '16.0240'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8134', 'auc_4': '0.7714', 'loss': '0.4242', 'time': '16.2481'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8159', 'auc_4_val': '0.7432', 'loss_val': '0.4300', 'streaming_map_val': '0.6561'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8159', 'auc_4_val': '0.7432', 'loss_val': '0.4300', 'streaming_map_val': '0.6561'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.2709388814015595,
+  "deep_learning_rate": 0.0006227171812247913,
+  "dnn_hidden_unit1": 128,
+  "dnn_hidden_unit2": 512,
+  "dnn_hidden_unit3": 64,
+  "linear_learning_rate": 0.15364610806749776,
+  "warmup_epoch": 2
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5035', 'auc_5': '0.5224', 'loss': '0.9371', 'time': '13.3673'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7750', 'auc_5': '0.5338', 'loss': '0.5739', 'time': '17.7157'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7597', 'auc_5': '0.5714', 'loss': '0.5880', 'time': '10.3632'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7797', 'auc_5': '0.6101', 'loss': '0.5299', 'time': '10.3712'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7988', 'auc_5': '0.6314', 'loss': '0.4910', 'time': '10.5732'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7999', 'auc_5': '0.6332', 'loss': '0.4881', 'time': '10.3626'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7987', 'auc_5': '0.6496', 'loss': '0.4840', 'time': '10.4305'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7952', 'auc_5': '0.6673', 'loss': '0.4809', 'time': '10.6002'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7978', 'auc_5': '0.6656', 'loss': '0.4771', 'time': '10.4456'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8000', 'auc_5': '0.6792', 'loss': '0.4695', 'time': '10.5191'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7862', 'auc_5': '0.7395', 'loss': '0.4672', 'time': '10.5269'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8119', 'auc_5': '0.7173', 'loss': '0.4423', 'time': '10.7844'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8087', 'auc_5_val': '0.7070', 'loss_val': '0.4507', 'streaming_map_val': '0.6353'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8215', 'auc_5': '0.7062', 'loss': '0.4318', 'time': '28.9144'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8303', 'auc_5': '0.7199', 'loss': '0.4176', 'time': '10.7297'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8069', 'auc_5': '0.7172', 'loss': '0.4520', 'time': '10.4541'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8127', 'auc_5': '0.7551', 'loss': '0.4443', 'time': '10.6669'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8221', 'auc_5': '0.7000', 'loss': '0.4341', 'time': '10.5592'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8211', 'auc_5': '0.7195', 'loss': '0.4267', 'time': '10.7684'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8069', 'auc_5': '0.7346', 'loss': '0.4423', 'time': '10.6426'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8148', 'auc_5': '0.7487', 'loss': '0.4247', 'time': '10.7125'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.7956', 'auc_5': '0.7493', 'loss': '0.4506', 'time': '10.9777'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7865', 'auc_5': '0.7634', 'loss': '0.4573', 'time': '10.6955'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8167', 'auc_5': '0.7349', 'loss': '0.4302', 'time': '10.6677'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8104', 'auc_5_val': '0.7193', 'loss_val': '0.4434', 'streaming_map_val': '0.6403'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8071', 'auc_5': '0.7191', 'loss': '0.4492', 'time': '24.1125'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8215', 'auc_5': '0.7538', 'loss': '0.4227', 'time': '10.5104'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8257', 'auc_5': '0.7342', 'loss': '0.4219', 'time': '10.4253'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8129', 'auc_5': '0.7176', 'loss': '0.4434', 'time': '10.7689'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.7971', 'auc_5': '0.7304', 'loss': '0.4554', 'time': '10.6754'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8250', 'auc_5': '0.7430', 'loss': '0.4171', 'time': '10.6581'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8135', 'auc_5': '0.7324', 'loss': '0.4318', 'time': '10.5945'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8087', 'auc_5': '0.7411', 'loss': '0.4358', 'time': '10.9091'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8041', 'auc_5': '0.7286', 'loss': '0.4478', 'time': '10.6992'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8060', 'auc_5': '0.7428', 'loss': '0.4392', 'time': '10.7321'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8239', 'auc_5': '0.7649', 'loss': '0.4129', 'time': '10.7208'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8113', 'auc_5_val': '0.7259', 'loss_val': '0.4398', 'streaming_map_val': '0.6433'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8036', 'auc_5': '0.6821', 'loss': '0.4707', 'time': '23.9113'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8156', 'auc_5': '0.7137', 'loss': '0.4367', 'time': '10.4109'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8256', 'auc_5': '0.7582', 'loss': '0.4080', 'time': '10.5352'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8186', 'auc_5': '0.7309', 'loss': '0.4267', 'time': '10.4453'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8239', 'auc_5': '0.7526', 'loss': '0.4144', 'time': '10.6187'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8257', 'auc_5': '0.7470', 'loss': '0.4143', 'time': '10.6269'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8117', 'auc_5': '0.7374', 'loss': '0.4362', 'time': '10.8068'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8098', 'auc_5': '0.7574', 'loss': '0.4326', 'time': '10.6917'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8137', 'auc_5': '0.7564', 'loss': '0.4257', 'time': '10.6800'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8201', 'auc_5': '0.7420', 'loss': '0.4229', 'time': '10.6868'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8154', 'auc_5': '0.7429', 'loss': '0.4277', 'time': '10.6677'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8256', 'auc_5': '0.7381', 'loss': '0.4158', 'time': '10.6669'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8125', 'auc_5_val': '0.7310', 'loss_val': '0.4369', 'streaming_map_val': '0.6460'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8789', 'auc_5': '0.7315', 'loss': '0.3300', 'time': '24.0151'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8419', 'auc_5': '0.7690', 'loss': '0.3828', 'time': '10.5016'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8037', 'auc_5': '0.7145', 'loss': '0.4504', 'time': '10.6163'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8039', 'auc_5': '0.7306', 'loss': '0.4492', 'time': '10.6314'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8161', 'auc_5': '0.7386', 'loss': '0.4296', 'time': '10.6441'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8066', 'auc_5': '0.7436', 'loss': '0.4393', 'time': '10.8632'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8311', 'auc_5': '0.7639', 'loss': '0.4016', 'time': '10.5248'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8032', 'auc_5': '0.7422', 'loss': '0.4426', 'time': '10.6313'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8044', 'auc_5': '0.7475', 'loss': '0.4438', 'time': '10.7527'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8161', 'auc_5': '0.7546', 'loss': '0.4241', 'time': '10.7185'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8222', 'auc_5': '0.7558', 'loss': '0.4177', 'time': '10.5837'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8135', 'auc_5_val': '0.7340', 'loss_val': '0.4350', 'streaming_map_val': '0.6481'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8175', 'auc_5': '0.7405', 'loss': '0.4268', 'time': '23.7587'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8215', 'auc_5': '0.7447', 'loss': '0.4169', 'time': '10.4415'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8316', 'auc_5': '0.7166', 'loss': '0.4181', 'time': '10.5132'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8178', 'auc_5': '0.7327', 'loss': '0.4300', 'time': '10.7176'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8233', 'auc_5': '0.7576', 'loss': '0.4128', 'time': '10.5736'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8118', 'auc_5': '0.7369', 'loss': '0.4340', 'time': '10.7213'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8284', 'auc_5': '0.7469', 'loss': '0.4070', 'time': '10.6475'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8185', 'auc_5': '0.7398', 'loss': '0.4240', 'time': '10.5595'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8074', 'auc_5': '0.7468', 'loss': '0.4414', 'time': '10.6980'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8187', 'auc_5': '0.7423', 'loss': '0.4253', 'time': '10.5977'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8308', 'auc_5': '0.7256', 'loss': '0.4111', 'time': '10.7905'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8140', 'auc_5_val': '0.7351', 'loss_val': '0.4342', 'streaming_map_val': '0.6491'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8185', 'auc_5': '0.7447', 'loss': '0.4236', 'time': '23.7908'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8074', 'auc_5': '0.7574', 'loss': '0.4455', 'time': '10.6196'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8144', 'auc_5': '0.7408', 'loss': '0.4315', 'time': '10.5722'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8156', 'auc_5': '0.7165', 'loss': '0.4380', 'time': '10.5628'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8384', 'auc_5': '0.7343', 'loss': '0.3993', 'time': '10.5896'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8197', 'auc_5': '0.7383', 'loss': '0.4238', 'time': '10.6206'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8087', 'auc_5': '0.7347', 'loss': '0.4402', 'time': '10.8400'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8097', 'auc_5': '0.7533', 'loss': '0.4334', 'time': '10.6271'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8092', 'auc_5': '0.7446', 'loss': '0.4354', 'time': '10.7582'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8087', 'auc_5': '0.7430', 'loss': '0.4415', 'time': '10.6785'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8243', 'auc_5': '0.7455', 'loss': '0.4142', 'time': '10.6097'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8128', 'auc_5': '0.7479', 'loss': '0.4309', 'time': '10.6451'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8142', 'auc_5_val': '0.7358', 'loss_val': '0.4340', 'streaming_map_val': '0.6498'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8540', 'auc_5': '0.7444', 'loss': '0.3733', 'time': '23.7574'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8280', 'auc_5': '0.7318', 'loss': '0.4144', 'time': '10.5330'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8232', 'auc_5': '0.7516', 'loss': '0.4136', 'time': '10.4249'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8183', 'auc_5': '0.7313', 'loss': '0.4273', 'time': '10.4967'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8090', 'auc_5': '0.7276', 'loss': '0.4418', 'time': '10.7422'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8180', 'auc_5': '0.7321', 'loss': '0.4274', 'time': '10.6167'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8062', 'auc_5': '0.7480', 'loss': '0.4415', 'time': '10.6846'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8124', 'auc_5': '0.7428', 'loss': '0.4294', 'time': '11.0362'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8221', 'auc_5': '0.7351', 'loss': '0.4212', 'time': '10.5420'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8289', 'auc_5': '0.7344', 'loss': '0.4131', 'time': '10.6637'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8116', 'auc_5': '0.7494', 'loss': '0.4335', 'time': '10.5960'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8144', 'auc_5_val': '0.7363', 'loss_val': '0.4337', 'streaming_map_val': '0.6502'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8144', 'auc_5_val': '0.7363', 'loss_val': '0.4337', 'streaming_map_val': '0.6502'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.10062955954638157,
+  "deep_learning_rate": 0.03426328658932478,
+  "dnn_hidden_unit1": 128,
+  "dnn_hidden_unit2": 512,
+  "dnn_hidden_unit3": 512,
+  "linear_learning_rate": 0.09729155505611732,
+  "warmup_epoch": 6
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5174', 'auc_6': '0.4599', 'loss': '0.8675', 'time': '14.3668'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7880', 'auc_6': '0.6202', 'loss': '0.4998', 'time': '20.9687'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7932', 'auc_6': '0.6371', 'loss': '0.5165', 'time': '13.4668'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7788', 'auc_6': '0.6870', 'loss': '0.4907', 'time': '13.3893'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7708', 'auc_6': '0.6902', 'loss': '0.5103', 'time': '13.5512'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8004', 'auc_6': '0.6973', 'loss': '0.4600', 'time': '13.5712'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8061', 'auc_6': '0.7151', 'loss': '0.4520', 'time': '13.4908'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.8141', 'auc_6': '0.7306', 'loss': '0.4412', 'time': '13.6127'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8029', 'auc_6': '0.7158', 'loss': '0.4568', 'time': '13.6738'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8051', 'auc_6': '0.7139', 'loss': '0.4532', 'time': '13.5415'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8221', 'auc_6': '0.7401', 'loss': '0.4232', 'time': '13.5423'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8114', 'auc_6': '0.7204', 'loss': '0.4435', 'time': '13.6300'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8110', 'auc_6_val': '0.7196', 'loss_val': '0.4499', 'streaming_map_val': '0.6426'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8254', 'auc_6': '0.7709', 'loss': '0.4186', 'time': '34.6460'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8294', 'auc_6': '0.7446', 'loss': '0.4121', 'time': '13.4955'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8059', 'auc_6': '0.7366', 'loss': '0.4462', 'time': '13.3807'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8190', 'auc_6': '0.7374', 'loss': '0.4212', 'time': '13.5624'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8296', 'auc_6': '0.7257', 'loss': '0.4158', 'time': '13.4902'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8165', 'auc_6': '0.7566', 'loss': '0.4258', 'time': '13.6184'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8089', 'auc_6': '0.7465', 'loss': '0.4403', 'time': '13.6181'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8176', 'auc_6': '0.7495', 'loss': '0.4224', 'time': '13.6721'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8025', 'auc_6': '0.7664', 'loss': '0.4323', 'time': '13.5874'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7960', 'auc_6': '0.7744', 'loss': '0.4411', 'time': '13.5927'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8151', 'auc_6': '0.7463', 'loss': '0.4258', 'time': '13.4591'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8130', 'auc_6_val': '0.7295', 'loss_val': '0.4596', 'streaming_map_val': '0.6485'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8003', 'auc_6': '0.7385', 'loss': '0.4484', 'time': '29.6281'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8007', 'auc_6': '0.7770', 'loss': '0.4358', 'time': '13.2530'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8217', 'auc_6': '0.7370', 'loss': '0.4244', 'time': '13.5300'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8105', 'auc_6': '0.7245', 'loss': '0.4434', 'time': '13.5278'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.7972', 'auc_6': '0.7401', 'loss': '0.4529', 'time': '13.5862'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8362', 'auc_6': '0.7660', 'loss': '0.3946', 'time': '13.5403'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8073', 'auc_6': '0.7570', 'loss': '0.4324', 'time': '13.5056'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8100', 'auc_6': '0.7562', 'loss': '0.4306', 'time': '13.5346'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8072', 'auc_6': '0.7679', 'loss': '0.4368', 'time': '13.7230'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8127', 'auc_6': '0.7498', 'loss': '0.4330', 'time': '13.5006'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8183', 'auc_6': '0.7512', 'loss': '0.4192', 'time': '13.4949'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.7987', 'auc_6_val': '0.7253', 'loss_val': '0.4953', 'streaming_map_val': '0.6447'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.7795', 'auc_6': '0.7382', 'loss': '0.4751', 'time': '29.2535'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8307', 'auc_6': '0.7430', 'loss': '0.4062', 'time': '13.5174'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8301', 'auc_6': '0.7592', 'loss': '0.4041', 'time': '13.3179'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.7913', 'auc_6': '0.7156', 'loss': '0.4640', 'time': '13.6926'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8134', 'auc_6': '0.7457', 'loss': '0.4280', 'time': '13.5522'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8189', 'auc_6': '0.7479', 'loss': '0.4233', 'time': '13.5568'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8257', 'auc_6': '0.7698', 'loss': '0.4075', 'time': '13.5731'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8119', 'auc_6': '0.7636', 'loss': '0.4253', 'time': '13.7251'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8098', 'auc_6': '0.7616', 'loss': '0.4315', 'time': '13.5185'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8167', 'auc_6': '0.7513', 'loss': '0.4268', 'time': '13.5967'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8200', 'auc_6': '0.7588', 'loss': '0.4222', 'time': '13.5027'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8239', 'auc_6': '0.7598', 'loss': '0.4134', 'time': '13.5749'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.7963', 'auc_6_val': '0.7299', 'loss_val': '0.4663', 'streaming_map_val': '0.6475'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8461', 'auc_6': '0.7569', 'loss': '0.3788', 'time': '29.0554'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8296', 'auc_6': '0.7268', 'loss': '0.4190', 'time': '13.3847'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8044', 'auc_6': '0.7636', 'loss': '0.4381', 'time': '13.6334'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8257', 'auc_6': '0.7552', 'loss': '0.4120', 'time': '13.4876'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8188', 'auc_6': '0.7547', 'loss': '0.4194', 'time': '13.4562'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8102', 'auc_6': '0.7637', 'loss': '0.4276', 'time': '13.5442'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8092', 'auc_6': '0.7614', 'loss': '0.4384', 'time': '13.5841'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8117', 'auc_6': '0.7670', 'loss': '0.4205', 'time': '13.6337'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8107', 'auc_6': '0.7876', 'loss': '0.4137', 'time': '13.3788'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8059', 'auc_6': '0.7826', 'loss': '0.4258', 'time': '13.8323'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8193', 'auc_6': '0.7635', 'loss': '0.4243', 'time': '13.5494'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8052', 'auc_6_val': '0.7231', 'loss_val': '0.4775', 'streaming_map_val': '0.6437'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8220', 'auc_6': '0.7619', 'loss': '0.4148', 'time': '29.3254'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8260', 'auc_6': '0.7656', 'loss': '0.4253', 'time': '13.3305'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8235', 'auc_6': '0.7514', 'loss': '0.4118', 'time': '13.3762'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8037', 'auc_6': '0.7614', 'loss': '0.4363', 'time': '13.6084'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8264', 'auc_6': '0.7634', 'loss': '0.4063', 'time': '13.4319'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8197', 'auc_6': '0.7448', 'loss': '0.4355', 'time': '13.5031'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8156', 'auc_6': '0.7644', 'loss': '0.4264', 'time': '13.5665'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8073', 'auc_6': '0.7613', 'loss': '0.4320', 'time': '13.6373'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8042', 'auc_6': '0.7580', 'loss': '0.4400', 'time': '13.6724'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8000', 'auc_6': '0.7653', 'loss': '0.5103', 'time': '13.4634'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8200', 'auc_6': '0.7641', 'loss': '0.4168', 'time': '13.7306'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8081', 'auc_6_val': '0.7277', 'loss_val': '0.4600', 'streaming_map_val': '0.6450'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8102', 'auc_6': '0.7623', 'loss': '0.4319', 'time': '29.1494'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8108', 'auc_6': '0.7763', 'loss': '0.4367', 'time': '13.5336'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8126', 'auc_6': '0.7640', 'loss': '0.4300', 'time': '13.3286'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8097', 'auc_6': '0.7345', 'loss': '0.4410', 'time': '13.4202'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8222', 'auc_6': '0.7741', 'loss': '0.4113', 'time': '13.4250'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8116', 'auc_6': '0.7711', 'loss': '0.4286', 'time': '13.5004'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8214', 'auc_6': '0.7754', 'loss': '0.4082', 'time': '13.6005'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8189', 'auc_6': '0.7780', 'loss': '0.4102', 'time': '13.6830'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8348', 'auc_6': '0.7773', 'loss': '0.3919', 'time': '13.6245'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8148', 'auc_6': '0.7816', 'loss': '0.4186', 'time': '13.4946'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8128', 'auc_6': '0.7738', 'loss': '0.4234', 'time': '13.4705'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8149', 'auc_6': '0.7788', 'loss': '0.4207', 'time': '13.4424'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8110', 'auc_6_val': '0.7342', 'loss_val': '0.4431', 'streaming_map_val': '0.6490'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8489', 'auc_6': '0.7800', 'loss': '0.3696', 'time': '28.9719'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8300', 'auc_6': '0.7840', 'loss': '0.3976', 'time': '13.5315'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8384', 'auc_6': '0.7655', 'loss': '0.3858', 'time': '13.3801'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8227', 'auc_6': '0.7996', 'loss': '0.4097', 'time': '13.4260'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8345', 'auc_6': '0.7681', 'loss': '0.3938', 'time': '13.5584'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8123', 'auc_6': '0.7655', 'loss': '0.4248', 'time': '13.5224'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8196', 'auc_6': '0.7899', 'loss': '0.4131', 'time': '13.5124'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8292', 'auc_6': '0.7934', 'loss': '0.3951', 'time': '13.5611'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8223', 'auc_6': '0.7887', 'loss': '0.4033', 'time': '13.4767'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8157', 'auc_6': '0.7946', 'loss': '0.4164', 'time': '13.5561'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8175', 'auc_6': '0.7771', 'loss': '0.4158', 'time': '13.6535'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8118', 'auc_6_val': '0.7346', 'loss_val': '0.4425', 'streaming_map_val': '0.6494'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8118', 'auc_6_val': '0.7346', 'loss_val': '0.4425', 'streaming_map_val': '0.6494'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.3868000493117462,
+  "deep_learning_rate": 0.004591257232969609,
+  "dnn_hidden_unit1": 64,
+  "dnn_hidden_unit2": 64,
+  "dnn_hidden_unit3": 64,
+  "linear_learning_rate": 1.0,
+  "warmup_epoch": 4
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.3732', 'auc_7': '0.4770', 'loss': '1.1075', 'time': '13.2392'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7718', 'auc_7': '0.5338', 'loss': '0.5779', 'time': '14.7116'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7840', 'auc_7': '0.5885', 'loss': '0.5275', 'time': '7.2819'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.8114', 'auc_7': '0.6431', 'loss': '0.4650', 'time': '7.2995'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7975', 'auc_7': '0.6407', 'loss': '0.4881', 'time': '7.3687'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7972', 'auc_7': '0.6698', 'loss': '0.4777', 'time': '7.2300'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8017', 'auc_7': '0.6801', 'loss': '0.4673', 'time': '7.2763'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.8032', 'auc_7': '0.7175', 'loss': '0.4526', 'time': '7.3703'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8058', 'auc_7': '0.7007', 'loss': '0.4560', 'time': '7.3708'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8147', 'auc_7': '0.7168', 'loss': '0.4382', 'time': '7.1740'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7887', 'auc_7': '0.7699', 'loss': '0.4478', 'time': '7.2237'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8185', 'auc_7': '0.7393', 'loss': '0.4271', 'time': '7.3433'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8090', 'auc_7_val': '0.7048', 'loss_val': '0.4501', 'streaming_map_val': '0.6378'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8183', 'auc_7': '0.7335', 'loss': '0.4263', 'time': '23.1059'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8275', 'auc_7': '0.7403', 'loss': '0.4103', 'time': '7.1119'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8226', 'auc_7': '0.7301', 'loss': '0.4232', 'time': '7.3844'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8287', 'auc_7': '0.7555', 'loss': '0.4220', 'time': '7.2596'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8275', 'auc_7': '0.7196', 'loss': '0.4188', 'time': '7.3031'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8226', 'auc_7': '0.7302', 'loss': '0.4218', 'time': '7.2940'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8103', 'auc_7': '0.7477', 'loss': '0.4341', 'time': '7.3545'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8172', 'auc_7': '0.7347', 'loss': '0.4282', 'time': '7.3667'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8126', 'auc_7': '0.7420', 'loss': '0.4325', 'time': '7.4388'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7953', 'auc_7': '0.7506', 'loss': '0.4479', 'time': '7.2950'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8211', 'auc_7': '0.7518', 'loss': '0.4186', 'time': '7.3816'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8106', 'auc_7_val': '0.7246', 'loss_val': '0.4410', 'streaming_map_val': '0.6442'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8081', 'auc_7': '0.7430', 'loss': '0.4357', 'time': '17.8992'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.7910', 'auc_7': '0.7557', 'loss': '0.4530', 'time': '7.2540'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8207', 'auc_7': '0.7184', 'loss': '0.4297', 'time': '7.3170'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8083', 'auc_7': '0.7223', 'loss': '0.4476', 'time': '7.3347'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.8130', 'auc_7': '0.7450', 'loss': '0.4313', 'time': '7.3505'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8173', 'auc_7': '0.7477', 'loss': '0.4239', 'time': '7.3767'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8131', 'auc_7': '0.7549', 'loss': '0.4271', 'time': '7.4232'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8190', 'auc_7': '0.7533', 'loss': '0.4164', 'time': '7.3983'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8176', 'auc_7': '0.7407', 'loss': '0.4271', 'time': '7.2937'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8105', 'auc_7': '0.7511', 'loss': '0.4341', 'time': '7.3177'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8191', 'auc_7': '0.7579', 'loss': '0.4187', 'time': '7.3620'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8128', 'auc_7_val': '0.7353', 'loss_val': '0.4346', 'streaming_map_val': '0.6494'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.7987', 'auc_7': '0.7423', 'loss': '0.4473', 'time': '18.0914'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8171', 'auc_7': '0.7303', 'loss': '0.4285', 'time': '7.1410'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8023', 'auc_7': '0.7496', 'loss': '0.4434', 'time': '7.2364'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8098', 'auc_7': '0.7444', 'loss': '0.4307', 'time': '7.2616'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8230', 'auc_7': '0.7515', 'loss': '0.4173', 'time': '7.3104'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8240', 'auc_7': '0.7517', 'loss': '0.4128', 'time': '7.2912'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8185', 'auc_7': '0.7473', 'loss': '0.4210', 'time': '7.4007'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8165', 'auc_7': '0.7636', 'loss': '0.4193', 'time': '7.3390'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8187', 'auc_7': '0.7444', 'loss': '0.4230', 'time': '7.2495'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8035', 'auc_7': '0.7475', 'loss': '0.4438', 'time': '7.3155'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8160', 'auc_7': '0.7480', 'loss': '0.4295', 'time': '7.4860'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8132', 'auc_7': '0.7661', 'loss': '0.4246', 'time': '7.4286'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8147', 'auc_7_val': '0.7395', 'loss_val': '0.4335', 'streaming_map_val': '0.6528'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8699', 'auc_7': '0.7579', 'loss': '0.3363', 'time': '17.7103'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8339', 'auc_7': '0.7343', 'loss': '0.4056', 'time': '7.1973'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8042', 'auc_7': '0.7347', 'loss': '0.4463', 'time': '7.2801'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8041', 'auc_7': '0.7534', 'loss': '0.4411', 'time': '7.4118'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8164', 'auc_7': '0.7641', 'loss': '0.4173', 'time': '7.3187'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8230', 'auc_7': '0.7655', 'loss': '0.4143', 'time': '7.3358'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8136', 'auc_7': '0.7681', 'loss': '0.4240', 'time': '7.2856'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8153', 'auc_7': '0.7547', 'loss': '0.4228', 'time': '7.4711'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8167', 'auc_7': '0.7686', 'loss': '0.4176', 'time': '7.2682'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8134', 'auc_7': '0.7551', 'loss': '0.4245', 'time': '7.4406'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8289', 'auc_7': '0.7616', 'loss': '0.4022', 'time': '7.2756'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8149', 'auc_7_val': '0.7416', 'loss_val': '0.4313', 'streaming_map_val': '0.6543'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8102', 'auc_7': '0.7453', 'loss': '0.4344', 'time': '18.0485'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8199', 'auc_7': '0.7504', 'loss': '0.4182', 'time': '7.1966'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8157', 'auc_7': '0.7670', 'loss': '0.4226', 'time': '7.2871'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8086', 'auc_7': '0.7573', 'loss': '0.4342', 'time': '7.3282'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8274', 'auc_7': '0.7426', 'loss': '0.4123', 'time': '7.3052'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8075', 'auc_7': '0.7468', 'loss': '0.4358', 'time': '7.4278'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8182', 'auc_7': '0.7473', 'loss': '0.4222', 'time': '7.2580'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8109', 'auc_7': '0.7631', 'loss': '0.4262', 'time': '7.3807'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8141', 'auc_7': '0.7589', 'loss': '0.4276', 'time': '7.3185'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8170', 'auc_7': '0.7475', 'loss': '0.4240', 'time': '7.2229'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8287', 'auc_7': '0.7555', 'loss': '0.4059', 'time': '7.3485'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8152', 'auc_7_val': '0.7421', 'loss_val': '0.4307', 'streaming_map_val': '0.6547'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8027', 'auc_7': '0.7508', 'loss': '0.4468', 'time': '18.0188'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8200', 'auc_7': '0.7515', 'loss': '0.4181', 'time': '7.2961'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8167', 'auc_7': '0.7665', 'loss': '0.4229', 'time': '7.1480'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8088', 'auc_7': '0.7350', 'loss': '0.4410', 'time': '7.3385'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8237', 'auc_7': '0.7554', 'loss': '0.4137', 'time': '7.3019'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8267', 'auc_7': '0.7454', 'loss': '0.4115', 'time': '7.2586'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8127', 'auc_7': '0.7597', 'loss': '0.4271', 'time': '7.3017'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8199', 'auc_7': '0.7666', 'loss': '0.4148', 'time': '7.2992'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8258', 'auc_7': '0.7513', 'loss': '0.4103', 'time': '7.4171'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8198', 'auc_7': '0.7546', 'loss': '0.4204', 'time': '7.2900'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8250', 'auc_7': '0.7749', 'loss': '0.4068', 'time': '7.2621'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8002', 'auc_7': '0.7581', 'loss': '0.4446', 'time': '7.3496'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8156', 'auc_7_val': '0.7423', 'loss_val': '0.4303', 'streaming_map_val': '0.6551'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8346', 'auc_7': '0.7464', 'loss': '0.4028', 'time': '17.8422'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8416', 'auc_7': '0.7757', 'loss': '0.3812', 'time': '7.3419'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8246', 'auc_7': '0.7687', 'loss': '0.4050', 'time': '7.2929'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8322', 'auc_7': '0.7724', 'loss': '0.3941', 'time': '7.1814'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8158', 'auc_7': '0.7523', 'loss': '0.4228', 'time': '7.2269'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8082', 'auc_7': '0.7445', 'loss': '0.4379', 'time': '7.3953'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8165', 'auc_7': '0.7615', 'loss': '0.4237', 'time': '7.3325'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8240', 'auc_7': '0.7699', 'loss': '0.4085', 'time': '7.4415'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8317', 'auc_7': '0.7940', 'loss': '0.4018', 'time': '7.2961'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8145', 'auc_7': '0.7583', 'loss': '0.4263', 'time': '7.2411'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8306', 'auc_7': '0.7697', 'loss': '0.3981', 'time': '7.3215'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8157', 'auc_7_val': '0.7424', 'loss_val': '0.4303', 'streaming_map_val': '0.6551'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8157', 'auc_7_val': '0.7424', 'loss_val': '0.4303', 'streaming_map_val': '0.6551'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.3533938819797329,
+  "deep_learning_rate": 0.004796131456697766,
+  "dnn_hidden_unit1": 64,
+  "dnn_hidden_unit2": 512,
+  "dnn_hidden_unit3": 64,
+  "linear_learning_rate": 0.5065398884828612,
+  "warmup_epoch": 4
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5261', 'auc_8': '0.4902', 'loss': '0.8309', 'time': '13.9645'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7939', 'auc_8': '0.5389', 'loss': '0.5345', 'time': '17.7680'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7909', 'auc_8': '0.6127', 'loss': '0.5060', 'time': '9.8810'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.8071', 'auc_8': '0.6404', 'loss': '0.4671', 'time': '9.9865'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.8133', 'auc_8': '0.6561', 'loss': '0.4611', 'time': '10.1077'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8044', 'auc_8': '0.6680', 'loss': '0.4695', 'time': '9.9245'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8190', 'auc_8': '0.6968', 'loss': '0.4398', 'time': '10.0228'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7877', 'auc_8': '0.7251', 'loss': '0.4782', 'time': '10.0846'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8185', 'auc_8': '0.7211', 'loss': '0.4320', 'time': '10.3556'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8065', 'auc_8': '0.7204', 'loss': '0.4475', 'time': '9.9725'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7573', 'auc_8': '0.7771', 'loss': '0.4774', 'time': '9.9506'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8147', 'auc_8': '0.7499', 'loss': '0.4296', 'time': '9.9599'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8084', 'auc_8_val': '0.7058', 'loss_val': '0.4513', 'streaming_map_val': '0.6347'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8103', 'auc_8': '0.7330', 'loss': '0.4371', 'time': '28.4404'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8102', 'auc_8': '0.7257', 'loss': '0.4446', 'time': '9.8616'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8162', 'auc_8': '0.7427', 'loss': '0.4296', 'time': '9.9232'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8326', 'auc_8': '0.7697', 'loss': '0.4134', 'time': '10.0012'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8181', 'auc_8': '0.7340', 'loss': '0.4260', 'time': '9.9968'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8049', 'auc_8': '0.7223', 'loss': '0.4499', 'time': '9.9666'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8030', 'auc_8': '0.7535', 'loss': '0.4434', 'time': '10.0680'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8164', 'auc_8': '0.7469', 'loss': '0.4273', 'time': '10.1150'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8105', 'auc_8': '0.7649', 'loss': '0.4248', 'time': '10.1128'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.7967', 'auc_8': '0.7630', 'loss': '0.4423', 'time': '10.0278'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8375', 'auc_8': '0.7529', 'loss': '0.3942', 'time': '10.0099'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8108', 'auc_8_val': '0.7242', 'loss_val': '0.4423', 'streaming_map_val': '0.6434'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8148', 'auc_8': '0.7452', 'loss': '0.4261', 'time': '23.0213'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.7959', 'auc_8': '0.7615', 'loss': '0.4590', 'time': '9.9887'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8091', 'auc_8': '0.7245', 'loss': '0.4355', 'time': '9.8883'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8120', 'auc_8': '0.7443', 'loss': '0.4337', 'time': '9.9890'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.8026', 'auc_8': '0.7402', 'loss': '0.4441', 'time': '10.3375'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8266', 'auc_8': '0.7400', 'loss': '0.4144', 'time': '10.0182'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8251', 'auc_8': '0.7591', 'loss': '0.4069', 'time': '10.0393'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8158', 'auc_8': '0.7561', 'loss': '0.4235', 'time': '10.0548'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8152', 'auc_8': '0.7408', 'loss': '0.4292', 'time': '10.0746'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8188', 'auc_8': '0.7540', 'loss': '0.4219', 'time': '10.0293'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8210', 'auc_8': '0.7538', 'loss': '0.4165', 'time': '10.0519'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8133', 'auc_8_val': '0.7355', 'loss_val': '0.4340', 'streaming_map_val': '0.6501'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.8003', 'auc_8': '0.7347', 'loss': '0.4505', 'time': '23.1079'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8078', 'auc_8': '0.7284', 'loss': '0.4435', 'time': '10.0739'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8081', 'auc_8': '0.7586', 'loss': '0.4329', 'time': '10.0103'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8071', 'auc_8': '0.7410', 'loss': '0.4382', 'time': '10.0297'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8211', 'auc_8': '0.7532', 'loss': '0.4182', 'time': '9.9372'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8215', 'auc_8': '0.7369', 'loss': '0.4242', 'time': '10.2888'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8279', 'auc_8': '0.7527', 'loss': '0.4075', 'time': '10.0740'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.7968', 'auc_8': '0.7646', 'loss': '0.4460', 'time': '10.0916'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8052', 'auc_8': '0.7587', 'loss': '0.4360', 'time': '10.0430'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8174', 'auc_8': '0.7440', 'loss': '0.4263', 'time': '10.0936'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8211', 'auc_8': '0.7450', 'loss': '0.4196', 'time': '10.0342'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8053', 'auc_8': '0.7547', 'loss': '0.4364', 'time': '10.0270'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8149', 'auc_8_val': '0.7377', 'loss_val': '0.4366', 'streaming_map_val': '0.6528'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8499', 'auc_8': '0.7446', 'loss': '0.3762', 'time': '23.2650'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8243', 'auc_8': '0.7267', 'loss': '0.4204', 'time': '9.9093'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8145', 'auc_8': '0.7612', 'loss': '0.4234', 'time': '9.9518'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8221', 'auc_8': '0.7887', 'loss': '0.4189', 'time': '9.9320'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8286', 'auc_8': '0.7501', 'loss': '0.4083', 'time': '10.0470'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8221', 'auc_8': '0.7532', 'loss': '0.4182', 'time': '10.1599'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8215', 'auc_8': '0.7705', 'loss': '0.4158', 'time': '10.0478'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8138', 'auc_8': '0.7535', 'loss': '0.4255', 'time': '10.0292'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8249', 'auc_8': '0.7593', 'loss': '0.4110', 'time': '10.0591'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8146', 'auc_8': '0.7714', 'loss': '0.4234', 'time': '10.0369'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8206', 'auc_8': '0.7585', 'loss': '0.4151', 'time': '10.0580'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8153', 'auc_8_val': '0.7410', 'loss_val': '0.4316', 'streaming_map_val': '0.6543'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8128', 'auc_8': '0.7457', 'loss': '0.4297', 'time': '23.3257'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8278', 'auc_8': '0.7620', 'loss': '0.4025', 'time': '9.9819'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.8152', 'auc_8': '0.7515', 'loss': '0.4248', 'time': '9.9816'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8101', 'auc_8': '0.7397', 'loss': '0.4375', 'time': '10.0144'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8209', 'auc_8': '0.7555', 'loss': '0.4161', 'time': '10.2181'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8150', 'auc_8': '0.7616', 'loss': '0.4232', 'time': '9.9988'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8322', 'auc_8': '0.7659', 'loss': '0.3938', 'time': '10.0599'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8028', 'auc_8': '0.7555', 'loss': '0.4378', 'time': '10.0777'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8120', 'auc_8': '0.7581', 'loss': '0.4263', 'time': '10.0182'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8139', 'auc_8': '0.7622', 'loss': '0.4264', 'time': '10.3774'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8181', 'auc_8': '0.7696', 'loss': '0.4108', 'time': '10.1144'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8155', 'auc_8_val': '0.7416', 'loss_val': '0.4307', 'streaming_map_val': '0.6547'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8030', 'auc_8': '0.7599', 'loss': '0.4390', 'time': '23.0133'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8052', 'auc_8': '0.7685', 'loss': '0.4400', 'time': '9.9891'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8247', 'auc_8': '0.7605', 'loss': '0.4109', 'time': '9.9191'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8103', 'auc_8': '0.7358', 'loss': '0.4402', 'time': '9.9573'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8178', 'auc_8': '0.7522', 'loss': '0.4209', 'time': '10.0176'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8276', 'auc_8': '0.7520', 'loss': '0.4099', 'time': '10.2108'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8233', 'auc_8': '0.7550', 'loss': '0.4111', 'time': '10.2289'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8271', 'auc_8': '0.7730', 'loss': '0.4040', 'time': '10.0423'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8190', 'auc_8': '0.7625', 'loss': '0.4153', 'time': '10.0617'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8156', 'auc_8': '0.7683', 'loss': '0.4215', 'time': '9.9897'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8172', 'auc_8': '0.7954', 'loss': '0.4275', 'time': '10.0978'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8066', 'auc_8': '0.7648', 'loss': '0.4324', 'time': '10.0818'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8157', 'auc_8_val': '0.7420', 'loss_val': '0.4306', 'streaming_map_val': '0.6549'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8379', 'auc_8': '0.7393', 'loss': '0.3996', 'time': '22.8753'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8324', 'auc_8': '0.7692', 'loss': '0.3976', 'time': '9.8905'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8250', 'auc_8': '0.7654', 'loss': '0.4073', 'time': '9.9444'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8349', 'auc_8': '0.7501', 'loss': '0.3967', 'time': '9.9893'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8185', 'auc_8': '0.7543', 'loss': '0.4197', 'time': '10.0832'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8229', 'auc_8': '0.7663', 'loss': '0.4091', 'time': '10.2292'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8157', 'auc_8': '0.7642', 'loss': '0.4219', 'time': '10.1039'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8119', 'auc_8': '0.7586', 'loss': '0.4278', 'time': '10.0305'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8198', 'auc_8': '0.7976', 'loss': '0.4149', 'time': '10.0710'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8168', 'auc_8': '0.7590', 'loss': '0.4207', 'time': '10.0583'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8201', 'auc_8': '0.7581', 'loss': '0.4172', 'time': '10.0305'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8157', 'auc_8_val': '0.7420', 'loss_val': '0.4307', 'streaming_map_val': '0.6550'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8157', 'auc_8_val': '0.7420', 'loss_val': '0.4307', 'streaming_map_val': '0.6550'}
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.37376217436703524,
+  "deep_learning_rate": 0.0046139527222739144,
+  "dnn_hidden_unit1": 2048,
+  "dnn_hidden_unit2": 64,
+  "dnn_hidden_unit3": 64,
+  "linear_learning_rate": 0.6289519694175864,
+  "warmup_epoch": 5
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4007', 'auc_9': '0.5013', 'loss': '1.1462', 'time': '16.0906'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7698', 'auc_9': '0.5651', 'loss': '0.5961', 'time': '33.1598'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7903', 'auc_9': '0.6387', 'loss': '0.5148', 'time': '25.2103'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7985', 'auc_9': '0.7090', 'loss': '0.4628', 'time': '25.1621'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.8120', 'auc_9': '0.6918', 'loss': '0.4511', 'time': '25.2361'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8100', 'auc_9': '0.6977', 'loss': '0.4548', 'time': '25.1339'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.8185', 'auc_9': '0.7003', 'loss': '0.4416', 'time': '25.2342'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.8171', 'auc_9': '0.7254', 'loss': '0.4362', 'time': '25.2138'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7983', 'auc_9': '0.7090', 'loss': '0.4657', 'time': '25.3667'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.7999', 'auc_9': '0.7159', 'loss': '0.4633', 'time': '25.4051'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8241', 'auc_9': '0.7276', 'loss': '0.4225', 'time': '25.0931'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8078', 'auc_9': '0.7270', 'loss': '0.4470', 'time': '25.2936'}
+INFO:tensorflow:epoch 1 finished
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8071', 'auc_9_val': '0.6966', 'loss_val': '0.4653', 'streaming_map_val': '0.6333'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.8083', 'auc_9': '0.7226', 'loss': '0.4464', 'time': '58.4430'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.8197', 'auc_9': '0.7476', 'loss': '0.4206', 'time': '25.1717'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.8179', 'auc_9': '0.7351', 'loss': '0.4279', 'time': '25.2239'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.8310', 'auc_9': '0.7204', 'loss': '0.4100', 'time': '25.5045'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.8307', 'auc_9': '0.7349', 'loss': '0.4103', 'time': '25.4009'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.8163', 'auc_9': '0.7367', 'loss': '0.4290', 'time': '25.5216'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.8085', 'auc_9': '0.7504', 'loss': '0.4356', 'time': '25.2775'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.8185', 'auc_9': '0.7345', 'loss': '0.4258', 'time': '25.2999'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.8194', 'auc_9': '0.7372', 'loss': '0.4252', 'time': '25.4244'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.8231', 'auc_9': '0.7381', 'loss': '0.4201', 'time': '25.3065'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.8292', 'auc_9': '0.7383', 'loss': '0.4081', 'time': '25.4181'}
+INFO:tensorflow:epoch 2 finished
+INFO:tensorflow:step: 226, {'binary_accuracy_val': '0.8098', 'auc_9_val': '0.7203', 'loss_val': '0.4499', 'streaming_map_val': '0.6440'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.8230', 'auc_9': '0.7455', 'loss': '0.4167', 'time': '52.6114'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.8193', 'auc_9': '0.7647', 'loss': '0.4215', 'time': '25.2795'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.8273', 'auc_9': '0.7328', 'loss': '0.4157', 'time': '25.1963'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.8171', 'auc_9': '0.7263', 'loss': '0.4375', 'time': '25.3721'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.8221', 'auc_9': '0.7684', 'loss': '0.4141', 'time': '25.3076'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.8274', 'auc_9': '0.7580', 'loss': '0.4096', 'time': '25.3420'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.8084', 'auc_9': '0.7556', 'loss': '0.4313', 'time': '25.4518'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.8206', 'auc_9': '0.7527', 'loss': '0.4184', 'time': '25.7694'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.8112', 'auc_9': '0.7525', 'loss': '0.4294', 'time': '25.3081'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.8111', 'auc_9': '0.7353', 'loss': '0.4374', 'time': '25.2294'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.8215', 'auc_9': '0.7697', 'loss': '0.4131', 'time': '25.2433'}
+INFO:tensorflow:epoch 3 finished
+INFO:tensorflow:step: 339, {'binary_accuracy_val': '0.8120', 'auc_9_val': '0.7301', 'loss_val': '0.4386', 'streaming_map_val': '0.6490'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.7855', 'auc_9': '0.7158', 'loss': '0.4716', 'time': '52.7458'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.8276', 'auc_9': '0.7388', 'loss': '0.4097', 'time': '25.1528'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.8090', 'auc_9': '0.7675', 'loss': '0.4292', 'time': '25.3328'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.8258', 'auc_9': '0.7549', 'loss': '0.4055', 'time': '25.3647'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.8198', 'auc_9': '0.7615', 'loss': '0.4184', 'time': '25.3247'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.8163', 'auc_9': '0.7268', 'loss': '0.4355', 'time': '25.3909'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.8343', 'auc_9': '0.7523', 'loss': '0.3985', 'time': '25.2297'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.8055', 'auc_9': '0.7586', 'loss': '0.4385', 'time': '25.3015'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.8194', 'auc_9': '0.7503', 'loss': '0.4217', 'time': '25.3423'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.8003', 'auc_9': '0.7456', 'loss': '0.4480', 'time': '25.2803'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.8173', 'auc_9': '0.7890', 'loss': '0.4391', 'time': '25.3058'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.8241', 'auc_9': '0.7578', 'loss': '0.4123', 'time': '25.3847'}
+INFO:tensorflow:epoch 4 finished
+INFO:tensorflow:step: 452, {'binary_accuracy_val': '0.8145', 'auc_9_val': '0.7382', 'loss_val': '0.4323', 'streaming_map_val': '0.6535'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.8588', 'auc_9': '0.7571', 'loss': '0.3573', 'time': '52.9647'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.8433', 'auc_9': '0.7478', 'loss': '0.3843', 'time': '24.9124'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.8136', 'auc_9': '0.7614', 'loss': '0.4202', 'time': '25.3200'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.8245', 'auc_9': '0.7965', 'loss': '0.4094', 'time': '25.3980'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.8195', 'auc_9': '0.7472', 'loss': '0.4202', 'time': '25.1986'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.8182', 'auc_9': '0.7581', 'loss': '0.4210', 'time': '25.2329'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.8153', 'auc_9': '0.7613', 'loss': '0.4239', 'time': '25.3023'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.8204', 'auc_9': '0.7559', 'loss': '0.4189', 'time': '25.2405'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.8192', 'auc_9': '0.7690', 'loss': '0.4138', 'time': '25.2862'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.8146', 'auc_9': '0.7645', 'loss': '0.4239', 'time': '25.3775'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.8262', 'auc_9': '0.7632', 'loss': '0.4055', 'time': '25.5208'}
+INFO:tensorflow:epoch 5 finished
+INFO:tensorflow:step: 565, {'binary_accuracy_val': '0.8157', 'auc_9_val': '0.7412', 'loss_val': '0.4320', 'streaming_map_val': '0.6551'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.8224', 'auc_9': '0.7694', 'loss': '0.4120', 'time': '52.7732'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.8177', 'auc_9': '0.7673', 'loss': '0.4170', 'time': '25.3152'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.7981', 'auc_9': '0.7614', 'loss': '0.4455', 'time': '25.1079'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.8022', 'auc_9': '0.7524', 'loss': '0.4433', 'time': '25.4415'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.8291', 'auc_9': '0.7727', 'loss': '0.3982', 'time': '25.3905'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.8196', 'auc_9': '0.7595', 'loss': '0.4150', 'time': '25.4311'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.8211', 'auc_9': '0.7694', 'loss': '0.4134', 'time': '25.2194'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.8175', 'auc_9': '0.7619', 'loss': '0.4206', 'time': '25.3994'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.8204', 'auc_9': '0.7688', 'loss': '0.4143', 'time': '25.3323'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.8238', 'auc_9': '0.7656', 'loss': '0.4096', 'time': '25.3050'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.8369', 'auc_9': '0.7892', 'loss': '0.3885', 'time': '25.2582'}
+INFO:tensorflow:epoch 6 finished
+INFO:tensorflow:step: 678, {'binary_accuracy_val': '0.8160', 'auc_9_val': '0.7435', 'loss_val': '0.4292', 'streaming_map_val': '0.6567'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.8110', 'auc_9': '0.7501', 'loss': '0.4320', 'time': '52.7201'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.8030', 'auc_9': '0.7491', 'loss': '0.4442', 'time': '25.1951'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.8123', 'auc_9': '0.7530', 'loss': '0.4309', 'time': '25.6908'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.8178', 'auc_9': '0.7682', 'loss': '0.4138', 'time': '25.2120'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.8312', 'auc_9': '0.7613', 'loss': '0.3998', 'time': '25.4459'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.8098', 'auc_9': '0.7534', 'loss': '0.4348', 'time': '24.9869'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.8186', 'auc_9': '0.7622', 'loss': '0.4179', 'time': '25.4478'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.8033', 'auc_9': '0.7657', 'loss': '0.4345', 'time': '25.2859'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.8226', 'auc_9': '0.7656', 'loss': '0.4111', 'time': '25.4270'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.8212', 'auc_9': '0.7815', 'loss': '0.4107', 'time': '25.5168'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.8294', 'auc_9': '0.7694', 'loss': '0.4022', 'time': '25.0938'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.8105', 'auc_9': '0.7759', 'loss': '0.4239', 'time': '25.3256'}
+INFO:tensorflow:epoch 7 finished
+INFO:tensorflow:step: 791, {'binary_accuracy_val': '0.8161', 'auc_9_val': '0.7443', 'loss_val': '0.4292', 'streaming_map_val': '0.6571'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.8304', 'auc_9': '0.7364', 'loss': '0.4101', 'time': '52.4629'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.8191', 'auc_9': '0.7567', 'loss': '0.4194', 'time': '25.1322'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.8176', 'auc_9': '0.7779', 'loss': '0.4107', 'time': '25.3971'}
+INFO:tensorflow:step: 830, {'binary_accuracy': '0.8174', 'auc_9': '0.7576', 'loss': '0.4215', 'time': '25.0888'}
+INFO:tensorflow:step: 840, {'binary_accuracy': '0.8184', 'auc_9': '0.7646', 'loss': '0.4154', 'time': '25.4481'}
+INFO:tensorflow:step: 850, {'binary_accuracy': '0.8239', 'auc_9': '0.7687', 'loss': '0.4100', 'time': '25.3348'}
+INFO:tensorflow:step: 860, {'binary_accuracy': '0.8125', 'auc_9': '0.7829', 'loss': '0.4210', 'time': '25.5309'}
+INFO:tensorflow:step: 870, {'binary_accuracy': '0.8107', 'auc_9': '0.7608', 'loss': '0.4266', 'time': '25.2860'}
+INFO:tensorflow:step: 880, {'binary_accuracy': '0.8225', 'auc_9': '0.7664', 'loss': '0.4089', 'time': '25.1606'}
+INFO:tensorflow:step: 890, {'binary_accuracy': '0.8181', 'auc_9': '0.7824', 'loss': '0.4179', 'time': '25.3246'}
+INFO:tensorflow:step: 900, {'binary_accuracy': '0.8160', 'auc_9': '0.7738', 'loss': '0.4181', 'time': '25.3211'}
+INFO:tensorflow:epoch 8 finished
+INFO:tensorflow:step: 904, {'binary_accuracy_val': '0.8160', 'auc_9_val': '0.7436', 'loss_val': '0.4300', 'streaming_map_val': '0.6564'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+2021:09:03-15:24:55:(131116) |WARN| MPI_Finalize has been called
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8160', 'auc_9_val': '0.7436', 'loss_val': '0.4300', 'streaming_map_val': '0.6564'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/sigopt/objects.py:327: RuntimeWarning: The .data field only contains a single page of results, which may be incomplete for large responses. Prefer to use the `.iterate_pages() to ensure that you iterate through all elements in the response.
+  RuntimeWarning,
+INFO:tensorflow:Best Assignments: Assignments({
+  "deep_dropout": 0.37376217436703524,
+  "deep_learning_rate": 0.0046139527222739144,
+  "dnn_hidden_unit1": 2048,
+  "dnn_hidden_unit2": 64,
+  "dnn_hidden_unit3": 64,
+  "linear_learning_rate": 0.6289519694175864,
+  "warmup_epoch": 5
+})
+
+real	328m35.400s
+user	6354m7.949s
+sys	492m54.158s

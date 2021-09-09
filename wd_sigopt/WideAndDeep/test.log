@@ -1,0 +1,77 @@
++ set -e
++ export CCL_WORKER_COUNT=2
++ CCL_WORKER_COUNT=2
++ export CCL_WORKER_AFFINITY=16,17,34,35
++ CCL_WORKER_AFFINITY=16,17,34,35
++ export HOROVOD_THREAD_AFFINITY=53,71
++ HOROVOD_THREAD_AFFINITY=53,71
++ export I_MPI_PIN_DOMAIN=socket
++ I_MPI_PIN_DOMAIN=socket
++ export I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ /root/sw/miniconda3/envs/wd2/bin/python main.py --train_data_pattern /mnt/sdd/outbrain2/tfrecords/train/part-r-00000 /mnt/sdd/outbrain2/tfrecords/train/part-r-00001 /mnt/sdd/outbrain2/tfrecords/train/part-r-00002 /mnt/sdd/outbrain2/tfrecords/train/part-r-00003 /mnt/sdd/outbrain2/tfrecords/train/part-r-00004 /mnt/sdd/outbrain2/tfrecords/train/part-r-00005 /mnt/sdd/outbrain2/tfrecords/train/part-r-00006 /mnt/sdd/outbrain2/tfrecords/train/part-r-00007 /mnt/sdd/outbrain2/tfrecords/train/part-r-00008 /mnt/sdd/outbrain2/tfrecords/train/part-r-00009 /mnt/sdd/outbrain2/tfrecords/train/part-r-00010 /mnt/sdd/outbrain2/tfrecords/train/part-r-00011 /mnt/sdd/outbrain2/tfrecords/train/part-r-00012 /mnt/sdd/outbrain2/tfrecords/train/part-r-00013 /mnt/sdd/outbrain2/tfrecords/train/part-r-00014 /mnt/sdd/outbrain2/tfrecords/train/part-r-00015 /mnt/sdd/outbrain2/tfrecords/train/part-r-00016 /mnt/sdd/outbrain2/tfrecords/train/part-r-00017 /mnt/sdd/outbrain2/tfrecords/train/part-r-00018 /mnt/sdd/outbrain2/tfrecords/train/part-r-00019 /mnt/sdd/outbrain2/tfrecords/train/part-r-00020 /mnt/sdd/outbrain2/tfrecords/train/part-r-00021 /mnt/sdd/outbrain2/tfrecords/train/part-r-00022 /mnt/sdd/outbrain2/tfrecords/train/part-r-00023 /mnt/sdd/outbrain2/tfrecords/train/part-r-00024 /mnt/sdd/outbrain2/tfrecords/train/part-r-00025 /mnt/sdd/outbrain2/tfrecords/train/part-r-00026 /mnt/sdd/outbrain2/tfrecords/train/part-r-00027 /mnt/sdd/outbrain2/tfrecords/train/part-r-00028 /mnt/sdd/outbrain2/tfrecords/train/part-r-00029 /mnt/sdd/outbrain2/tfrecords/train/part-r-00030 --eval_data_pattern /mnt/sdd/outbrain2/tfrecords/eval/part-r-00000 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00001 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00002 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00003 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00004 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00005 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00006 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00007 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00008 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00009 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00010 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00011 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00012 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00013 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00014 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00015 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00016 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00017 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00018 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00019 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00020 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00021 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00022 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00023 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00024 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00025 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00026 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00027 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00028 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00029 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00030 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00031 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00032 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00033 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00034 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00035 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00036 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00037 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00038 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00039 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00040 --model_dir /mnt/nvm6/wd/checkpoints2 --transformed_metadata_path /outbrain2/tfrecords --cpu --global_batch_size 524288 --eval_batch_size 524288 --num_epochs 1 --deep_learning_rate 0.00048 --linear_learning_rate 0.8 --deep_hidden_units 1024 512 256 --deep_warmup_epochs 1
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/train/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00030"], "eval_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/eval/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00030", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00031", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00032", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00033", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00034", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00035", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00036", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00037", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00038", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00039", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00040"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 524288, "eval_batch_size": 524288, "num_epochs": 1, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.00048, "deep_warmup_epochs": 1.0, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+2021-07-06 12:43:25.044985: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-07-06 12:43:25.052863: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-07-06 12:43:25.054480: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55f272efeaa0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-07-06 12:43:25.054506: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:experiment.observation_budget: 2
+INFO:tensorflow:experiment.progress.observation_count: 0
+INFO:tensorflow:assignment: Assignments({
+  "dnn_hidden1": 676,
+  "dnn_hidden2": 834,
+  "dnn_hidden3": 784
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4374', 'auc': '0.4901', 'loss': '1.0006', 'time': '68.1918'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7917', 'auc': '0.5825', 'loss': '0.5249', 'time': '185.7408'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7892', 'auc': '0.6398', 'loss': '0.5103', 'time': '130.3639'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7875', 'auc': '0.6626', 'loss': '0.4951', 'time': '146.5463'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7965', 'auc': '0.6583', 'loss': '0.4856', 'time': '128.5184'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7997', 'auc': '0.6734', 'loss': '0.4738', 'time': '152.8149'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7989', 'auc': '0.6819', 'loss': '0.4714', 'time': '140.9106'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.8008', 'auc': '0.6612', 'loss': '0.4830', 'time': '138.0312'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8022', 'auc': '0.6860', 'loss': '0.4650', 'time': '126.5465'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8044', 'auc': '0.6932', 'loss': '0.4630', 'time': '144.8693'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8059', 'auc': '0.6821', 'loss': '0.4666', 'time': '149.7672'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8096', 'auc': '0.6865', 'loss': '0.4585', 'time': '138.3224'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8068', 'auc_val': '0.6834', 'loss_val': '0.4643', 'streaming_map_val': '0.6256'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8068', 'auc_val': '0.6834', 'loss_val': '0.4643', 'streaming_map_val': '0.6256'}
+INFO:tensorflow:experiment.progress.observation_count: 1
+INFO:tensorflow:assignment: Assignments({
+  "dnn_hidden1": 912,
+  "dnn_hidden2": 499,
+  "dnn_hidden3": 1001
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4209', 'auc_1': '0.5072', 'loss': '1.0539', 'time': '35.5243'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7788', 'auc_1': '0.5656', 'loss': '0.5564', 'time': '161.0105'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7857', 'auc_1': '0.6291', 'loss': '0.5190', 'time': '172.5403'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7887', 'auc_1': '0.6568', 'loss': '0.4966', 'time': '163.8985'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7953', 'auc_1': '0.6696', 'loss': '0.4774', 'time': '142.8334'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8066', 'auc_1': '0.6650', 'loss': '0.4703', 'time': '173.2118'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7977', 'auc_1': '0.6863', 'loss': '0.4662', 'time': '174.1017'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7894', 'auc_1': '0.7023', 'loss': '0.4764', 'time': '136.0412'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8074', 'auc_1': '0.6658', 'loss': '0.4709', 'time': '169.7957'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8022', 'auc_1': '0.6988', 'loss': '0.4665', 'time': '132.2193'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7925', 'auc_1': '0.7083', 'loss': '0.4669', 'time': '188.3601'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8025', 'auc_1': '0.7115', 'loss': '0.4534', 'time': '162.0248'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8069', 'auc_1_val': '0.6925', 'loss_val': '0.4596', 'streaming_map_val': '0.6286'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8069', 'auc_1_val': '0.6925', 'loss_val': '0.4596', 'streaming_map_val': '0.6286'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/sigopt/objects.py:327: RuntimeWarning: The .data field only contains a single page of results, which may be incomplete for large responses. Prefer to use the `.iterate_pages() to ensure that you iterate through all elements in the response.
+  RuntimeWarning,
+INFO:tensorflow:Best Assignments: Assignments({
+  "dnn_hidden1": 912,
+  "dnn_hidden2": 499,
+  "dnn_hidden3": 1001
+})

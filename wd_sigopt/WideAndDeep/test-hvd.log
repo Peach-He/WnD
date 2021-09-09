@@ -1,0 +1,334 @@
++ set -e
++ export CCL_WORKER_COUNT=2
++ CCL_WORKER_COUNT=2
++ export CCL_WORKER_AFFINITY=16,17,34,35
++ CCL_WORKER_AFFINITY=16,17,34,35
++ export HOROVOD_THREAD_AFFINITY=53,71
++ HOROVOD_THREAD_AFFINITY=53,71
++ export I_MPI_PIN_DOMAIN=socket
++ I_MPI_PIN_DOMAIN=socket
++ export I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ I_MPI_PIN_PROCESSOR_EXCLUDE_LIST=16,17,34,35,52,53,70,71
++ mpirun -genv OMP_NUM_THREADS=16 -map-by socket -n 2 -ppn 2 -hosts sr613 -print-rank-map -genv I_MPI_PIN_DOMAIN=socket -genv OMP_PROC_BIND=true -genv KMP_BLOCKTIME=1 -genv KMP_AFFINITY=granularity=fine,compact,1,0 -iface eth3 /root/sw/miniconda3/envs/wd2/bin/python main.py --train_data_pattern /mnt/sdd/outbrain2/tfrecords/train/part-r-00000 /mnt/sdd/outbrain2/tfrecords/train/part-r-00001 /mnt/sdd/outbrain2/tfrecords/train/part-r-00002 /mnt/sdd/outbrain2/tfrecords/train/part-r-00003 /mnt/sdd/outbrain2/tfrecords/train/part-r-00004 /mnt/sdd/outbrain2/tfrecords/train/part-r-00005 /mnt/sdd/outbrain2/tfrecords/train/part-r-00006 /mnt/sdd/outbrain2/tfrecords/train/part-r-00007 /mnt/sdd/outbrain2/tfrecords/train/part-r-00008 /mnt/sdd/outbrain2/tfrecords/train/part-r-00009 /mnt/sdd/outbrain2/tfrecords/train/part-r-00010 /mnt/sdd/outbrain2/tfrecords/train/part-r-00011 /mnt/sdd/outbrain2/tfrecords/train/part-r-00012 /mnt/sdd/outbrain2/tfrecords/train/part-r-00013 /mnt/sdd/outbrain2/tfrecords/train/part-r-00014 /mnt/sdd/outbrain2/tfrecords/train/part-r-00015 /mnt/sdd/outbrain2/tfrecords/train/part-r-00016 /mnt/sdd/outbrain2/tfrecords/train/part-r-00017 /mnt/sdd/outbrain2/tfrecords/train/part-r-00018 /mnt/sdd/outbrain2/tfrecords/train/part-r-00019 /mnt/sdd/outbrain2/tfrecords/train/part-r-00020 /mnt/sdd/outbrain2/tfrecords/train/part-r-00021 /mnt/sdd/outbrain2/tfrecords/train/part-r-00022 /mnt/sdd/outbrain2/tfrecords/train/part-r-00023 /mnt/sdd/outbrain2/tfrecords/train/part-r-00024 /mnt/sdd/outbrain2/tfrecords/train/part-r-00025 /mnt/sdd/outbrain2/tfrecords/train/part-r-00026 /mnt/sdd/outbrain2/tfrecords/train/part-r-00027 /mnt/sdd/outbrain2/tfrecords/train/part-r-00028 /mnt/sdd/outbrain2/tfrecords/train/part-r-00029 /mnt/sdd/outbrain2/tfrecords/train/part-r-00030 --eval_data_pattern /mnt/sdd/outbrain2/tfrecords/eval/part-r-00000 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00001 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00002 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00003 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00004 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00005 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00006 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00007 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00008 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00009 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00010 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00011 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00012 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00013 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00014 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00015 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00016 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00017 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00018 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00019 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00020 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00021 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00022 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00023 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00024 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00025 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00026 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00027 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00028 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00029 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00030 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00031 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00032 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00033 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00034 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00035 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00036 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00037 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00038 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00039 /mnt/sdd/outbrain2/tfrecords/eval/part-r-00040 --model_dir /mnt/nvm6/wd/checkpoints2 --transformed_metadata_path /outbrain2/tfrecords --cpu --global_batch_size 524288 --eval_batch_size 524288 --num_epochs 1 --deep_learning_rate 0.00048 --linear_learning_rate 0.8 --deep_hidden_units 1024 512 256 --deep_warmup_epochs 1
+(sr613:0,1)
+
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/train/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00030"], "eval_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/eval/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00030", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00031", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00032", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00033", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00034", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00035", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00036", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00037", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00038", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00039", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00040"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 524288, "eval_batch_size": 524288, "num_epochs": 1, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.00048, "deep_warmup_epochs": 1.0, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/train/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00030"], "eval_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/eval/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00030", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00031", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00032", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00033", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00034", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00035", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00036", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00037", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00038", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00039", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00040"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 524288, "eval_batch_size": 524288, "num_epochs": 1, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.00048, "deep_warmup_epochs": 1.0, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+2021-07-06 18:13:44.404820: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-07-06 18:13:44.407300: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-07-06 18:13:44.415420: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-07-06 18:13:44.415724: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2300000000 Hz
+2021-07-06 18:13:44.416356: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x561423aae840 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-07-06 18:13:44.416383: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-07-06 18:13:44.416703: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56049d34e9b0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-07-06 18:13:44.416735: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:experiment.observation_budget: 5
+INFO:tensorflow:0:assignment: Assignments({
+  "dnn_hidden1": 813,
+  "dnn_hidden2": 996,
+  "dnn_hidden3": 370
+})
+INFO:tensorflow:1:assignment: Assignments({
+  "dnn_hidden1": 813,
+  "dnn_hidden2": 996,
+  "dnn_hidden3": 370
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:Steps per epoch: 113
+2021-07-06 18:13:50.055983: I tensorflow/core/profiler/lib/profiler_session.cc:164] Profiler session started.
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5587', 'auc': '0.4770', 'loss': '0.8227', 'time': '25.6773'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py:543: UserWarning: Input dict contained keys ['display_id'] which did not match any model input. They will be ignored by the model.
+  [n for n in tensors.keys() if n not in ref_input_names])
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5174', 'auc': '0.4524', 'loss': '0.8898', 'time': '25.6849'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7783', 'auc': '0.5705', 'loss': '0.5526', 'time': '70.4071'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7740', 'auc': '0.5672', 'loss': '0.5652', 'time': '70.4457'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7873', 'auc': '0.6559', 'loss': '0.5086', 'time': '57.3776'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7953', 'auc': '0.6332', 'loss': '0.5042', 'time': '57.4259'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7894', 'auc': '0.6550', 'loss': '0.4995', 'time': '57.6950'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7857', 'auc': '0.6646', 'loss': '0.5019', 'time': '57.6302'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.8013', 'auc': '0.6676', 'loss': '0.4702', 'time': '57.2449'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7959', 'auc': '0.6585', 'loss': '0.4864', 'time': '57.2463'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8023', 'auc': '0.6700', 'loss': '0.4752', 'time': '57.0596'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8012', 'auc': '0.6881', 'loss': '0.4750', 'time': '57.0605'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7883', 'auc': '0.6804', 'loss': '0.4800', 'time': '56.8597'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7896', 'auc': '0.6832', 'loss': '0.4806', 'time': '56.8586'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7938', 'auc': '0.6702', 'loss': '0.4899', 'time': '57.1238'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7977', 'auc': '0.6761', 'loss': '0.4825', 'time': '57.1245'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8068', 'auc': '0.6820', 'loss': '0.4670', 'time': '57.0806'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8044', 'auc': '0.6773', 'loss': '0.4733', 'time': '57.1115'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8093', 'auc': '0.6797', 'loss': '0.4731', 'time': '57.0762'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8082', 'auc': '0.6718', 'loss': '0.4749', 'time': '57.1217'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8037', 'auc': '0.7022', 'loss': '0.4642', 'time': '56.8328'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.8105', 'auc': '0.6920', 'loss': '0.4571', 'time': '56.8295'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8114', 'auc': '0.7060', 'loss': '0.4502', 'time': '56.6944'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8094', 'auc': '0.7068', 'loss': '0.4532', 'time': '56.7227'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8073', 'auc_val': '0.6879', 'loss_val': '0.4611', 'streaming_map_val': '0.6270'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8073', 'auc_val': '0.6879', 'loss_val': '0.4611', 'streaming_map_val': '0.6270'}
+2021-07-06 18:26:37.259972: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35
+2021-07-06 18:26:38.312461: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.trace.json.gz
+2021-07-06 18:26:39.709912: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35
+2021-07-06 18:26:39.715606: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.memory_profile.json.gz
+2021-07-06 18:26:39.745492: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35Dumped tool data for xplane.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.xplane.pb
+Dumped tool data for overview_page.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.overview_page.pb
+Dumped tool data for input_pipeline.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.input_pipeline.pb
+Dumped tool data for tensorflow_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.tensorflow_stats.pb
+Dumped tool data for kernel_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_26_35/sr613.kernel_stats.pb
+
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8073', 'auc_val': '0.6879', 'loss_val': '0.4611', 'streaming_map_val': '0.6270'}
+INFO:tensorflow:0:assignment: Assignments({
+  "dnn_hidden1": 353,
+  "dnn_hidden2": 813,
+  "dnn_hidden3": 713
+})
+INFO:tensorflow:1:assignment: Assignments({
+  "dnn_hidden1": 353,
+  "dnn_hidden2": 813,
+  "dnn_hidden3": 713
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:Steps per epoch: 113
+2021-07-06 18:26:45.648435: I tensorflow/core/profiler/lib/profiler_session.cc:164] Profiler session started.
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4098', 'auc_1': '0.5121', 'loss': '1.1143', 'time': '20.2655'}
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4380', 'auc_1': '0.4832', 'loss': '0.9880', 'time': '20.2684'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7776', 'auc_1': '0.5688', 'loss': '0.5585', 'time': '56.1632'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7789', 'auc_1': '0.5670', 'loss': '0.5560', 'time': '56.1737'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7837', 'auc_1': '0.6219', 'loss': '0.5200', 'time': '43.4288'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7821', 'auc_1': '0.6398', 'loss': '0.5175', 'time': '43.4499'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7841', 'auc_1': '0.6420', 'loss': '0.5090', 'time': '44.5954'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7842', 'auc_1': '0.6429', 'loss': '0.5068', 'time': '44.5784'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7968', 'auc_1': '0.6802', 'loss': '0.4810', 'time': '44.4567'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7889', 'auc_1': '0.6672', 'loss': '0.4957', 'time': '44.4937'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8071', 'auc_1': '0.6624', 'loss': '0.4700', 'time': '44.1715'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7985', 'auc_1': '0.6730', 'loss': '0.4832', 'time': '44.1625'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7922', 'auc_1': '0.6827', 'loss': '0.4792', 'time': '44.4236'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7980', 'auc_1': '0.6902', 'loss': '0.4681', 'time': '44.4709'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7885', 'auc_1': '0.6937', 'loss': '0.4813', 'time': '44.2379'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7839', 'auc_1': '0.7015', 'loss': '0.4825', 'time': '44.1698'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7956', 'auc_1': '0.6935', 'loss': '0.4708', 'time': '44.4257'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7948', 'auc_1': '0.6930', 'loss': '0.4730', 'time': '44.4285'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.7971', 'auc_1': '0.6835', 'loss': '0.4759', 'time': '44.6949'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8022', 'auc_1': '0.6936', 'loss': '0.4673', 'time': '44.6930'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7898', 'auc_1': '0.7064', 'loss': '0.4728', 'time': '44.0449'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7910', 'auc_1': '0.7084', 'loss': '0.4732', 'time': '44.0446'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7956', 'auc_1': '0.7037', 'loss': '0.4634', 'time': '43.9555'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7989', 'auc_1': '0.7129', 'loss': '0.4576', 'time': '43.9636'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8077', 'auc_1_val': '0.6944', 'loss_val': '0.4556', 'streaming_map_val': '0.6295'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8077', 'auc_1_val': '0.6944', 'loss_val': '0.4556', 'streaming_map_val': '0.6295'}
+2021-07-06 18:36:45.508307: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43
+2021-07-06 18:36:46.536615: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.trace.json.gz
+2021-07-06 18:36:47.795416: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43
+2021-07-06 18:36:47.800910: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.memory_profile.json.gz
+2021-07-06 18:36:47.825339: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43Dumped tool data for xplane.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.xplane.pb
+Dumped tool data for overview_page.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.overview_page.pb
+Dumped tool data for input_pipeline.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.input_pipeline.pb
+Dumped tool data for tensorflow_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.tensorflow_stats.pb
+Dumped tool data for kernel_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_36_43/sr613.kernel_stats.pb
+
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8077', 'auc_1_val': '0.6944', 'loss_val': '0.4556', 'streaming_map_val': '0.6295'}
+INFO:tensorflow:0:assignment: Assignments({
+  "dnn_hidden1": 1003,
+  "dnn_hidden2": 538,
+  "dnn_hidden3": 634
+})
+INFO:tensorflow:1:assignment: Assignments({
+  "dnn_hidden1": 1003,
+  "dnn_hidden2": 538,
+  "dnn_hidden3": 634
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:Steps per epoch: 113
+2021-07-06 18:36:53.878911: I tensorflow/core/profiler/lib/profiler_session.cc:164] Profiler session started.
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.6508', 'auc_2': '0.4752', 'loss': '0.7087', 'time': '21.4806'}
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.6548', 'auc_2': '0.5013', 'loss': '0.6949', 'time': '21.4243'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7862', 'auc_2': '0.5754', 'loss': '0.5464', 'time': '65.1718'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7959', 'auc_2': '0.5770', 'loss': '0.5296', 'time': '65.1828'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7869', 'auc_2': '0.6373', 'loss': '0.5179', 'time': '53.1964'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7889', 'auc_2': '0.6441', 'loss': '0.5113', 'time': '53.2102'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7859', 'auc_2': '0.6566', 'loss': '0.4989', 'time': '52.6107'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7854', 'auc_2': '0.6421', 'loss': '0.5044', 'time': '52.6328'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7950', 'auc_2': '0.6542', 'loss': '0.4880', 'time': '53.6303'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7974', 'auc_2': '0.6564', 'loss': '0.4860', 'time': '53.6219'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8026', 'auc_2': '0.6715', 'loss': '0.4663', 'time': '53.2515'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7921', 'auc_2': '0.6799', 'loss': '0.4851', 'time': '53.2610'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7912', 'auc_2': '0.6915', 'loss': '0.4752', 'time': '52.7631'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7918', 'auc_2': '0.6718', 'loss': '0.4782', 'time': '52.7907'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7956', 'auc_2': '0.6799', 'loss': '0.4763', 'time': '52.6826'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7938', 'auc_2': '0.6876', 'loss': '0.4781', 'time': '52.6827'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8046', 'auc_2': '0.6720', 'loss': '0.4739', 'time': '53.1723'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7975', 'auc_2': '0.6803', 'loss': '0.4817', 'time': '53.1851'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8066', 'auc_2': '0.6696', 'loss': '0.4841', 'time': '52.8264'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8058', 'auc_2': '0.6805', 'loss': '0.4812', 'time': '52.7857'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7901', 'auc_2': '0.7155', 'loss': '0.4671', 'time': '52.9224'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7944', 'auc_2': '0.7076', 'loss': '0.4654', 'time': '52.9221'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7966', 'auc_2': '0.7077', 'loss': '0.4615', 'time': '53.3407'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7971', 'auc_2': '0.7168', 'loss': '0.4586', 'time': '53.3726'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8064', 'auc_2_val': '0.6999', 'loss_val': '0.4573', 'streaming_map_val': '0.6293'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8064', 'auc_2_val': '0.6999', 'loss_val': '0.4573', 'streaming_map_val': '0.6293'}
+2021-07-06 18:48:45.395883: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43
+2021-07-06 18:48:46.433802: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.trace.json.gz
+2021-07-06 18:48:47.683406: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43
+2021-07-06 18:48:47.689159: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.memory_profile.json.gz
+2021-07-06 18:48:47.714108: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43Dumped tool data for xplane.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.xplane.pb
+Dumped tool data for overview_page.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.overview_page.pb
+Dumped tool data for input_pipeline.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.input_pipeline.pb
+Dumped tool data for tensorflow_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.tensorflow_stats.pb
+Dumped tool data for kernel_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_48_43/sr613.kernel_stats.pb
+
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8064', 'auc_2_val': '0.6999', 'loss_val': '0.4573', 'streaming_map_val': '0.6293'}
+INFO:tensorflow:0:assignment: Assignments({
+  "dnn_hidden1": 525,
+  "dnn_hidden2": 339,
+  "dnn_hidden3": 920
+})
+INFO:tensorflow:1:assignment: Assignments({
+  "dnn_hidden1": 525,
+  "dnn_hidden2": 339,
+  "dnn_hidden3": 920
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:Steps per epoch: 113
+2021-07-06 18:48:53.475644: I tensorflow/core/profiler/lib/profiler_session.cc:164] Profiler session started.
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5726', 'auc_3': '0.4858', 'loss': '0.7979', 'time': '20.4023'}
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5443', 'auc_3': '0.5370', 'loss': '0.8438', 'time': '20.3982'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7805', 'auc_3': '0.5518', 'loss': '0.5749', 'time': '52.7965'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7947', 'auc_3': '0.5524', 'loss': '0.5428', 'time': '52.8309'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7859', 'auc_3': '0.6220', 'loss': '0.5186', 'time': '40.4710'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7958', 'auc_3': '0.6108', 'loss': '0.5050', 'time': '40.4919'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7839', 'auc_3': '0.6438', 'loss': '0.5078', 'time': '40.3872'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7913', 'auc_3': '0.6417', 'loss': '0.4977', 'time': '40.3739'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.8032', 'auc_3': '0.6548', 'loss': '0.4744', 'time': '40.7498'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7971', 'auc_3': '0.6478', 'loss': '0.4870', 'time': '40.7454'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8096', 'auc_3': '0.6660', 'loss': '0.4614', 'time': '40.9569'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.7955', 'auc_3': '0.6745', 'loss': '0.4844', 'time': '41.0062'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7975', 'auc_3': '0.6836', 'loss': '0.4699', 'time': '40.4276'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7991', 'auc_3': '0.6885', 'loss': '0.4674', 'time': '40.3682'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7923', 'auc_3': '0.6981', 'loss': '0.4724', 'time': '40.5085'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7830', 'auc_3': '0.6954', 'loss': '0.4865', 'time': '40.5168'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8034', 'auc_3': '0.7090', 'loss': '0.4504', 'time': '40.1921'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.7957', 'auc_3': '0.6984', 'loss': '0.4662', 'time': '40.1978'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8047', 'auc_3': '0.6876', 'loss': '0.4657', 'time': '40.5513'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8072', 'auc_3': '0.6949', 'loss': '0.4557', 'time': '40.5655'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7941', 'auc_3': '0.7154', 'loss': '0.4646', 'time': '40.3419'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7959', 'auc_3': '0.7139', 'loss': '0.4612', 'time': '40.3359'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7984', 'auc_3': '0.7110', 'loss': '0.4570', 'time': '41.2437'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.8043', 'auc_3': '0.7100', 'loss': '0.4517', 'time': '41.2690'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8073', 'auc_3_val': '0.7034', 'loss_val': '0.4531', 'streaming_map_val': '0.6320'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8073', 'auc_3_val': '0.7034', 'loss_val': '0.4531', 'streaming_map_val': '0.6320'}
+2021-07-06 18:58:07.811034: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06
+2021-07-06 18:58:08.842416: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.trace.json.gz
+2021-07-06 18:58:10.086194: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06
+2021-07-06 18:58:10.091933: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.memory_profile.json.gz
+2021-07-06 18:58:10.116548: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06Dumped tool data for xplane.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.xplane.pb
+Dumped tool data for overview_page.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.overview_page.pb
+Dumped tool data for input_pipeline.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.input_pipeline.pb
+Dumped tool data for tensorflow_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.tensorflow_stats.pb
+Dumped tool data for kernel_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_18_58_06/sr613.kernel_stats.pb
+
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8073', 'auc_3_val': '0.7034', 'loss_val': '0.4531', 'streaming_map_val': '0.6320'}
+INFO:tensorflow:0:assignment: Assignments({
+  "dnn_hidden1": 327,
+  "dnn_hidden2": 284,
+  "dnn_hidden3": 1023
+})
+INFO:tensorflow:1:assignment: Assignments({
+  "dnn_hidden1": 327,
+  "dnn_hidden2": 284,
+  "dnn_hidden3": 1023
+})
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+WARNING:tensorflow:deep columns: 26
+WARNING:tensorflow:wide columns: 26
+WARNING:tensorflow:wide&deep intersection: 13
+INFO:tensorflow:Steps per epoch: 113
+INFO:tensorflow:Steps per epoch: 113
+2021-07-06 18:58:16.114723: I tensorflow/core/profiler/lib/profiler_session.cc:164] Profiler session started.
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5862', 'auc_4': '0.4912', 'loss': '0.7754', 'time': '20.4238'}
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5211', 'auc_4': '0.4931', 'loss': '0.8478', 'time': '20.4532'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7765', 'auc_4': '0.5376', 'loss': '0.5755', 'time': '48.8937'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.7836', 'auc_4': '0.5553', 'loss': '0.5550', 'time': '48.9029'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7876', 'auc_4': '0.6055', 'loss': '0.5159', 'time': '36.9181'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.7766', 'auc_4': '0.6033', 'loss': '0.5331', 'time': '36.9252'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7918', 'auc_4': '0.6476', 'loss': '0.4928', 'time': '35.9087'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.7889', 'auc_4': '0.6438', 'loss': '0.4952', 'time': '35.9150'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7943', 'auc_4': '0.6519', 'loss': '0.4876', 'time': '36.3317'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.7938', 'auc_4': '0.6476', 'loss': '0.4903', 'time': '36.3462'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8058', 'auc_4': '0.6622', 'loss': '0.4671', 'time': '37.2538'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.8054', 'auc_4': '0.6708', 'loss': '0.4659', 'time': '37.2412'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7984', 'auc_4': '0.6756', 'loss': '0.4767', 'time': '36.4013'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.7997', 'auc_4': '0.6803', 'loss': '0.4685', 'time': '36.4052'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7960', 'auc_4': '0.6705', 'loss': '0.4840', 'time': '36.5034'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.7995', 'auc_4': '0.6745', 'loss': '0.4796', 'time': '36.5180'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8097', 'auc_4': '0.6645', 'loss': '0.4687', 'time': '37.0300'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.8045', 'auc_4': '0.6663', 'loss': '0.4737', 'time': '37.0364'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8056', 'auc_4': '0.6846', 'loss': '0.4692', 'time': '36.6044'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.8004', 'auc_4': '0.6995', 'loss': '0.4728', 'time': '36.6006'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7895', 'auc_4': '0.7232', 'loss': '0.4676', 'time': '36.6586'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.7961', 'auc_4': '0.7140', 'loss': '0.4599', 'time': '36.6567'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7986', 'auc_4': '0.7084', 'loss': '0.4595', 'time': '36.4834'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.7980', 'auc_4': '0.7105', 'loss': '0.4585', 'time': '36.4813'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8084', 'auc_4_val': '0.7030', 'loss_val': '0.4514', 'streaming_map_val': '0.6320'}
+INFO:tensorflow:step: 113, {'binary_accuracy_val': '0.8084', 'auc_4_val': '0.7030', 'loss_val': '0.4514', 'streaming_map_val': '0.6320'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/sigopt/objects.py:327: RuntimeWarning: The .data field only contains a single page of results, which may be incomplete for large responses. Prefer to use the `.iterate_pages() to ensure that you iterate through all elements in the response.
+  RuntimeWarning,
+INFO:tensorflow:Best Assignments: Assignments({
+  "dnn_hidden1": 525,
+  "dnn_hidden2": 339,
+  "dnn_hidden3": 920
+})
+2021:07:06-19:06:37:(263965) |WARN| MPI_Finalize has been called
+2021-07-06 19:06:40.031897: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38
+2021-07-06 19:06:41.057803: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for trace.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.trace.json.gz
+2021-07-06 19:06:42.296699: I tensorflow/core/profiler/rpc/client/save_profile.cc:176] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38
+2021-07-06 19:06:42.302335: I tensorflow/core/profiler/rpc/client/save_profile.cc:182] Dumped gzipped tool data for memory_profile.json.gz to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.memory_profile.json.gz
+2021-07-06 19:06:42.327864: I tensorflow/python/profiler/internal/profiler_wrapper.cc:111] Creating directory: /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38Dumped tool data for xplane.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.xplane.pb
+Dumped tool data for overview_page.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.overview_page.pb
+Dumped tool data for input_pipeline.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.input_pipeline.pb
+Dumped tool data for tensorflow_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.tensorflow_stats.pb
+Dumped tool data for kernel_stats.pb to /mnt/nvm6/wd/checkpoints2/profile/plugins/profile/2021_07_06_19_06_38/sr613.kernel_stats.pb
+
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.8084', 'auc_4_val': '0.7030', 'loss_val': '0.4514', 'streaming_map_val': '0.6320'}
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/sigopt/objects.py:327: RuntimeWarning: The .data field only contains a single page of results, which may be incomplete for large responses. Prefer to use the `.iterate_pages() to ensure that you iterate through all elements in the response.
+  RuntimeWarning,
+INFO:tensorflow:Best Assignments: Assignments({
+  "dnn_hidden1": 525,
+  "dnn_hidden2": 339,
+  "dnn_hidden3": 920
+})
+
+real	53m6.742s
+user	1643m21.202s
+sys	77m36.286s
