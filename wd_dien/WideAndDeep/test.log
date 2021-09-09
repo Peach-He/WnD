@@ -1,0 +1,228 @@
++ set -e
++ export KMP_AFFINITY=granularity=fine,verbose,compact,1,0
++ KMP_AFFINITY=granularity=fine,verbose,compact,1,0
++ export KMP_BLOCKTIME=30
++ KMP_BLOCKTIME=30
++ export OMP_NUM_THREADS=36
++ OMP_NUM_THREADS=36
++ /root/sw/miniconda3/envs/wd2/bin/python main_sigopt.py --train_data_pattern 'hdfs://sr112:9001/outbrain/tfrecords-test/recdp/train/part*' --eval_data_pattern 'hdfs://sr112:9001/outbrain/tfrecords-test/recdp/eval/part*' --model_dir /mnt/nvm6/wd/checkpoints2-test --transformed_metadata_path /outbrain2/tfrecords --cpu --global_batch_size 256 --eval_batch_size 256 --num_epochs 50 --deep_learning_rate 0.01 --linear_learning_rate 0.8 --deep_hidden_units 1024 512 256 --deep_warmup_steps 8000
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["hdfs://sr112:9001/outbrain/tfrecords-test/recdp/train/part*"], "eval_data_pattern": ["hdfs://sr112:9001/outbrain/tfrecords-test/recdp/eval/part*"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2-test", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 256, "eval_batch_size": 256, "num_epochs": 50, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.01, "deep_warmup_steps": 8000, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+INFO:tensorflow:experiment.observation_budget: 30
+INFO:tensorflow:assignment: Assignments({
+  "deep_warmup_steps": 9132,
+  "dnn_hidden1": 572,
+  "dnn_hidden2": 1009,
+  "dnn_hidden3": 311,
+  "learning_rate": 0.0002471552172641444
+})
+2021-08-14 21:37:59.429876: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-08-14 21:37:59.440149: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-08-14 21:37:59.444102: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x556db52c96d0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-08-14 21:37:59.444135: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:Steps per epoch: 13170
+OMP: Info #154: KMP_AFFINITY: Initial OS proc set respected: 0-71
+OMP: Info #214: KMP_AFFINITY: decoding x2APIC ids.
+OMP: Info #156: KMP_AFFINITY: 72 available OS procs
+OMP: Info #157: KMP_AFFINITY: Uniform topology
+OMP: Info #285: KMP_AFFINITY: topology layer "LL cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L3 cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L2 cache" is equivalent to "core".
+OMP: Info #285: KMP_AFFINITY: topology layer "L1 cache" is equivalent to "core".
+OMP: Info #191: KMP_AFFINITY: 2 sockets x 18 cores/socket x 2 threads/core (36 total cores)
+OMP: Info #216: KMP_AFFINITY: OS proc to physical thread map:
+OMP: Info #171: KMP_AFFINITY: OS proc 0 maps to socket 0 core 0 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 36 maps to socket 0 core 0 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 1 maps to socket 0 core 1 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 37 maps to socket 0 core 1 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 2 maps to socket 0 core 2 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 38 maps to socket 0 core 2 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 3 maps to socket 0 core 3 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 39 maps to socket 0 core 3 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 4 maps to socket 0 core 4 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 40 maps to socket 0 core 4 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 5 maps to socket 0 core 8 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 41 maps to socket 0 core 8 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 6 maps to socket 0 core 9 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 42 maps to socket 0 core 9 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 7 maps to socket 0 core 10 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 43 maps to socket 0 core 10 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 8 maps to socket 0 core 11 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 44 maps to socket 0 core 11 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 9 maps to socket 0 core 16 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 45 maps to socket 0 core 16 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 10 maps to socket 0 core 17 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 46 maps to socket 0 core 17 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 11 maps to socket 0 core 18 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 47 maps to socket 0 core 18 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 12 maps to socket 0 core 19 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 48 maps to socket 0 core 19 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 13 maps to socket 0 core 20 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 49 maps to socket 0 core 20 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 14 maps to socket 0 core 24 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 50 maps to socket 0 core 24 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 15 maps to socket 0 core 25 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 51 maps to socket 0 core 25 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 16 maps to socket 0 core 26 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 52 maps to socket 0 core 26 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 17 maps to socket 0 core 27 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 53 maps to socket 0 core 27 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 18 maps to socket 1 core 0 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 54 maps to socket 1 core 0 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 19 maps to socket 1 core 1 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 55 maps to socket 1 core 1 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 20 maps to socket 1 core 2 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 56 maps to socket 1 core 2 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 21 maps to socket 1 core 3 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 57 maps to socket 1 core 3 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 22 maps to socket 1 core 4 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 58 maps to socket 1 core 4 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 23 maps to socket 1 core 8 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 59 maps to socket 1 core 8 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 24 maps to socket 1 core 9 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 60 maps to socket 1 core 9 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 25 maps to socket 1 core 10 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 61 maps to socket 1 core 10 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 26 maps to socket 1 core 11 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 62 maps to socket 1 core 11 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 27 maps to socket 1 core 16 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 63 maps to socket 1 core 16 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 28 maps to socket 1 core 17 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 64 maps to socket 1 core 17 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 29 maps to socket 1 core 18 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 65 maps to socket 1 core 18 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 30 maps to socket 1 core 19 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 66 maps to socket 1 core 19 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 31 maps to socket 1 core 20 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 67 maps to socket 1 core 20 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 32 maps to socket 1 core 24 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 68 maps to socket 1 core 24 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 33 maps to socket 1 core 25 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 69 maps to socket 1 core 25 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 34 maps to socket 1 core 26 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 70 maps to socket 1 core 26 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 35 maps to socket 1 core 27 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 71 maps to socket 1 core 27 thread 1 
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452634 thread 0 bound to OS proc set 0
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452635 thread 1 bound to OS proc set 1
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452634 thread 2 bound to OS proc set 2
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452651 thread 4 bound to OS proc set 4
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452650 thread 3 bound to OS proc set 3
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452653 thread 6 bound to OS proc set 6
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452652 thread 5 bound to OS proc set 5
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452654 thread 7 bound to OS proc set 7
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452655 thread 8 bound to OS proc set 8
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452656 thread 9 bound to OS proc set 9
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452657 thread 10 bound to OS proc set 10
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452658 thread 11 bound to OS proc set 11
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452659 thread 12 bound to OS proc set 12
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452660 thread 13 bound to OS proc set 13
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452661 thread 14 bound to OS proc set 14
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452662 thread 15 bound to OS proc set 15
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452663 thread 16 bound to OS proc set 16
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452664 thread 17 bound to OS proc set 17
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452666 thread 19 bound to OS proc set 19
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452665 thread 18 bound to OS proc set 18
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452667 thread 20 bound to OS proc set 20
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452668 thread 21 bound to OS proc set 21
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452669 thread 22 bound to OS proc set 22
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452670 thread 23 bound to OS proc set 23
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452671 thread 24 bound to OS proc set 24
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452672 thread 25 bound to OS proc set 25
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452673 thread 26 bound to OS proc set 26
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452674 thread 27 bound to OS proc set 27
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452675 thread 28 bound to OS proc set 28
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452676 thread 29 bound to OS proc set 29
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452677 thread 30 bound to OS proc set 30
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452678 thread 31 bound to OS proc set 31
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452679 thread 32 bound to OS proc set 32
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452680 thread 33 bound to OS proc set 33
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452681 thread 34 bound to OS proc set 34
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452682 thread 35 bound to OS proc set 35
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452683 thread 36 bound to OS proc set 36
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452684 thread 37 bound to OS proc set 37
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452685 thread 38 bound to OS proc set 38
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452686 thread 39 bound to OS proc set 39
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452687 thread 40 bound to OS proc set 40
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452688 thread 41 bound to OS proc set 41
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452689 thread 42 bound to OS proc set 42
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452690 thread 43 bound to OS proc set 43
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452691 thread 44 bound to OS proc set 44
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452692 thread 45 bound to OS proc set 45
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452693 thread 46 bound to OS proc set 46
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452694 thread 47 bound to OS proc set 47
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452695 thread 48 bound to OS proc set 48
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452697 thread 50 bound to OS proc set 50
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452696 thread 49 bound to OS proc set 49
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452698 thread 51 bound to OS proc set 51
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452699 thread 52 bound to OS proc set 52
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452700 thread 53 bound to OS proc set 53
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452701 thread 54 bound to OS proc set 54
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452702 thread 55 bound to OS proc set 55
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452703 thread 56 bound to OS proc set 56
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452704 thread 57 bound to OS proc set 57
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452705 thread 58 bound to OS proc set 58
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452707 thread 60 bound to OS proc set 60
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452706 thread 59 bound to OS proc set 59
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452708 thread 61 bound to OS proc set 61
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452709 thread 62 bound to OS proc set 62
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452710 thread 63 bound to OS proc set 63
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452711 thread 64 bound to OS proc set 64
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452712 thread 65 bound to OS proc set 65
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452713 thread 66 bound to OS proc set 66
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452714 thread 67 bound to OS proc set 67
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452715 thread 68 bound to OS proc set 68
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452716 thread 69 bound to OS proc set 69
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452717 thread 70 bound to OS proc set 70
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452718 thread 71 bound to OS proc set 71
+OMP: Info #252: KMP_AFFINITY: pid 452467 tid 452719 thread 72 bound to OS proc set 0
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4785', 'auc': '0.4767', 'loss': '1.6137', 'time': '4.6375'}
+INFO:tensorflow:step: 13170, {'binary_accuracy_val': 0.4982593, 'auc_val': 0.49719846, 'loss_val': 105.97611}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': 0.4982593, 'auc_val': 0.49719846, 'loss_val': 105.97611}
+INFO:tensorflow:assignment: Assignments({
+  "deep_warmup_steps": 3734,
+  "dnn_hidden1": 907,
+  "dnn_hidden2": 662,
+  "dnn_hidden3": 958,
+  "learning_rate": 0.08774877554826327
+})
+INFO:tensorflow:Steps per epoch: 13170
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5000', 'auc': '0.5236', 'loss': '1.0246', 'time': '3.5898'}
+WARNING:tensorflow:5 out of the last 475 calls to <function train.<locals>.evaluation_step at 0x7f43dc459950> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/tutorials/customization/performance#python_or_tensor_args and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:tensorflow:step: 13170, {'binary_accuracy_val': 0.5006682, 'auc_val': 0.5028492, 'loss_val': 28.160898}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': 0.5006682, 'auc_val': 0.5028492, 'loss_val': 28.160898}
+INFO:tensorflow:assignment: Assignments({
+  "deep_warmup_steps": 11644,
+  "dnn_hidden1": 752,
+  "dnn_hidden2": 278,
+  "dnn_hidden3": 652,
+  "learning_rate": 0.018513973181936504
+})
+INFO:tensorflow:Steps per epoch: 13170
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5020', 'auc': '0.4883', 'loss': '0.9340', 'time': '2.8419'}
+WARNING:tensorflow:5 out of the last 475 calls to <function train.<locals>.evaluation_step at 0x7f44702302f0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/tutorials/customization/performance#python_or_tensor_args and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:tensorflow:step: 13170, {'binary_accuracy_val': 0.5002887, 'auc_val': 0.5023273, 'loss_val': 1.3779185}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': 0.5002887, 'auc_val': 0.5023273, 'loss_val': 1.3779185}
+INFO:tensorflow:assignment: Assignments({
+  "deep_warmup_steps": 2417,
+  "dnn_hidden1": 381,
+  "dnn_hidden2": 794,
+  "dnn_hidden3": 781,
+  "learning_rate": 0.0035829489689740745
+})
+INFO:tensorflow:Steps per epoch: 13170
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5137', 'auc': '0.5144', 'loss': '0.8813', 'time': '2.9303'}
+WARNING:tensorflow:5 out of the last 475 calls to <function train.<locals>.evaluation_step at 0x7f43a866ab70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/tutorials/customization/performance#python_or_tensor_args and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:tensorflow:step: 13170, {'binary_accuracy_val': 0.50324214, 'auc_val': 0.5026948, 'loss_val': 1.4542377}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': 0.50324214, 'auc_val': 0.5026948, 'loss_val': 1.4542377}
+INFO:tensorflow:assignment: Assignments({
+  "deep_warmup_steps": 5748,
+  "dnn_hidden1": 529,
+  "dnn_hidden2": 450,
+  "dnn_hidden3": 512,
+  "learning_rate": 0.0005843687407207521
+})
+INFO:tensorflow:Steps per epoch: 13170
+WARNING:tensorflow:5 out of the last 5 calls to <function train.<locals>.train_step at 0x7f44883626a8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/tutorials/customization/performance#python_or_tensor_args and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.5117', 'auc': '0.5316', 'loss': '0.8567', 'time': '3.4944'}

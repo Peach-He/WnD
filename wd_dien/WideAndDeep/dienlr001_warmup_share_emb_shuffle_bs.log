@@ -1,0 +1,280 @@
++ set -e
++ export KMP_AFFINITY=granularity=fine,verbose,compact,1,0
++ KMP_AFFINITY=granularity=fine,verbose,compact,1,0
++ export KMP_BLOCKTIME=30
++ KMP_BLOCKTIME=30
++ export OMP_NUM_THREADS=36
++ OMP_NUM_THREADS=36
++ /root/sw/miniconda3/envs/wd2/bin/python main.py --train_data_pattern 'hdfs://sr112:9001/outbrain/tfrecords-test/recdp/train/part*' --eval_data_pattern 'hdfs://sr112:9001/outbrain/tfrecords-test/recdp/eval/part*' --model_dir /mnt/nvm6/wd/checkpoints2-test --transformed_metadata_path /outbrain2/tfrecords --cpu --global_batch_size 4096 --eval_batch_size 256 --num_epochs 50 --deep_learning_rate 0.01 --linear_learning_rate 0.8 --deep_hidden_units 1024 512 256 --deep_warmup_steps 8000
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["hdfs://sr112:9001/outbrain/tfrecords-test/recdp/train/part*"], "eval_data_pattern": ["hdfs://sr112:9001/outbrain/tfrecords-test/recdp/eval/part*"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/mnt/nvm6/wd/checkpoints2-test", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 4096, "eval_batch_size": 256, "num_epochs": 50, "cpu": true, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": 0.01, "deep_warmup_steps": 8000, "deep_hidden_units": [1024, 512, 256], "deep_dropout": 0.1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+2021-08-12 20:23:44.386062: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-08-12 20:23:44.396864: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-08-12 20:23:44.400697: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x562b0e9ce270 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-08-12 20:23:44.400728: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:Steps per epoch: 823
+OMP: Info #154: KMP_AFFINITY: Initial OS proc set respected: 0-71
+OMP: Info #214: KMP_AFFINITY: decoding x2APIC ids.
+OMP: Info #156: KMP_AFFINITY: 72 available OS procs
+OMP: Info #157: KMP_AFFINITY: Uniform topology
+OMP: Info #285: KMP_AFFINITY: topology layer "LL cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L3 cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L2 cache" is equivalent to "core".
+OMP: Info #285: KMP_AFFINITY: topology layer "L1 cache" is equivalent to "core".
+OMP: Info #191: KMP_AFFINITY: 2 sockets x 18 cores/socket x 2 threads/core (36 total cores)
+OMP: Info #216: KMP_AFFINITY: OS proc to physical thread map:
+OMP: Info #171: KMP_AFFINITY: OS proc 0 maps to socket 0 core 0 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 36 maps to socket 0 core 0 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 1 maps to socket 0 core 1 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 37 maps to socket 0 core 1 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 2 maps to socket 0 core 2 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 38 maps to socket 0 core 2 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 3 maps to socket 0 core 3 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 39 maps to socket 0 core 3 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 4 maps to socket 0 core 4 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 40 maps to socket 0 core 4 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 5 maps to socket 0 core 8 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 41 maps to socket 0 core 8 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 6 maps to socket 0 core 9 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 42 maps to socket 0 core 9 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 7 maps to socket 0 core 10 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 43 maps to socket 0 core 10 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 8 maps to socket 0 core 11 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 44 maps to socket 0 core 11 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 9 maps to socket 0 core 16 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 45 maps to socket 0 core 16 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 10 maps to socket 0 core 17 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 46 maps to socket 0 core 17 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 11 maps to socket 0 core 18 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 47 maps to socket 0 core 18 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 12 maps to socket 0 core 19 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 48 maps to socket 0 core 19 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 13 maps to socket 0 core 20 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 49 maps to socket 0 core 20 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 14 maps to socket 0 core 24 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 50 maps to socket 0 core 24 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 15 maps to socket 0 core 25 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 51 maps to socket 0 core 25 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 16 maps to socket 0 core 26 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 52 maps to socket 0 core 26 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 17 maps to socket 0 core 27 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 53 maps to socket 0 core 27 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 18 maps to socket 1 core 0 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 54 maps to socket 1 core 0 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 19 maps to socket 1 core 1 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 55 maps to socket 1 core 1 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 20 maps to socket 1 core 2 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 56 maps to socket 1 core 2 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 21 maps to socket 1 core 3 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 57 maps to socket 1 core 3 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 22 maps to socket 1 core 4 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 58 maps to socket 1 core 4 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 23 maps to socket 1 core 8 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 59 maps to socket 1 core 8 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 24 maps to socket 1 core 9 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 60 maps to socket 1 core 9 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 25 maps to socket 1 core 10 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 61 maps to socket 1 core 10 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 26 maps to socket 1 core 11 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 62 maps to socket 1 core 11 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 27 maps to socket 1 core 16 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 63 maps to socket 1 core 16 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 28 maps to socket 1 core 17 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 64 maps to socket 1 core 17 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 29 maps to socket 1 core 18 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 65 maps to socket 1 core 18 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 30 maps to socket 1 core 19 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 66 maps to socket 1 core 19 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 31 maps to socket 1 core 20 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 67 maps to socket 1 core 20 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 32 maps to socket 1 core 24 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 68 maps to socket 1 core 24 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 33 maps to socket 1 core 25 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 69 maps to socket 1 core 25 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 34 maps to socket 1 core 26 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 70 maps to socket 1 core 26 thread 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 35 maps to socket 1 core 27 thread 0 
+OMP: Info #171: KMP_AFFINITY: OS proc 71 maps to socket 1 core 27 thread 1 
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284379 thread 0 bound to OS proc set 0
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284380 thread 1 bound to OS proc set 1
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284379 thread 2 bound to OS proc set 2
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284395 thread 4 bound to OS proc set 4
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284396 thread 5 bound to OS proc set 5
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284394 thread 3 bound to OS proc set 3
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284397 thread 6 bound to OS proc set 6
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284398 thread 7 bound to OS proc set 7
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284400 thread 9 bound to OS proc set 9
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284399 thread 8 bound to OS proc set 8
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284401 thread 10 bound to OS proc set 10
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284402 thread 11 bound to OS proc set 11
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284403 thread 12 bound to OS proc set 12
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284404 thread 13 bound to OS proc set 13
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284405 thread 14 bound to OS proc set 14
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284408 thread 17 bound to OS proc set 17
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284407 thread 16 bound to OS proc set 16
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284406 thread 15 bound to OS proc set 15
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284409 thread 18 bound to OS proc set 18
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284410 thread 19 bound to OS proc set 19
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284411 thread 20 bound to OS proc set 20
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284413 thread 22 bound to OS proc set 22
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284415 thread 24 bound to OS proc set 24
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284414 thread 23 bound to OS proc set 23
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284412 thread 21 bound to OS proc set 21
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284416 thread 25 bound to OS proc set 25
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284417 thread 26 bound to OS proc set 26
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284419 thread 28 bound to OS proc set 28
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284418 thread 27 bound to OS proc set 27
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284420 thread 29 bound to OS proc set 29
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284421 thread 30 bound to OS proc set 30
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284422 thread 31 bound to OS proc set 31
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284423 thread 32 bound to OS proc set 32
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284424 thread 33 bound to OS proc set 33
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284425 thread 34 bound to OS proc set 34
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284426 thread 35 bound to OS proc set 35
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284427 thread 36 bound to OS proc set 36
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284428 thread 37 bound to OS proc set 37
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284429 thread 38 bound to OS proc set 38
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284430 thread 39 bound to OS proc set 39
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284432 thread 41 bound to OS proc set 41
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284431 thread 40 bound to OS proc set 40
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284433 thread 42 bound to OS proc set 42
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284435 thread 44 bound to OS proc set 44
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284434 thread 43 bound to OS proc set 43
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284436 thread 45 bound to OS proc set 45
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284437 thread 46 bound to OS proc set 46
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284438 thread 47 bound to OS proc set 47
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284439 thread 48 bound to OS proc set 48
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284440 thread 49 bound to OS proc set 49
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284441 thread 50 bound to OS proc set 50
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284442 thread 51 bound to OS proc set 51
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284443 thread 52 bound to OS proc set 52
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284444 thread 53 bound to OS proc set 53
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284445 thread 54 bound to OS proc set 54
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284447 thread 56 bound to OS proc set 56
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284446 thread 55 bound to OS proc set 55
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284449 thread 58 bound to OS proc set 58
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284448 thread 57 bound to OS proc set 57
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284450 thread 59 bound to OS proc set 59
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284451 thread 60 bound to OS proc set 60
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284453 thread 62 bound to OS proc set 62
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284452 thread 61 bound to OS proc set 61
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284454 thread 63 bound to OS proc set 63
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284456 thread 65 bound to OS proc set 65
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284455 thread 64 bound to OS proc set 64
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284457 thread 66 bound to OS proc set 66
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284458 thread 67 bound to OS proc set 67
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284459 thread 68 bound to OS proc set 68
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284460 thread 69 bound to OS proc set 69
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284461 thread 70 bound to OS proc set 70
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284462 thread 71 bound to OS proc set 71
+OMP: Info #252: KMP_AFFINITY: pid 284198 tid 284463 thread 72 bound to OS proc set 0
+INFO:tensorflow:step: 0, {'binary_accuracy': '0.4985', 'auc': '0.5021', 'loss': '1.9319', 'time': '10.5282'}
+INFO:tensorflow:step: 10, {'binary_accuracy': '0.5011', 'auc': '0.5040', 'loss': '0.8785', 'time': '16.4795'}
+INFO:tensorflow:step: 20, {'binary_accuracy': '0.4944', 'auc': '0.4938', 'loss': '100.6704', 'time': '14.2855'}
+INFO:tensorflow:step: 30, {'binary_accuracy': '0.4977', 'auc': '0.5043', 'loss': '1.4235', 'time': '11.6670'}
+INFO:tensorflow:step: 40, {'binary_accuracy': '0.4979', 'auc': '0.4984', 'loss': '271.2656', 'time': '13.1367'}
+INFO:tensorflow:step: 41, {'binary_accuracy_val': '0.5002', 'auc_val': '0.5009', 'loss_val': '418.0634'}
+INFO:tensorflow:step: 50, {'binary_accuracy': '0.5079', 'auc': '0.5172', 'loss': '1.2636', 'time': '68.6614'}
+INFO:tensorflow:step: 60, {'binary_accuracy': '0.5093', 'auc': '0.5102', 'loss': '244.0927', 'time': '14.2060'}
+INFO:tensorflow:step: 70, {'binary_accuracy': '0.5253', 'auc': '0.5411', 'loss': '0.8672', 'time': '11.7703'}
+INFO:tensorflow:step: 80, {'binary_accuracy': '0.5002', 'auc': '0.5016', 'loss': '221.7562', 'time': '14.0180'}
+INFO:tensorflow:step: 82, {'binary_accuracy_val': '0.5021', 'auc_val': '0.5012', 'loss_val': '9.9410'}
+INFO:tensorflow:step: 90, {'binary_accuracy': '0.5175', 'auc': '0.5355', 'loss': '0.7868', 'time': '71.9159'}
+INFO:tensorflow:step: 100, {'binary_accuracy': '0.4972', 'auc': '0.4995', 'loss': '17.3128', 'time': '15.8954'}
+INFO:tensorflow:step: 110, {'binary_accuracy': '0.5168', 'auc': '0.5247', 'loss': '0.8350', 'time': '13.1394'}
+INFO:tensorflow:step: 120, {'binary_accuracy': '0.4966', 'auc': '0.4994', 'loss': '98.1063', 'time': '15.6733'}
+INFO:tensorflow:step: 123, {'binary_accuracy_val': '0.4998', 'auc_val': '0.5044', 'loss_val': '51.0477'}
+INFO:tensorflow:step: 130, {'binary_accuracy': '0.5322', 'auc': '0.5523', 'loss': '0.7518', 'time': '65.2842'}
+INFO:tensorflow:step: 140, {'binary_accuracy': '0.4919', 'auc': '0.4900', 'loss': '47.6524', 'time': '14.4780'}
+INFO:tensorflow:step: 150, {'binary_accuracy': '0.5126', 'auc': '0.5370', 'loss': '0.7243', 'time': '12.4182'}
+INFO:tensorflow:step: 160, {'binary_accuracy': '0.4971', 'auc': '0.4956', 'loss': '10.7089', 'time': '15.3360'}
+INFO:tensorflow:step: 164, {'binary_accuracy_val': '0.5023', 'auc_val': '0.5045', 'loss_val': '47.0291'}
+INFO:tensorflow:step: 170, {'binary_accuracy': '0.5300', 'auc': '0.5463', 'loss': '0.7365', 'time': '63.0105'}
+INFO:tensorflow:step: 180, {'binary_accuracy': '0.4994', 'auc': '0.5003', 'loss': '45.0391', 'time': '15.4441'}
+INFO:tensorflow:step: 190, {'binary_accuracy': '0.5199', 'auc': '0.5407', 'loss': '0.7139', 'time': '11.8177'}
+INFO:tensorflow:step: 200, {'binary_accuracy': '0.4969', 'auc': '0.4953', 'loss': '10.3486', 'time': '14.9080'}
+INFO:tensorflow:step: 205, {'binary_accuracy_val': '0.5047', 'auc_val': '0.5064', 'loss_val': '23.9148'}
+INFO:tensorflow:step: 210, {'binary_accuracy': '0.5222', 'auc': '0.5331', 'loss': '0.7168', 'time': '60.5293'}
+INFO:tensorflow:step: 220, {'binary_accuracy': '0.4946', 'auc': '0.4925', 'loss': '23.9608', 'time': '14.2983'}
+INFO:tensorflow:step: 230, {'binary_accuracy': '0.5254', 'auc': '0.5432', 'loss': '0.7136', 'time': '11.8026'}
+INFO:tensorflow:step: 240, {'binary_accuracy': '0.4971', 'auc': '0.4930', 'loss': '18.3207', 'time': '15.1529'}
+INFO:tensorflow:step: 246, {'binary_accuracy_val': '0.5089', 'auc_val': '0.5141', 'loss_val': '5.8448'}
+INFO:tensorflow:step: 250, {'binary_accuracy': '0.5356', 'auc': '0.5587', 'loss': '0.7003', 'time': '62.2291'}
+INFO:tensorflow:step: 260, {'binary_accuracy': '0.5007', 'auc': '0.5054', 'loss': '4.3030', 'time': '13.9348'}
+INFO:tensorflow:step: 270, {'binary_accuracy': '0.5354', 'auc': '0.5598', 'loss': '0.7014', 'time': '11.5408'}
+INFO:tensorflow:step: 280, {'binary_accuracy': '0.5059', 'auc': '0.5030', 'loss': '16.2820', 'time': '13.8412'}
+INFO:tensorflow:step: 287, {'binary_accuracy_val': '0.5119', 'auc_val': '0.5216', 'loss_val': '2.2289'}
+INFO:tensorflow:step: 290, {'binary_accuracy': '0.5281', 'auc': '0.5450', 'loss': '0.7012', 'time': '61.8407'}
+INFO:tensorflow:step: 300, {'binary_accuracy': '0.5081', 'auc': '0.5220', 'loss': '1.4106', 'time': '13.0788'}
+INFO:tensorflow:step: 310, {'binary_accuracy': '0.5428', 'auc': '0.5682', 'loss': '0.6995', 'time': '12.1122'}
+INFO:tensorflow:step: 320, {'binary_accuracy': '0.5004', 'auc': '0.5007', 'loss': '11.6793', 'time': '13.3660'}
+INFO:tensorflow:step: 328, {'binary_accuracy_val': '0.5215', 'auc_val': '0.5306', 'loss_val': '6.0290'}
+INFO:tensorflow:step: 330, {'binary_accuracy': '0.5322', 'auc': '0.5507', 'loss': '0.7008', 'time': '62.3224'}
+INFO:tensorflow:step: 340, {'binary_accuracy': '0.5002', 'auc': '0.5032', 'loss': '4.5265', 'time': '13.0405'}
+INFO:tensorflow:step: 350, {'binary_accuracy': '0.5355', 'auc': '0.5643', 'loss': '0.6898', 'time': '11.4976'}
+INFO:tensorflow:step: 360, {'binary_accuracy': '0.4987', 'auc': '0.5056', 'loss': '4.4637', 'time': '13.8025'}
+INFO:tensorflow:step: 369, {'binary_accuracy_val': '0.5045', 'auc_val': '0.5115', 'loss_val': '4.9478'}
+INFO:tensorflow:step: 370, {'binary_accuracy': '0.5302', 'auc': '0.5564', 'loss': '0.6995', 'time': '61.7625'}
+INFO:tensorflow:step: 380, {'binary_accuracy': '0.5081', 'auc': '0.5012', 'loss': '3.5885', 'time': '13.7100'}
+INFO:tensorflow:step: 390, {'binary_accuracy': '0.5494', 'auc': '0.5862', 'loss': '0.6818', 'time': '10.8923'}
+INFO:tensorflow:step: 400, {'binary_accuracy': '0.5045', 'auc': '0.5157', 'loss': '2.1751', 'time': '13.7593'}
+INFO:tensorflow:step: 410, {'binary_accuracy_val': '0.5186', 'auc_val': '0.5273', 'loss_val': '4.8139'}
+INFO:tensorflow:step: 410, {'binary_accuracy': '0.5186', 'auc': '0.5273', 'loss': '0.6848', 'time': '62.3939'}
+INFO:tensorflow:step: 420, {'binary_accuracy': '0.5015', 'auc': '0.5082', 'loss': '3.8017', 'time': '12.9969'}
+INFO:tensorflow:step: 430, {'binary_accuracy': '0.5527', 'auc': '0.5816', 'loss': '0.6826', 'time': '11.5442'}
+INFO:tensorflow:step: 440, {'binary_accuracy': '0.5261', 'auc': '0.5271', 'loss': '1.7526', 'time': '13.7230'}
+INFO:tensorflow:step: 450, {'binary_accuracy': '0.5559', 'auc': '0.5923', 'loss': '0.6814', 'time': '10.8445'}
+INFO:tensorflow:step: 451, {'binary_accuracy_val': '0.5341', 'auc_val': '0.5477', 'loss_val': '3.6734'}
+INFO:tensorflow:step: 460, {'binary_accuracy': '0.5150', 'auc': '0.5159', 'loss': '2.0948', 'time': '64.4905'}
+INFO:tensorflow:step: 470, {'binary_accuracy': '0.5642', 'auc': '0.6029', 'loss': '0.6761', 'time': '11.3341'}
+INFO:tensorflow:step: 480, {'binary_accuracy': '0.4860', 'auc': '0.4883', 'loss': '5.4365', 'time': '13.5855'}
+INFO:tensorflow:step: 490, {'binary_accuracy': '0.5637', 'auc': '0.5976', 'loss': '0.6776', 'time': '11.5877'}
+INFO:tensorflow:step: 492, {'binary_accuracy_val': '0.5365', 'auc_val': '0.5522', 'loss_val': '9.0680'}
+INFO:tensorflow:step: 500, {'binary_accuracy': '0.5038', 'auc': '0.5014', 'loss': '6.7838', 'time': '64.0822'}
+INFO:tensorflow:step: 510, {'binary_accuracy': '0.5721', 'auc': '0.6139', 'loss': '0.6661', 'time': '11.3334'}
+INFO:tensorflow:step: 520, {'binary_accuracy': '0.5109', 'auc': '0.5093', 'loss': '5.9004', 'time': '13.2500'}
+INFO:tensorflow:step: 530, {'binary_accuracy': '0.5773', 'auc': '0.6230', 'loss': '0.6642', 'time': '13.3861'}
+INFO:tensorflow:step: 533, {'binary_accuracy_val': '0.5248', 'auc_val': '0.5400', 'loss_val': '3.9129'}
+INFO:tensorflow:step: 540, {'binary_accuracy': '0.5129', 'auc': '0.5250', 'loss': '1.8761', 'time': '65.0127'}
+INFO:tensorflow:step: 550, {'binary_accuracy': '0.5834', 'auc': '0.6304', 'loss': '0.6623', 'time': '11.4177'}
+INFO:tensorflow:step: 560, {'binary_accuracy': '0.5022', 'auc': '0.5038', 'loss': '5.5879', 'time': '13.8725'}
+INFO:tensorflow:step: 570, {'binary_accuracy': '0.5870', 'auc': '0.6393', 'loss': '0.6591', 'time': '11.6502'}
+INFO:tensorflow:step: 574, {'binary_accuracy_val': '0.5163', 'auc_val': '0.5406', 'loss_val': '4.1963'}
+INFO:tensorflow:step: 580, {'binary_accuracy': '0.5548', 'auc': '0.5728', 'loss': '0.8125', 'time': '63.9541'}
+INFO:tensorflow:step: 590, {'binary_accuracy': '0.5985', 'auc': '0.6485', 'loss': '0.6603', 'time': '11.5721'}
+INFO:tensorflow:step: 600, {'binary_accuracy': '0.4974', 'auc': '0.5082', 'loss': '2.4568', 'time': '14.0840'}
+INFO:tensorflow:step: 610, {'binary_accuracy': '0.5989', 'auc': '0.6536', 'loss': '0.6503', 'time': '11.6805'}
+INFO:tensorflow:step: 615, {'binary_accuracy_val': '0.5195', 'auc_val': '0.5462', 'loss_val': '5.0117'}
+INFO:tensorflow:step: 620, {'binary_accuracy': '0.5017', 'auc': '0.5028', 'loss': '3.4492', 'time': '64.8810'}
+INFO:tensorflow:step: 630, {'binary_accuracy': '0.5852', 'auc': '0.6452', 'loss': '0.6587', 'time': '11.7643'}
+INFO:tensorflow:step: 640, {'binary_accuracy': '0.5204', 'auc': '0.5301', 'loss': '2.9847', 'time': '13.0224'}
+INFO:tensorflow:step: 650, {'binary_accuracy': '0.5944', 'auc': '0.6551', 'loss': '0.6447', 'time': '11.6916'}
+INFO:tensorflow:step: 656, {'binary_accuracy_val': '0.5180', 'auc_val': '0.5444', 'loss_val': '4.0500'}
+INFO:tensorflow:step: 660, {'binary_accuracy': '0.5345', 'auc': '0.5558', 'loss': '1.0998', 'time': '63.9736'}
+INFO:tensorflow:step: 670, {'binary_accuracy': '0.6099', 'auc': '0.6729', 'loss': '0.6385', 'time': '11.3096'}
+INFO:tensorflow:step: 680, {'binary_accuracy': '0.5068', 'auc': '0.5223', 'loss': '2.5397', 'time': '14.0730'}
+INFO:tensorflow:step: 690, {'binary_accuracy': '0.6135', 'auc': '0.6722', 'loss': '0.6417', 'time': '11.2621'}
+INFO:tensorflow:step: 697, {'binary_accuracy_val': '0.5435', 'auc_val': '0.5746', 'loss_val': '3.5663'}
+INFO:tensorflow:step: 700, {'binary_accuracy': '0.5190', 'auc': '0.5486', 'loss': '1.2923', 'time': '63.3730'}
+INFO:tensorflow:step: 710, {'binary_accuracy': '0.6167', 'auc': '0.6726', 'loss': '0.6414', 'time': '11.5168'}
+INFO:tensorflow:step: 720, {'binary_accuracy': '0.5112', 'auc': '0.5262', 'loss': '2.4524', 'time': '13.6277'}
+INFO:tensorflow:step: 730, {'binary_accuracy': '0.6295', 'auc': '0.6875', 'loss': '0.6298', 'time': '11.3308'}
+INFO:tensorflow:step: 738, {'binary_accuracy_val': '0.5454', 'auc_val': '0.5693', 'loss_val': '5.6930'}
+INFO:tensorflow:step: 740, {'binary_accuracy': '0.5557', 'auc': '0.5871', 'loss': '0.8630', 'time': '64.2717'}
+INFO:tensorflow:step: 750, {'binary_accuracy': '0.6282', 'auc': '0.6856', 'loss': '0.6376', 'time': '11.4426'}
+INFO:tensorflow:step: 760, {'binary_accuracy': '0.5107', 'auc': '0.5404', 'loss': '1.4319', 'time': '13.0478'}
+INFO:tensorflow:step: 770, {'binary_accuracy': '0.6281', 'auc': '0.6909', 'loss': '0.6266', 'time': '11.6004'}
+INFO:tensorflow:step: 779, {'binary_accuracy_val': '0.5338', 'auc_val': '0.5635', 'loss_val': '3.5672'}
+INFO:tensorflow:step: 780, {'binary_accuracy': '0.5188', 'auc': '0.5549', 'loss': '1.4342', 'time': '63.2296'}
+INFO:tensorflow:step: 790, {'binary_accuracy': '0.6335', 'auc': '0.6923', 'loss': '0.6288', 'time': '11.5473'}
+INFO:tensorflow:step: 800, {'binary_accuracy': '0.5098', 'auc': '0.5415', 'loss': '1.7227', 'time': '13.2117'}
+INFO:tensorflow:step: 810, {'binary_accuracy': '0.6359', 'auc': '0.7021', 'loss': '0.6214', 'time': '11.4811'}
+INFO:tensorflow:step: 820, {'binary_accuracy_val': '0.5151', 'auc_val': '0.5357', 'loss_val': '1.5403'}
+INFO:tensorflow:step: 820, {'binary_accuracy': '0.5151', 'auc': '0.5357', 'loss': '0.7887', 'time': '55.7603'}
+INFO:tensorflow:step: 823, {'binary_accuracy_val': '0.5289', 'auc_val': '0.5539', 'loss_val': '1.6626'}
+INFO:tensorflow:Final eval result: {'binary_accuracy_val': '0.5289', 'auc_val': '0.5539', 'loss_val': '1.6626'}
+
+real	36m48.858s
+user	210m3.750s
+sys	242m23.639s
