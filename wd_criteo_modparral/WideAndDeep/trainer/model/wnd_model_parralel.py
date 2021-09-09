@@ -1,6 +1,7 @@
 import tensorflow as tf
 import horovod.tensorflow as hvd
 import math
+from trainer.model.embedding import Embedding, SplitEmbedding
 
 from data.outbrain.features import get_feature_columns, NUMERIC_COLUMNS, CATEGORICAL_COLUMNS, HASH_BUCKET_SIZES, HASH_BUCKET_SIZE, EMBEDDING_DIMENSION
 
@@ -84,6 +85,7 @@ class wide_deep_model(tf.keras.Model):
         self.distributed = hvd.size() > 1
         # self.batch_size = args.batch_size
         self.num_all_categorical_features = len(embedding_sizes)
+        self.batch_size = args.global_batch_size
 
         self.amp = args.amp
         self.embedding_dim = 64
@@ -104,12 +106,22 @@ class wide_deep_model(tf.keras.Model):
             self.running_bottom_mlp = False
 
         self._create_embeddings()
+        self._create_mlp_padding()
         self._create_wide_mlp()
         self._create_deep_mlp()
 
         # write embedding checkpoints of 1M rows at a time
         self.embedding_checkpoint_batch = 1024 * 1024
 
+    def _create_mlp_padding(self, multiple=8):
+        num_features = self.num_numerical_features + self.num_all_categorical_features
+        pad_to = tf.math.ceil(num_features / multiple) * multiple
+        pad_to = tf.cast(pad_to, dtype=tf.int32)
+        padding_features = pad_to - num_features
+        padding_shape = [self.batch_size // hvd.size(), padding_features]
+
+        dtype = tf.float16 if self.amp else tf.float32
+        self.mlp_padding = self.add_weight("mlp_padding", shape=padding_shape, dtype=dtype, initializer=tf.keras.initializers.zeros(), trainable=False)
 
     def _create_wide_mlp(self):
         self.wide_mlp_layers = []
@@ -118,29 +130,41 @@ class wide_deep_model(tf.keras.Model):
         bias_initializer = tf.keras.initializers.RandomNormal(stddev=math.sqrt(1. / dim))
         kernel_initializer = BroadcastingInitializer(kernel_initializer)
         bias_initializer = BroadcastingInitializer(bias_initializer)
-        l = tf.keras.layers.Dense(dim, activation='relu',
+        l = tf.keras.layers.Dense(dim,
                                   kernel_initializer=kernel_initializer,
                                   bias_initializer=bias_initializer)
         self.wide_mlp_layers.append(l)
 
     def _create_deep_mlp(self):
         self.deep_mlp_laryers = []
+        self.dropout = []
         for i, dim in enumerate(self.deep_hidden_units):
             if i == len(self.deep_hidden_units) - 1:
                 # final layer
-                activation = 'linear'
+                activation = None
+                kernel_initializer = tf.keras.initializers.GlorotNormal()
+                bias_initializer = tf.keras.initializers.RandomNormal(stddev=math.sqrt(1. / dim))
+                kernel_initializer = BroadcastingInitializer(kernel_initializer)
+                bias_initializer = BroadcastingInitializer(bias_initializer)
+
+                l = tf.keras.layers.Dense(dim, activation=activation,
+                                          kernel_initializer=kernel_initializer,
+                                          bias_initializer=bias_initializer)
+                self.deep_mlp_last_layer = l
             else:
                 activation = 'relu'
 
-            kernel_initializer = tf.keras.initializers.GlorotNormal()
-            bias_initializer = tf.keras.initializers.RandomNormal(stddev=math.sqrt(1. / dim))
-            kernel_initializer = BroadcastingInitializer(kernel_initializer)
-            bias_initializer = BroadcastingInitializer(bias_initializer)
+                kernel_initializer = tf.keras.initializers.GlorotNormal()
+                bias_initializer = tf.keras.initializers.RandomNormal(stddev=math.sqrt(1. / dim))
+                kernel_initializer = BroadcastingInitializer(kernel_initializer)
+                bias_initializer = BroadcastingInitializer(bias_initializer)
 
-            l = tf.keras.layers.Dense(dim, activation=activation,
-                                      kernel_initializer=kernel_initializer,
-                                      bias_initializer=bias_initializer)
-            self.deep_mlp_laryers.append(l)
+                l = tf.keras.layers.Dense(dim, activation=activation,
+                                          kernel_initializer=kernel_initializer,
+                                          bias_initializer=bias_initializer)
+                self.deep_mlp_laryers.append(l)
+                self.dropout.append(tf.keras.layers.Dropout(0.5))
+            
 
     def _create_embeddings(self):
         self.embedding_layers = []
@@ -174,6 +198,7 @@ class wide_deep_model(tf.keras.Model):
         # linear_output = categorical_output + numerical_features
 
         x = tf.keras.layers.concatenate([numerical_features, tf.keras.layers.Flatten()(embeddings)])
+        x = tf.concat([x, self.mlp_padding], axis=1)
         with tf.name_scope("linear"):
             for l in self.wide_mlp_layers:
                 x = l(x)
@@ -185,11 +210,13 @@ class wide_deep_model(tf.keras.Model):
         if self.amp:
             numerical_features = tf.cast(numerical_features, dtype=tf.float16)
         x = tf.keras.layers.concatenate([numerical_features, tf.keras.layers.Flatten()(embeddings)])
+        x = tf.concat([x, self.mlp_padding], axis=1)
 
         with tf.name_scope("dnn"):
-            for l in self.deep_mlp_laryers:
+            for i, l in enumerate(self.deep_mlp_laryers):
                 x = l(x)
-            dnn_output = x
+                x = self.dropout[i](x)
+            dnn_output = self.deep_mlp_last_layer(x)
         return dnn_output
 
     def _call_embeddings(self, cat_features):

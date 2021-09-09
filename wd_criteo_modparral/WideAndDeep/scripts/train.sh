@@ -56,11 +56,12 @@ time mpirun -genv OMP_NUM_THREADS=16 -map-by socket -n 8 -ppn 2 -hosts sr113,sr6
   --eval_dataset_path /mnt/sdb/criteo/terabyte_processed_val.bin \
   --model_dir /mnt/nvm6/wd/checkpoints-criteo-modelpara \
   --cpu \
-  --global_batch_size 131072 \
-  --eval_batch_size 131072 \
-  --num_epochs 2 \
+  --global_batch_size 262144 \
+  --eval_batch_size 262144 \
+  --num_epochs 1 \
   --deep_hidden_units 512 256 128 1 \
-  --deep_learning_rate 0.01 \
-  --deep_warmup_steps 20000 \
-  --eval_point 2000 \
-  --deep_dropout 0.5
+  --learning_rate 24 \
+  --warmup_steps 2000 \
+  --decay_start_step 12000 \
+  --decay_steps 6000 \
+  --evals_per_epoch 20

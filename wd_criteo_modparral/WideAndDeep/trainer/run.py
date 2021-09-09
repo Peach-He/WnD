@@ -45,6 +45,7 @@ def train(args, model, config):
     optimizer = tf.keras.optimizers.SGD(
         learning_rate=args.learning_rate
     )
+    # optimizer = tf.keras.optimizers.Adam(learning_rate=args.learning_rate)
     if args.amp:
         optimizer = tf.keras.mixed_precision.experimental.LossScaleOptimizer(
             optimizer,
@@ -95,8 +96,6 @@ def train(args, model, config):
         with tf.GradientTape() as tape:
             y_pred = model(inputs=(num_feature, cat_feature), training=True)
             unscaled_loss = compiled_loss(y, y_pred)
-            # tf keras doesn't reduce the loss when using a Custom Training Loop
-            # unscaled_loss = tf.math.reduce_mean(unscaled_loss)
             scaled_loss = optimizer.get_scaled_loss(unscaled_loss) if args.amp else unscaled_loss
 
         scaled_gradients = tape.gradient(scaled_loss, model.trainable_variables)
