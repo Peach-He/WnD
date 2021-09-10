@@ -1,0 +1,78 @@
+(sr113:0,1)
+
+WARNING:tensorflow:command line arguments: {"train_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/train/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/train/part-r-00030"], "eval_data_pattern": ["/mnt/sdd/outbrain2/tfrecords/eval/part-r-00000", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00001", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00002", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00003", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00004", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00005", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00006", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00007", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00008", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00009", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00010", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00011", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00012", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00013", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00014", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00015", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00016", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00017", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00018", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00019", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00020", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00021", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00022", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00023", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00024", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00025", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00026", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00027", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00028", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00029", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00030", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00031", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00032", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00033", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00034", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00035", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00036", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00037", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00038", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00039", "/mnt/sdd/outbrain2/tfrecords/eval/part-r-00040"], "transformed_metadata_path": "/outbrain2/tfrecords", "use_checkpoint": false, "model_dir": "/outbrain/checkpoints", "results_dir": "/results", "log_filename": "log.json", "training_set_size": 59761827, "global_batch_size": 131072, "eval_batch_size": 131072, "num_epochs": 20, "cpu": false, "amp": false, "xla": false, "linear_learning_rate": 0.8, "deep_learning_rate": -1, "deep_warmup_epochs": -1, "deep_hidden_units": [], "deep_dropout": -1, "evaluate": false, "benchmark": false, "benchmark_warmup_steps": 500, "benchmark_steps": 1000, "affinity": "socket_unique_interleaved"}
+WARNING:tensorflow:--gpu flag not set, running computation on CPU
+2021-09-09 15:05:47.330978: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-09-09 15:05:47.331051: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+OMP: Warning #181: OMP_PROC_BIND: ignored because KMP_AFFINITY has been defined
+2021-09-09 15:05:47.342377: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-09-09 15:05:47.342454: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2600000000 Hz
+2021-09-09 15:05:47.344177: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55ee71baf8f0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-09 15:05:47.344175: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x563a4a6c1370 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-09-09 15:05:47.344205: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-09-09 15:05:47.344206: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+INFO:tensorflow:experiment.observation_budget: 5
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.42142884009102094,
+  "deep_learning_rate": 0.0081321897337744,
+  "deep_warmup_epochs": 7,
+  "dnn_hidden_unit1": 256,
+  "dnn_hidden_unit2": 256,
+  "dnn_hidden_unit3": 256
+})
+INFO:tensorflow:The training parameters: dnn_units: [256, 256, 256],             linear_LR: 0.8, deep_LR: 0.0081321897337744, warmup: 7, drop_out: 0.42142884009102094
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.24271059858332178,
+  "deep_learning_rate": 0.017951537234573718,
+  "deep_warmup_epochs": 2,
+  "dnn_hidden_unit1": 2048,
+  "dnn_hidden_unit2": 64,
+  "dnn_hidden_unit3": 1024
+})
+INFO:tensorflow:The training parameters: dnn_units: [2048, 64, 1024],             linear_LR: 0.8, deep_LR: 0.017951537234573718, warmup: 2, drop_out: 0.24271059858332178
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.4609070928940766,
+  "deep_learning_rate": 0.00021634025355539332,
+  "deep_warmup_epochs": 3,
+  "dnn_hidden_unit1": 128,
+  "dnn_hidden_unit2": 1024,
+  "dnn_hidden_unit3": 64
+})
+INFO:tensorflow:The training parameters: dnn_units: [128, 1024, 64],             linear_LR: 0.8, deep_LR: 0.00021634025355539332, warmup: 3, drop_out: 0.4609070928940766
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.16080091768126495,
+  "deep_learning_rate": 0.0016230701375671375,
+  "deep_warmup_epochs": 4,
+  "dnn_hidden_unit1": 512,
+  "dnn_hidden_unit2": 128,
+  "dnn_hidden_unit3": 2048
+})
+INFO:tensorflow:The training parameters: dnn_units: [512, 128, 2048],             linear_LR: 0.8, deep_LR: 0.0016230701375671375, warmup: 4, drop_out: 0.16080091768126495
+INFO:tensorflow:0:assignment: Assignments({
+  "deep_dropout": 0.16859364510636743,
+  "deep_learning_rate": 0.06322403117082559,
+  "deep_warmup_epochs": 5,
+  "dnn_hidden_unit1": 64,
+  "dnn_hidden_unit2": 512,
+  "dnn_hidden_unit3": 512
+})
+INFO:tensorflow:The training parameters: dnn_units: [64, 512, 512],             linear_LR: 0.8, deep_LR: 0.06322403117082559, warmup: 5, drop_out: 0.16859364510636743
+2021:09:09-15:06:11:(290614) |WARN| MPI_Finalize has been called
+/root/sw/miniconda3/envs/wd2/lib/python3.7/site-packages/sigopt/objects.py:327: RuntimeWarning: The .data field only contains a single page of results, which may be incomplete for large responses. Prefer to use the `.iterate_pages() to ensure that you iterate through all elements in the response.
+  RuntimeWarning,
+INFO:tensorflow:Best Assignments: Assignments({
+  "deep_dropout": 0.16859364510636743,
+  "deep_learning_rate": 0.06322403117082559,
+  "deep_warmup_epochs": 5,
+  "dnn_hidden_unit1": 64,
+  "dnn_hidden_unit2": 512,
+  "dnn_hidden_unit3": 512
+})
+
+real	0m31.229s
+user	0m43.133s
+sys	0m22.069s
+cd WnD; time mpirun -genv OMP_NUM_THREADS=16 -map-by socket -n 2 -ppn 2 -hosts sr113 -print-rank-map -genv I_MPI_PIN_DOMAIN=socket -genv OMP_PROC_BIND=true -genv KMP_BLOCKTIME=1 -genv KMP_AFFINITY=granularity=fine,compact,1,0 -iface eth3 /root/sw/miniconda3/envs/wd2/bin/python main.py --train_data_pattern /mnt/sdd/outbrain2/tfrecords/train/part* --eval_data_pattern /mnt/sdd/outbrain2/tfrecords/eval/part* --transformed_metadata_path /outbrain2/tfrecords --global_batch_size 131072 --eval_batch_size 131072 --num_epochs 20 --linear_learning_rate 0.8 

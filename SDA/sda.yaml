@@ -1,0 +1,9 @@
+# sda yaml file
+
+dataset: outbrain
+model: WnD
+cluster:
+  ppn: 2
+  cores: 72
+  hosts:
+    - sr113
