@@ -14,9 +14,6 @@
 
 import argparse
 
-# Default train dataset size
-TRAIN_DATASET_SIZE = 59761827
-
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -25,7 +22,7 @@ def parse_args():
         add_help=True,
     )
 
-    locations = parser.add_argument_group('location of datasets')
+    locations = parser.add_argument_group('datasets parameters')
 
     locations.add_argument('--train_data_pattern', type=str, default='/outbrain/tfrecords/train/part*', nargs='+',
                            help='Pattern of training file names. For example if training files are train_000.tfrecord, '
@@ -36,23 +33,18 @@ def parse_args():
                                 'eval_001.tfrecord then --eval_data_pattern is eval_*')
 
     locations.add_argument('--transformed_metadata_path', type=str, default='/outbrain/tfrecords',
-                           help='Path to transformed_metadata for feature specification reconstruction')
+                           help='Path to transformed_metadata for feature specification reconstruction, only available for TFRecords')
+    
+    locations.add_argument('--prebatch_size', type=int, default=4096, help='Dataset prebatch size, only available for TFRecords')
 
-    locations.add_argument('--use_checkpoint', default=False, action='store_true',
-                           help='Use checkpoint stored in model_dir path')
+    locations.add_argument('--dataset_format', type=str, default='TFRecords', help='train/test dataset format, support TFRecords and binary')
 
     locations.add_argument('--model_dir', type=str, default='/outbrain/checkpoints',
                            help='Destination where model checkpoint will be saved')
 
-    locations.add_argument('--results_dir', type=str, default='/results',
-                           help='Directory to store training results')
-
-    locations.add_argument('--log_filename', type=str, default='log.json',
-                           help='Name of the file to store dlloger output')
-
     training_params = parser.add_argument_group('training parameters')
 
-    training_params.add_argument('--training_set_size', type=int, default=TRAIN_DATASET_SIZE,
+    training_params.add_argument('--training_set_size', type=int, default=59761827,
                                  help='Number of samples in the training set')
 
     training_params.add_argument('--global_batch_size', type=int, default=131072,
@@ -89,26 +81,5 @@ def parse_args():
 
     model_construction.add_argument('--deep_dropout', type=float, default=-1,
                                     help='Dropout regularization for deep model')
-
-    run_params = parser.add_argument_group('run mode parameters')
-
-    run_params.add_argument('--evaluate', default=False, action='store_true',
-                            help='Only perform an evaluation on the validation dataset, don\'t train')
-
-    run_params.add_argument('--benchmark', action='store_true', default=False,
-                            help='Run training or evaluation benchmark to collect performance metrics', )
-
-    run_params.add_argument('--benchmark_warmup_steps', type=int, default=500,
-                            help='Number of warmup steps before start of the benchmark')
-
-    run_params.add_argument('--benchmark_steps', type=int, default=1000,
-                            help='Number of steps for performance benchmark')
-
-    run_params.add_argument('--affinity', type=str, default='socket_unique_interleaved',
-                            choices=['socket', 'single', 'single_unique',
-                                     'socket_unique_interleaved',
-                                     'socket_unique_continuous',
-                                     'disabled'],
-                            help='Type of CPU affinity')
 
     return parser.parse_args()

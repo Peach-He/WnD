@@ -59,7 +59,6 @@ def wide_deep_model(args):
         numeric_dense_inputs, name='numeric_dense')
     deep_columns = list(deep_columns_dict.values())
 
-    # dnn = ScalarDenseFeatures(deep_columns, name='deep_embedded')(features)
     dnn = tf.keras.layers.DenseFeatures(feature_columns=deep_columns)(features)
     for unit_size in args.deep_hidden_units:
         dnn = tf.keras.layers.Dense(units=unit_size, activation='relu')(dnn)

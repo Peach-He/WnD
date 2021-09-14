@@ -123,15 +123,14 @@ def main():
 
         s_time = time.time()
         model = wide_deep_model(args)
-        map = train(args, model, config)
-        map = 0
+        metric = train(args, model, config)
         training_time = time.time() - s_time
         if hvd.rank() == 0:
             for i in range(5):
                 try:
                     conn.experiments(experiment.id).observations().create(
                         suggestion=suggestion.id,
-                        value=map,
+                        value=metric,
                     )
                     experiment = conn.experiments(experiment.id).fetch()
                     break
@@ -145,15 +144,15 @@ def main():
         logger.info("Best Assignments: " + str(best_assignments))
 
 
-def test():
+def test_wo_sigopt():
     args = parse_args()
     config = create_config(args)
 
     logger = logging.getLogger('tensorflow')
 
     model = wide_deep_model(args)
-    map = train(args, model, config)
+    metrics = train(args, model, config)
 
 if __name__ == '__main__':
-    main()
-    # test()
+    # main()
+    test_wo_sigopt()
