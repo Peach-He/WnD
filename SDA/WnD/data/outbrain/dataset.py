@@ -6,8 +6,6 @@ from data.outbrain.dataloader import train_input_fn, eval_input_fn, BinDataset
 def create_dataset(args):
     num_gpus = hvd.size()
     gpu_id = hvd.rank()
-    # train_batch_size = args.global_batch_size // num_gpus
-    # eval_batch_size = args.eval_batch_size // num_gpus
     steps_per_epoch = args.training_set_size / args.global_batch_size
     if args.dataset_format == "TFRecords":
         feature_spec = tft.TFTransformOutput(

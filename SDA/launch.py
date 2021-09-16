@@ -3,24 +3,7 @@ import argparse
 
 
 def launch_dlrm(config):
-    args = parse_args()
-    dataset = config['dataset']
-    model = config['model']
-    hosts = config['cluster']
-    args.nnodes = len(hosts)
-
-    cmd = ["cd DLRM"]
-    cmd.append(object)
-
-    print(f'args: {args}')
-
-    # if args.nnodes > 1:
-    #     args.distributed = True
-    
-    # if args.distributed:
-    #     mpi_dist_launch(args)
-    # else:
-    #     launch(args)
+    pass
 
 
 def launch_wnd(config):
@@ -85,7 +68,8 @@ def launch_wnd(config):
         return parser.parse_args()
     
     args = parse_args()
-    dataset = config['dataset']
+    metric = config['train']['metric']
+    metric_threshold = config['train']['metric_threshold']
     hosts = config['cluster']['hosts']
     ppn = config['cluster']['ppn']
     cores = config['cluster']['cores']
@@ -100,7 +84,8 @@ def launch_wnd(config):
     cmd += f"{args.python_executable} main.py "
     cmd += f"--dataset_format {args.dataset_format} --prebatch_size {args.prebatch_size} " \
         + f"--train_data_pattern {args.train_data_pattern} --eval_data_pattern {args.eval_data_pattern} --transformed_metadata_path {args.transformed_metadata_path} " \
-        + f"--global_batch_size {args.global_batch_size} --eval_batch_size {args.eval_batch_size} --num_epochs {args.num_epochs} "
+        + f"--global_batch_size {args.global_batch_size} --eval_batch_size {args.eval_batch_size} --num_epochs {args.num_epochs} " \
+        + f"--metric {metric} --metric_threshold {metric_threshold} "
     if args.linear_learning_rate != -1:
         cmd += f"--linear_learning_rate {args.linear_learning_rate} "
     if args.deep_learning_rate != -1:

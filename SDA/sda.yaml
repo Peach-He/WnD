@@ -1,9 +1,14 @@
 # sda yaml file
 
-dataset: outbrain
-model: WnD
+train:
+  model: WnD
+  metric: MAP
+  metric_threshold: 0.6553
 cluster:
   ppn: 2
   cores: 72
   hosts:
     - sr113
+    - sr610
+    - sr612
+    - sr613

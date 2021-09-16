@@ -15,7 +15,6 @@
 import tensorflow as tf
 
 from data.outbrain.features import get_feature_columns, NUMERIC_COLUMNS, EMBEDDING_TABLE_SHAPES
-from trainer.model.layers import ScalarDenseFeatures
 
 
 def wide_deep_model(args):

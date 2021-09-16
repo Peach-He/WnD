@@ -13,7 +13,7 @@ def create_config(config_file="sda.yaml"):
     return config
 
 def run_optimization(config):
-    model = config['model']
+    model = config['train']['model']
     if model == 'DLRM':
         launch_dlrm(config)
     elif model == 'WnD':
@@ -26,10 +26,6 @@ def run_optimization(config):
 def main():
     config = create_config()
     logger = logging.getLogger('SDA')
-
-    dataset = config['dataset']
-    model = config['model']
-    hosts = config['cluster']
 
     run_optimization(config)
 

@@ -56,9 +56,6 @@ def parse_args():
     training_params.add_argument('--num_epochs', type=int, default=20,
                                  help='Number of training epochs')
 
-    training_params.add_argument('--cpu', default=False, action='store_true',
-                                 help='Run computations on the CPU')
-
     training_params.add_argument('--amp', default=False, action='store_true',
                                  help='Enable automatic mixed precision conversion')
 
@@ -73,6 +70,10 @@ def parse_args():
 
     training_params.add_argument('--deep_warmup_epochs', type=float, default=-1,
                                  help='Number of learning rate warmup epochs for deep model')
+    
+    training_params.add_argument('--metric', type=str, default='AUC', help='Evaluation metric')
+
+    training_params.add_argument('--metric_threshold', type=float, default=0, help='Metric threshold used for training early stop')
 
     model_construction = parser.add_argument_group('model construction')
 

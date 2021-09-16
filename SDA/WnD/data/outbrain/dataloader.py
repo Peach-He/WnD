@@ -16,6 +16,8 @@ from functools import partial
 import math
 import os
 import tensorflow as tf
+import horovod.tensorflow as hvd
+import numpy as np
 
 from data.outbrain.features import get_features_keys
 
@@ -121,10 +123,6 @@ def train_input_fn(
 
     dataset = dataset.shuffle(records_batch_size)
 
-    # dataset = dataset.repeat(
-    #     count=None
-    # )
-
     dataset = dataset.batch(
         batch_size=records_batch_size,
         drop_remainder=False
@@ -156,7 +154,6 @@ def eval_input_fn(
         feature_spec,
         records_batch_size,
         num_gpus=1,
-        # repeat=1,
         id=0):
     dataset = tf.data.Dataset.list_files(
         file_pattern=filepath_pattern,
@@ -169,10 +166,6 @@ def eval_input_fn(
     )
 
     dataset = dataset.shard(num_gpus, id)
-
-    # dataset = dataset.repeat(
-    #     count=repeat
-    # )
 
     dataset = dataset.batch(
         batch_size=records_batch_size,

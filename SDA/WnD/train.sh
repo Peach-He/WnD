@@ -47,10 +47,9 @@ time mpirun -genv OMP_NUM_THREADS=16 -map-by socket -n 2 -ppn 2 -hosts sr113 -pr
   --eval_data_pattern /mnt/sdd/outbrain2/tfrecords/eval/part* \
   --model_dir /mnt/nvm6/wd/checkpoints2 \
   --transformed_metadata_path /outbrain2/tfrecords \
-  --cpu \
   --global_batch_size 524288 \
   --eval_batch_size 524288 \
-  --num_epochs 2 \
+  --num_epochs 50 \
   --deep_learning_rate 0.00048 \
   --linear_learning_rate 0.8 \
   --deep_hidden_units 1024 512 256 \
